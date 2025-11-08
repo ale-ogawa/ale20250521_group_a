@@ -7,38 +7,31 @@
 
 <body>
 	<h2>ホーム画面</h2>
-	<p>今日の日付は [[${postForm.date}]] です。</p>
-	<form th:action="@{/}" method="post" th:object="${postForm}">
-		<input type="text" th:field="*{text}">
-		<br>
-		<label>
-	        <input type="radio" th:field="*{feeling}" value="1"> 1
-	    </label>
-	    <label>
-	        <input type="radio" th:field="*{feeling}" value="2"> 2
-	    </label>
-	    <label>
-	        <input type="radio" th:field="*{feeling}" value="3"> 3
-	    </label>
-	    <label>
-	        <input type="radio" th:field="*{feeling}" value="4"> 4
-	    </label>
-	    <label>
-	        <input type="radio" th:field="*{feeling}" value="5"> 5
-	    </label>
-		<br>
-		<div th:each="group: *{groups}">
-		    <input type="checkbox" th:name="${group.id}" th:value="${group.id}"
-				th:checked="${groupIds.contains(group.id)}">
-		    <span th:text="${group.name}"></span>
-			<br>
-		</div>
-		<input type="submit" value="投稿">
-		
-	</form>
+	<p>今日の日付は [[${diary.date}]] です。</p>
+	<h4>気分</h4>
+	<p>[[${diary.feeling}]]</p>
+	<h4>本文</h4>
+	<p>[[${diary.text}]]</p>
 	
-	<div th:each="taking: ${takingForms}">
-		<a>[[${taking.name}]]：[[${taking.time}]]</a>
+	<h4>服薬情報</h4>
+	<div th:each="dailytaking: ${dailyTakings}">
+		<a>[[${dailytaking.medicineName}]]：[[${dailytaking.takingTime}]]</a>
+	</div>
+	
+	<h4>リアクション</h4>
+	<div th:if="${isPatient}">
+		<div th:each="dailyReaction: ${dailyReactions}">
+			<a>[[${dailyReaction.nickName}]]：[[${dailyReaction.stamp}]]
+				：[[${dailyReaction.comment}]]
+			</a>
+		</div>
+		<a th:href="@{/post}">日記編集</a>
+	</div>
+	
+	<div th:unless="${isPatient}">
+		<a>スタンプ：[[${reaction.stamp}]]</a>
+		<a>コメント：[[${reaction.comment}]]</a>
+		<a th:href="@{/reaction}">リアクション編集</a>
 	</div>
 	
 </body>

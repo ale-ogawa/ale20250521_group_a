@@ -1,12 +1,11 @@
 package com.example.webapp.service.impl;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.webapp.entity.Post;
+import com.example.webapp.entity.Diary;
 import com.example.webapp.entity.Scope;
 import com.example.webapp.repository.PostMapper;
 import com.example.webapp.service.PostService;
@@ -21,13 +20,8 @@ public class PostServiceImpl implements PostService {
 	private final PostMapper postMapper;
 
 	@Override
-	public void insert(Post post) {
-		postMapper.insert(post);
-	}
-	
-	@Override
-	public void update(Post post) {
-		postMapper.update(post);
+	public void insertDiary(Diary diary) {
+		postMapper.insertDiary(diary);
 	}
 	
 	@Override
@@ -36,13 +30,13 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
+	public void updateDiary(Diary diary) {
+		postMapper.updateDiary(diary);
+	}
+	
+	@Override
 	public void updateScope(List<Scope> scopes) {
 		postMapper.updateScope(scopes);
-	}
-
-	@Override
-	public Post find(LocalDate date) {
-		return postMapper.select(date);
 	}
 
 }

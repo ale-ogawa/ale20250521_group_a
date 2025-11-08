@@ -1,22 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>アカウント登録</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アカウント登録</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" th:href="@{/images/favicon_transparent.ico}" type="image/x-icon">
+
+  <!-- CSS -->
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 
-<body>
-	<h2>アカウント登録</h2>
-	
-	<form th:action="@{/confirm}" th:object="${createForm}" method="post">
-		<p>ID(メールアドレス)</p>
-		<input type="text" th:field="*{id}">
-		<br>
-		<p>パスワード</p>
-		<input type="text" th:field="*{password}">
-		<br>
-		<input type="submit" value="確認">
-	</form>
-</body>
+<body class="common_body">
 
+  <!-- Header -->
+  <header class="common_header wrapper">
+    <script th:src="@{/js/header.js}"></script>
+  </header>
+
+  <div class="common_content wrapper">
+    <main>
+      <p class="style_sub_title">アカウント登録</p>
+
+      <div class="style_certificate_area">
+        <div class="style_certificate_input_area">
+
+          <!-- Thymeleaf フォーム -->
+          <form th:action="@{/create/confirm}" th:object="${createForm}" method="post">
+
+            <p class="style_certificate_mail">メールアドレス(ID)</p>
+            <input type="text" th:field="*{address}" class="style_certificate_input_user"placeholder="">
+
+            <input type="password" th:field="*{password}" class="style_certificate_input_pass" placeholder="パスワード ※半角数字6桁">
+            <input type="password" th:field="*{confirmPassword}" class="style_certificate_input_pass" placeholder="パスワード再入力 ※半角数字6桁">
+
+            <!-- 登録ボタン -->
+            <div class="style_certificate_button_area">
+              <button type="submit" class="style_certificate_button">登録</button>
+            </div>
+
+            <!-- エラーメッセージ -->
+            <p class="style_certificate_cerror_message"
+               th:if="${#fields.hasErrors('confirmPassword')}"
+               th:text="${#fields.errors('confirmPassword')[0]}">
+            </p>
+
+          </form>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="common_footer wrapper">
+    <script th:src="@{/js/footer.js}"></script>
+  </footer>
+
+</body>
 </html>

@@ -11,7 +11,7 @@ public class Create {
 	//id
 	private String address;
 	//パスワード
-	private Integer password;
+	private String password;
 
 
 }

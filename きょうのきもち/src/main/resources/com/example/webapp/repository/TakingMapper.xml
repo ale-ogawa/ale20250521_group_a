@@ -25,15 +25,5 @@
 		WHERE t.id = #{takingId}
 	</select>
 	
-	<select id="findToday"
-		resultType="com.example.webapp.form.TakingForm">
-		SELECT t.id AS taking_id, t.time, m.id AS medicine_id, m.name
-		FROM takings t
-		JOIN medicine_taking mt ON t.id = mt.taking_id
-		JOIN medicines m ON mt.medicine_id = m.id
-		WHERE t.account_id = #{accountId}
-		AND DATE(t.time) = #{localDate}
-		ORDER BY t.time, m.id
-	</select>
 	
 </mapper>

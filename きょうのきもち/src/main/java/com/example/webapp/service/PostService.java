@@ -1,17 +1,15 @@
 package com.example.webapp.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import com.example.webapp.entity.Post;
+import com.example.webapp.entity.Diary;
 import com.example.webapp.entity.Scope;
 
 public interface PostService {
 
-	void insert(Post post);
-	void update(Post post);
+	void insertDiary(Diary diary);
 	void insertScope(List<Scope> scopes);
+	void updateDiary(Diary diary);
 	void updateScope(List<Scope> scopes);
-	Post find(LocalDate localDate);
 
 }

@@ -7,15 +7,6 @@
 		SELECT * FROM medicines
 	</select>
 	
-	<select id="findById"
-		resultType="com.example.webapp.entity.Medicine">
-		SELECT mt.taking_id, m.id, m.name
-		FROM medicine_taking mt
-		JOIN medicines m
-		ON mt.medicine_id = m.id
-		WHERE mt.taking_id IN #{takingIds}
-	</select>
-	
 	<insert id="insert"
 		parameterType="com.example.webapp.entity.Medicine">
 		INSERT INTO medicines (name, effect)

@@ -1,7 +1,12 @@
 package com.example.webapp.controller;
 
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,29 +18,53 @@ import com.example.webapp.service.CreateService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/create")
 @RequiredArgsConstructor
+@RequestMapping("/create")
 public class CreateController {
-	
+
 	private final CreateService createService;
-	
+
+	//初期表示
 	@GetMapping
-	public String create(CreateForm form) {
+	public String showCreateForm(Model model) {
+		model.addAttribute("createForm", new CreateForm());
 		return "create";
 	}
-	
+
+	// 確認画面へ
 	@PostMapping("/confirm")
-	public String confirm(CreateForm form) {
-		return "confirm";
+	public String confirm(
+			@Valid @ModelAttribute("createForm") CreateForm form,
+			BindingResult bindingResult,
+			Model model) {
+
+		// まず入力チェック（桁数など）が通ってから一致チェックする
+		if (!bindingResult.hasFieldErrors("password") &&
+				!bindingResult.hasFieldErrors("confirmPassword")) {
+
+			// パスワード一致チェック
+			if (!form.getPassword().equals(form.getConfirmPassword())) {
+				bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "パスワードが一致しません");
+			}
+		}
+
+		// 入力エラーがある場合は再表示
+		if (bindingResult.hasErrors()) {
+			return "create";
+		}
+
+		model.addAttribute("createForm", form);
+		return "confirm"; // 確認画面に遷移（confirm.htmlを想定）
 	}
-	
+
+	//登録完了
 	@PostMapping("/complete")
-	public String complete(CreateForm form) {
-		//Entityへの変換
+	public String complete(@ModelAttribute CreateForm form, Model model) {
+		// DB登録処理
 		Create create = CreateHelper.convert(form);
 		createService.insert(create);
+		model.addAttribute("createForm", form);
 		return "complete";
 	}
-	
 
 }

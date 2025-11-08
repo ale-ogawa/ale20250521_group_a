@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.webapp.entity.Account;
 import com.example.webapp.form.UserForm;
 import com.example.webapp.repository.AccountMapper;
+import com.example.webapp.service.DiseaseService;
 
 @Controller
 public class RegisterController {
 
     @Autowired
     private AccountMapper accountMapper;
+
+    @Autowired
+    private DiseaseService diseaseService;
 
     // ==============================
     // ✅ 登録画面の表示
@@ -50,27 +54,44 @@ public class RegisterController {
 
         // ✅ エラーがある場合：同じ画面に戻す
         if (hasError) {
-            // 入力済みデータを保持したまま再表示
             model.addAttribute("userForm", userForm);
             return "register";
         }
 
         // ==============================
-        // ✅ エラーなし → DB登録処理
+        // ✅ アカウント登録処理
         // ==============================
         Account account = new Account();
         account.setNickname(userForm.getNickname());
-        account.setAttribute(true); // 固定値（必要に応じて変更）
+        account.setAttribute(true); // 固定値（患者）
         account.setAddress(null);
         account.setPassword(null);
         account.setGroupId(null);
         account.setFollowId(null);
 
+        // INSERT実行（useGeneratedKeys=true でIDが自動取得）
         accountMapper.insert(account);
 
         // ==============================
-        // ✅ 登録成功時：完了ページへ
+        // ✅ 疾患登録処理（choicesテーブル + diseasesテーブル）
         // ==============================
-        return "test";
+        if (userForm.getDisorders() != null) {
+            for (String disorder : userForm.getDisorders()) {
+                // 「その他」は除外して、既存疾患のみ登録
+                if (!"その他".equals(disorder)) {
+                    diseaseService.registerChoice(account.getId(), disorder);
+                }
+            }
+        }
+
+        // 「その他」入力あり → diseases + choices に登録
+        if (userForm.getOther() != null && !userForm.getOther().isBlank()) {
+            diseaseService.registerOtherDisease(account.getId(), userForm.getOther());
+        }
+
+        // ==============================
+        // ✅ 登録完了ページへ遷移
+        // ==============================
+        return "test"; // 完了画面（HTML名は任意）
     }
 }

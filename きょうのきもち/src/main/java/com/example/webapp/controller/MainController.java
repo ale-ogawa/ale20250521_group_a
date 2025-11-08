@@ -1,26 +1,30 @@
 package com.example.webapp.controller;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.webapp.entity.DailyReaction;
+import com.example.webapp.entity.DailyScope;
+import com.example.webapp.entity.DailyTaking;
 import com.example.webapp.entity.Diary;
 import com.example.webapp.entity.Group;
+import com.example.webapp.entity.Reaction;
 import com.example.webapp.entity.Scope;
 import com.example.webapp.form.PostForm;
-import com.example.webapp.form.TakingForm;
+import com.example.webapp.form.ReactionForm;
 import com.example.webapp.helper.PostHelper;
+import com.example.webapp.helper.ReactionHelper;
 import com.example.webapp.service.DiaryService;
-import com.example.webapp.service.MedicineService;
 import com.example.webapp.service.PostService;
-import com.example.webapp.service.TakingService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.webapp.service.ReactionService;
+import com.example.webapp.utility.LoginAccount;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,87 +35,126 @@ public class MainController {
 	
 	private final DiaryService diaryService;
 	private final PostService postService;
-	private final TakingService takingService;
-	private final MedicineService medicineService;
-	private LocalDate localDate;
-	boolean isTodaysNew;
+	private final ReactionService reactionService;
+	
+	LocalDate localDate;
+	boolean isTodaysNewPost;
+	boolean isTodaysNewReaction;
+	Diary diary;
+	Reaction reaction;
+	List<Scope> scopes;
 	List<Group> groups;
+	List<DailyReaction> dailyReactions;
+	List<DailyScope> dailyScopes;
+	List<DailyTaking> dailyTakings;
 	
 	@GetMapping
-	public String home(Model model) {
-		Diary diary = new Diary();
-		PostForm postForm = new PostForm();
-		List<Integer> groupIds = new ArrayList<>();
+	public String home(Model model, PostForm form) {
+		localDate = LocalDate.now();
+		dailyReactions = new ArrayList<>();
 		
-		//その日の初投稿なら日付だけセット
-		if(localDate == null || !localDate.equals(LocalDate.now())) {
-			localDate = LocalDate.now();
+		//その日の投稿内容を取得
+		diary = diaryService.findToday(localDate);
+		
+		//その日の初投稿の場合
+		if(diary == null) {
+			isTodaysNewPost = true;
+			//今日の日付だけセット
+			diary = new Diary();
 			diary.setDate(localDate);
-			isTodaysNew = true;
+			//直近の公開設定を取得
+			scopes = diaryService.findLatestScopes();
 		}
-		//その日投稿済みなら、投稿内容をセットしておく
+		//その日投稿済みの場合
 		else {
-			isTodaysNew = false;
-			//その日の投稿内容を取得
-			diary = diaryService.findToday(localDate);
+			isTodaysNewPost = false;
 			//scopesテーブルから、日記IDが一致するレコードを取得
-			List<Scope> scopes = diaryService.findScopes(diary.getId());
-			//scopesオブジェクトから、settingがtrueであるgroup_idを抽出
-			groupIds = diaryService.makeList(scopes);
+			scopes = diaryService.findScopes(diary.getId());
+			//フォロワー全員のリアクションを取得
+			dailyReactions = diaryService.findReactions(diary.getId());
 		}
 		
-		//groupsテーブルから、作成者IDが一致するレコードを取得
+		//フォロワー自身のリアクションを取得
+		reaction = reactionService.findMyReaction(diary.getId());
+		if(reaction == null) {
+			isTodaysNewReaction = true;
+			reaction = new Reaction();
+		}else {
+			isTodaysNewReaction = false;
+		}
+		
+		//groupsテーブルから、作成者IDが一致するグループのリストを取得
 		groups = diaryService.findGroups();
-		//フォームに変換
-		postForm = PostHelper.convertDiaryToPostForm(diary, groups);
+		//groupsとscopesから、公開設定オブジェクトを作成
+		dailyScopes = diaryService.makeDailyScopes(groups, scopes);
 		
 		//その日の服薬情報を取得
-		List<TakingForm> takingForms = new ArrayList<>();
-		takingForms = takingService.findToday(localDate);
+		dailyTakings = diaryService.findTodaysTaking(localDate) ;
 		
-		model.addAttribute("postForm", postForm);
-		model.addAttribute("groupIds", groupIds);
-		model.addAttribute("takingForms", takingForms);
+		model.addAttribute("diary", diary);
+		model.addAttribute("reaction", reaction);
+		model.addAttribute("dailyReactions", dailyReactions);
+		model.addAttribute("dailyScopes", dailyScopes);
+		model.addAttribute("dailyTakings", dailyTakings);
+		model.addAttribute("isPatient", LoginAccount.attribute);
 		
 		return "home";
 	}
 	
-//	@PostMapping
-//	public String post(Model model, PostForm form) {
-//		form.setDate(localDate);
-//		Post posto = PostHelper.convert(form);
-//		if(isTodaysNew) {
-//			postService.insert(posto);
-//			System.out.println(posto.getId());
-//			List<Scope> scopes = PostHelper.convertToScope(form, groups, posto.getId());
-//			postService.insertScope(scopes);
-//		}else {
-//			postService.update(posto);
-//			System.out.println(posto.getId());
-//			List<Scope> scopes = PostHelper.convertToScope(form, groups, posto.getId());
-//			postService.updateScope(scopes);
-//		}
-//		Post post = postService.find(localDate);
-//		model.addAttribute("post", post);
-//		model.addAttribute("today", localDate);
-//		return "post";
-//	}
-//	
+	@GetMapping("post")
+	public String post(Model model, PostForm form) {
+		model.addAttribute("diary", diary);
+		model.addAttribute("dailyReactions", dailyReactions);
+		model.addAttribute("dailyScopes", dailyScopes);
+		model.addAttribute("dailyTakings", dailyTakings);
+		return "post";
+		
+	}
 	
-	@GetMapping("calender")
-    public String calender(Model model) throws Exception {
-        List<Diary> feelings = diaryService.findFeelings(localDate);
-
-        // JSON に変換
-        ObjectMapper mapper = new ObjectMapper();
-        String feelingsJson = mapper.writeValueAsString(feelings);
-
-        model.addAttribute("feelingsJson", feelingsJson);
-        model.addAttribute("year", YearMonth.from(localDate).getYear());
-        model.addAttribute("month", YearMonth.from(localDate).getMonthValue());
-
-        return "calender";
-    }
-
-
+	@PostMapping("post")
+	public String post(PostForm form) {
+		//diariesテーブルに格納する情報をセット
+		Diary diary = PostHelper.convert(form, localDate);
+		
+		if(isTodaysNewPost) {
+			//diariesテーブルにレコードを登録
+			postService.insertDiary(diary);
+			//scopesテーブルにレコードを登録
+			scopes = PostHelper.convertToScope(form, groups, diary.getId());
+			postService.insertScope(scopes);
+			
+			isTodaysNewPost = false;
+		}else {
+			//diariesテーブルのレコードを更新
+			postService.updateDiary(diary);
+			//scopesテーブルのレコードを更新
+			scopes = PostHelper.convertToScope(form, groups, diary.getId());
+			postService.updateScope(scopes);
+		}
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("reaction")
+	public String reaction(Model model, ReactionForm form) {
+		model.addAttribute("diary", diary);
+		model.addAttribute("dailyTakings", dailyTakings);
+		model.addAttribute("reaction", reaction);
+		return "reaction";
+	}
+	
+	@PostMapping("reaction")
+	public String reaction(ReactionForm form) {
+		if(isTodaysNewReaction) {
+			Reaction reaction = ReactionHelper.convert(form, diary.getId());
+			reactionService.insertReaction(reaction);
+			
+			isTodaysNewReaction = false;
+		}else {
+			Reaction reaction = ReactionHelper.convert(form, diary.getId());
+			reactionService.updateReaction(reaction);
+		}
+		return "redirect:/";
+	}
+	
 }

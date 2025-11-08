@@ -21,7 +21,6 @@ public class TakingHelper {
 			Taking taking = new Taking();
 			taking.setTakingId(takingId);
 			taking.setMedicineId(tmp.get(i));
-//			taking.setDose(form.getDose());
 			takings.add(taking);
 		}
 		return takings;

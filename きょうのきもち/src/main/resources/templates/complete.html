@@ -1,19 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>アカウント登録完了</title>
+  <meta charset="UTF-8">
+  <title>アカウント登録完了</title>
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/complete.css}">
 </head>
+<body class="common_body">
 
-<body>
-	<h2>アカウント登録完了</h2>
-	<div th:object="${createForm}">
-			<p th:text="*{id}"></p>
-			<p th:text="*{password}"></p>
-		</div>
-	<form th:action="@{/test}" method="get">
-		<input type="submit" value="ログイン画面へ">
-	</form>
+  <!-- Header -->
+  <header class="common_header wrapper"></header>
+
+  <div class="common_content wrapper">
+    <main class="complete_main">
+
+      <!-- タイトルバー -->
+      <div class="complete_title_bar">アカウント登録</div>
+
+      <!-- 完了メッセージ -->
+      <p class="complete_message">登録が完了しました。</p>
+
+      <!-- 画像 -->
+      <div class="complete_image_area">
+        <img th:src="@{/images/cloud_transparent.png}" alt="雲のアイコン" class="complete_image">
+      </div>
+
+      <!-- ログイン画面リンク -->
+      <p class="complete_link">
+        <a th:href="@{/login}" class="login_link">① ログイン画面に進む</a>
+      </p>
+
+      <!-- 戻るボタン -->
+      <div class="complete_back">
+        <form th:action="@{/create}" method="get">
+          <button type="submit" class="back_button">戻る</button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="common_footer wrapper"></footer>
+  <script th:src="@{/js/header.js}"></script>
+  <script th:src="@{/js/footer.js}"></script>
+
 </body>
-
 </html>

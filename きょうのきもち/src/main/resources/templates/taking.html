@@ -6,11 +6,13 @@
 </head>
 
 <body>
-	<h2>服薬</h2>
+	<h2>
+		<a th:href="@{/medicine}">薬一覧>></a>
+			服薬</h2>
 		<form th:action="@{/medicine/taking}" th:object="${takingForm}" method="post">
 			<div th:each="medicine : ${medicines}">
 				<label>
-					<input type="checkbox" th:field="*{medicineIds}" th:value="${medicine.id}"/>
+					<input type="checkbox" th:name="medicineIds" th:value="${medicine.id}"/>
 			        <span th:text="${medicine.name} + ':' + ${medicine.effect}"></span>
 				</label><br>
 		    </div>
@@ -22,6 +24,8 @@
 		    </div>
 			<input type="submit" value="服薬する">
 		</form>
+		
+		<a th:href="@{/}">ホーム</a>
 </body>
 
 </html>

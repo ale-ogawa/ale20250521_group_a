@@ -13,11 +13,8 @@ public class Taking {
 	private Integer id;
 	private Integer accountId;
 	private LocalDateTime time;
-	
+	private String name;
 	private Integer takingId;
 	private Integer medicineId;
-	private Integer dose;
-	
-	private String name;
 
 }

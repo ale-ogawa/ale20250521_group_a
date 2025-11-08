@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.webapp.repository.PostMapper">
-	<insert id="insert"
-		parameterType="com.example.webapp.entity.Post"
+	<insert id="insertDiary"
+		parameterType="com.example.webapp.entity.Diary"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO diaries (account_id, feeling, text, date)
 		VALUES (#{accountId}, #{feeling}, #{text}, #{date})
 		RETURNING id
 	</insert>
-	
-	<update id="update"
-		parameterType="com.example.webapp.entity.Post"
-		useGeneratedKeys="true" keyProperty="id">
-		UPDATE diaries
-		SET feeling = #{feeling}, text = #{text}
-		WHERE date = #{date} and account_id = #{accountId}
-		RETURNING id
-	</update>
 	
 	<insert id="insertScope"
 		parameterType="com.example.webapp.entity.Scope">
@@ -26,6 +17,15 @@
 		(#{scope.diaryId}, #{scope.groupId}, #{scope.setting})
 		</foreach>
 	</insert>
+	
+	<update id="updateDiary"
+		parameterType="com.example.webapp.entity.Diary"
+		useGeneratedKeys="true" keyProperty="id">
+		UPDATE diaries
+		SET feeling = #{feeling}, text = #{text}
+		WHERE date = #{date} and account_id = #{accountId}
+		RETURNING id
+	</update>
 	
 	<update id="updateScope"
 		parameterType="com.example.webapp.entity.Scope">
@@ -41,9 +41,4 @@
 	    </foreach>
 	</update>
 
-
-	<select id="select"
-		resultType="com.example.webapp.entity.Post">
-		SELECT * FROM diaries WHERE date = #{date}
-	</select>
 </mapper>

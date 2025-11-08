@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class Diary {
 	//日記ID
 	private Integer id;
+	//投稿者ID
+	private Integer accountId;
 	//気分
 	private Integer feeling;
 	//本文

@@ -1,10 +1,8 @@
 package com.example.webapp.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.example.webapp.entity.Taking;
-import com.example.webapp.form.TakingForm;
 
 public interface TakingService {
 
@@ -14,5 +12,4 @@ public interface TakingService {
 	
 	List<Taking> selectTaken(Integer takingId);
 
-	List<TakingForm> findToday(LocalDate localDate);
 }

@@ -7,11 +7,49 @@
 
 <body>
 	<h2>ホーム画面</h2>
-	<p>今日の日付は [[${today}]] です。</p>
-	<p>気分：[[${post.feeling}]]</p>
-	<p>投稿：[[${post.text}]]</p>
-	<a th:href="@{/}">編集</a>
+	<a th:href="@{/}">戻る</a>
+	<p>今日の日付は [[${diary.date}]] です。</p>
+	<form th:action="@{/post}" method="post" th:object="${form}">
+		<h4>気分</h4>
+		<label>
+	        <input type="radio" th:name="feeling" value="1" th:checked="${diary.feeling == 1}"> 1
+	    </label>
+	    <label>
+	        <input type="radio" th:name="feeling" value="2" th:checked="${diary.feeling == 2}"> 2
+	    </label>
+	    <label>
+	        <input type="radio" th:name="feeling" value="3" th:checked="${diary.feeling == 3}"> 3
+	    </label>
+	    <label>
+	        <input type="radio" th:name="feeling" value="4" th:checked="${diary.feeling == 4}"> 4
+	    </label>
+	    <label>
+	        <input type="radio" th:name="feeling" value="5" th:checked="${diary.feeling == 5}"> 5
+	    </label>
+		<h4>本文</h4>
+		<input type="text" th:name="text" th:value="${diary.text}">
+		<h4>公開設定</h4>
+		<div th:each="dailyScope: ${dailyScopes}">
+		    <input type="checkbox" th:name="groupIds" th:value="${dailyScope.groupId}"
+				th:checked="${dailyScope.setting}">
+		    <span th:text="${dailyScope.groupName}"></span>
+			<br>
+		</div>
+		<input type="submit" value="投稿">
+		
+	</form>
 	
+	<h4>服薬情報</h4>
+	<div th:each="dailytaking: ${dailyTakings}">
+		<a>[[${dailytaking.medicineName}]]：[[${dailytaking.takingTime}]]</a>
+	</div>
+	
+	<h4>リアクション</h4>
+	<div th:each="dailyReaction: ${dailyReactions}">
+		<a>[[${dailyReaction.nickName}]]：[[${dailyReaction.stamp}]]
+			：[[${dailyReaction.comment}]]
+		</a>
+	</div>
 	
 </body>
 
