@@ -9,7 +9,7 @@
 	
 	<insert id="insert"
 		parameterType="com.example.webapp.entity.Medicine">
-		INSERT INTO medicines (name, effect)
-		VALUES (#{name}, #{effect})
+		INSERT INTO medicines (name, effect, quantity, side_effect)
+		VALUES (#{name}, #{effect}, #{quantity}, #{sideEffect})
 	</insert>
 </mapper>

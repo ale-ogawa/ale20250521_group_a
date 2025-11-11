@@ -4,12 +4,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.webapp.entity.Account;
 import com.example.webapp.entity.DailyReaction;
 import com.example.webapp.entity.DailyScope;
 import com.example.webapp.entity.DailyTaking;
@@ -21,9 +24,11 @@ import com.example.webapp.form.PostForm;
 import com.example.webapp.form.ReactionForm;
 import com.example.webapp.helper.PostHelper;
 import com.example.webapp.helper.ReactionHelper;
+import com.example.webapp.service.AccountService;
 import com.example.webapp.service.DiaryService;
 import com.example.webapp.service.PostService;
 import com.example.webapp.service.ReactionService;
+import com.example.webapp.utility.DateContainer;
 import com.example.webapp.utility.LoginAccount;
 
 import lombok.RequiredArgsConstructor;
@@ -33,11 +38,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainController {
 	
+	private final AccountService accountService;
 	private final DiaryService diaryService;
 	private final PostService postService;
 	private final ReactionService reactionService;
 	
-	LocalDate localDate;
+	LocalDate date;
 	boolean isTodaysNewPost;
 	boolean isTodaysNewReaction;
 	Diary diary;
@@ -49,19 +55,34 @@ public class MainController {
 	List<DailyTaking> dailyTakings;
 	
 	@GetMapping
-	public String home(Model model, PostForm form) {
-		localDate = LocalDate.now();
+	public String home(@AuthenticationPrincipal UserDetails user, Model model, PostForm form) {
+		Account loginAccount = accountService.findMyInfo(user.getUsername());
+		LoginAccount.id = loginAccount.getId();
+		LoginAccount.attribute = loginAccount.getAttribute();
+		LoginAccount.followId = loginAccount.getFollowId();
+		System.out.println(loginAccount);
+		
+		if(DateContainer.calendarFlag) {
+			date = DateContainer.date;
+			DateContainer.calendarFlag = false;
+		}else {
+			date = LocalDate.now();
+		}
+		//初期化(null対策)
 		dailyReactions = new ArrayList<>();
+		scopes = new ArrayList<>();
 		
 		//その日の投稿内容を取得
-		diary = diaryService.findToday(localDate);
+		diary = diaryService.findToday(date);
+		System.out.println(date);
+		System.out.println(diary);
 		
 		//その日の初投稿の場合
 		if(diary == null) {
 			isTodaysNewPost = true;
 			//今日の日付だけセット
 			diary = new Diary();
-			diary.setDate(localDate);
+			diary.setDate(date);
 			//直近の公開設定を取得
 			scopes = diaryService.findLatestScopes();
 		}
@@ -73,6 +94,7 @@ public class MainController {
 			//フォロワー全員のリアクションを取得
 			dailyReactions = diaryService.findReactions(diary.getId());
 		}
+		System.out.println(isTodaysNewPost);
 		
 		//フォロワー自身のリアクションを取得
 		reaction = reactionService.findMyReaction(diary.getId());
@@ -89,14 +111,20 @@ public class MainController {
 		dailyScopes = diaryService.makeDailyScopes(groups, scopes);
 		
 		//その日の服薬情報を取得
-		dailyTakings = diaryService.findTodaysTaking(localDate) ;
+		dailyTakings = diaryService.findTodaysTaking(date) ;
 		
+		//
+		
+		Account account = accountService.getNickname(LoginAccount.id);
+		model.addAttribute("nickname", account.getNickname());
 		model.addAttribute("diary", diary);
 		model.addAttribute("reaction", reaction);
 		model.addAttribute("dailyReactions", dailyReactions);
 		model.addAttribute("dailyScopes", dailyScopes);
 		model.addAttribute("dailyTakings", dailyTakings);
-		model.addAttribute("isPatient", LoginAccount.attribute);
+		model.addAttribute("attribute", LoginAccount.attribute);
+		model.addAttribute("isNewPost", isTodaysNewPost);
+		model.addAttribute("isNewReaction", isTodaysNewReaction);
 		
 		return "home";
 	}
@@ -114,7 +142,7 @@ public class MainController {
 	@PostMapping("post")
 	public String post(PostForm form) {
 		//diariesテーブルに格納する情報をセット
-		Diary diary = PostHelper.convert(form, localDate);
+		Diary diary = PostHelper.convert(form, date);
 		
 		if(isTodaysNewPost) {
 			//diariesテーブルにレコードを登録

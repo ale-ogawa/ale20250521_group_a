@@ -16,6 +16,7 @@ import com.example.webapp.helper.MedicineHelper;
 import com.example.webapp.helper.TakingHelper;
 import com.example.webapp.service.MedicineService;
 import com.example.webapp.service.TakingService;
+import com.example.webapp.utility.LoginAccount;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +31,7 @@ public class MedicineController {
     public String medicine(Model model, MedicineForm form) {
 		List<Medicine> medicines = medicineService.select();
 		model.addAttribute("medicines", medicines);
+		model.addAttribute("attribute", LoginAccount.attribute);
         return "medicine";
     }
 	

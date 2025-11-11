@@ -19,20 +19,21 @@ public class SecurityConfig {
 		http
 			//HTTPリクエストに対するセキュリティ設定
 			.authorizeHttpRequests(authz -> authz
-			//「/login」へのアクセスは認証を必要としない
-			.requestMatchers("/**").permitAll()
+			//以下へのアクセスは認証を必要としない
+			.requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+			.requestMatchers("/login", "/create/**", "/register").permitAll()
 			//その他のリクエストは認証が必要
 			.anyRequest().authenticated()
 			//フォームベースのログイン設定
 			).formLogin(form -> form
 			//カスタムログインページのURLを指定
 			.loginPage("/login")
-//			//ログイン処理のURLを指定
-//			.loginProcessingUrl("/authentication")
-//			//ユーザー名のname属性
-//			.usernameParameter("address")
-//			//パスワードのname属性を指定
-//			.passwordParameter("password")
+			//ログイン処理のURLを指定
+			.loginProcessingUrl("/authentication")
+			//ユーザー名のname属性
+			.usernameParameter("address")
+			//パスワードのname属性を指定
+			.passwordParameter("password")
 			//ログイン成功時のリダイレクト先を指定
 			.defaultSuccessUrl("/")
 			//ログイン失敗時のリダイレクト先を指定
@@ -42,7 +43,7 @@ public class SecurityConfig {
 			//ログアウトを処理するURLを指定
 			.logoutUrl("/logout")
 			//ログアウト成功時のリダイレクト先を指定
-			.logoutSuccessUrl("/login?logout")
+			.logoutSuccessUrl("/login")
 			//ログアウト時にセッションを無効にする
 			.invalidateHttpSession(true)
 			//ログアウト時にCookieを削除する

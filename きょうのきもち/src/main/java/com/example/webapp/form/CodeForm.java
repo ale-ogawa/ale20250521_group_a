@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class CodeForm {
-    private String code;
+    private Integer code;
 }

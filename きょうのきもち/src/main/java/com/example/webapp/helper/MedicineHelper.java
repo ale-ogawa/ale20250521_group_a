@@ -10,6 +10,8 @@ public class MedicineHelper {
 		Medicine medicine = new Medicine();
 		medicine.setName(form.getName());
 		medicine.setEffect(form.getEffect());
+		medicine.setQuantity(form.getQuantity());
+		medicine.setSideEffect(form.getSideEffect());
 		return medicine;
 	}
 

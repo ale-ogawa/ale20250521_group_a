@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,6 +13,7 @@ import com.example.webapp.entity.Create;
 import com.example.webapp.form.CreateForm;
 import com.example.webapp.helper.CreateHelper;
 import com.example.webapp.service.CreateService;
+import com.example.webapp.utility.LoginAccount;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,19 +24,15 @@ public class CreateController {
 
 	private final CreateService createService;
 
-	//初期表示
 	@GetMapping
-	public String showCreateForm(Model model) {
-		model.addAttribute("createForm", new CreateForm());
+	public String showCreateForm(CreateForm createForm) {
 		return "create";
 	}
 
 	// 確認画面へ
 	@PostMapping("/confirm")
 	public String confirm(
-			@Valid @ModelAttribute("createForm") CreateForm form,
-			BindingResult bindingResult,
-			Model model) {
+			@Valid CreateForm form, BindingResult bindingResult, Model model) {
 
 		// まず入力チェック（桁数など）が通ってから一致チェックする
 		if (!bindingResult.hasFieldErrors("password") &&
@@ -59,11 +55,11 @@ public class CreateController {
 
 	//登録完了
 	@PostMapping("/complete")
-	public String complete(@ModelAttribute CreateForm form, Model model) {
-		// DB登録処理
+	public String complete(CreateForm form) {
 		Create create = CreateHelper.convert(form);
 		createService.insert(create);
-		model.addAttribute("createForm", form);
+		LoginAccount.id = create.getId();
+		LoginAccount.attribute = false;
 		return "complete";
 	}
 

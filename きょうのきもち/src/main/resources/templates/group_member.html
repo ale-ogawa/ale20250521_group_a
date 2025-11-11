@@ -1,30 +1,216 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>グループ管理画面</title>
+  <meta charset="UTF-8">
+  <title>メンバー移動</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+  <style>
+    @charset "utf-8";
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 280px;
+      height: 520px;
+      background-color: #fff;
+      border: 1px solid #1e3a8a;
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 15px 10px;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* パンくず */
+    h2 {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: #000;
+      transform: translateX(-4px);
+    }
+
+    h2 a {
+      text-decoration: none;
+      color: #2563eb;
+    }
+
+    h2 a:hover {
+      text-decoration: underline;
+    }
+
+    /* メイン見出し */
+    .main-title {
+      font-size: 17px;
+      font-weight: bold;
+      color: #4b0082;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .main-title::before {
+      content: "👥";
+      font-size: 18px;
+    }
+
+    /* フォーム全体 */
+    form {
+      text-align: left;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    form p {
+      margin: 8px 0 4px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    form div {
+      margin-left: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    select, input[type="submit"] {
+      margin-top: 6px;
+      font-size: 14px;
+      padding: 4px 6px;
+      border: 1px solid #888;
+      border-radius: 4px;
+    }
+
+    input[type="submit"] {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
+      padding: 6px;
+      border-radius: 6px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #1e3a8a;
+    }
+
+    /* ▼ アンダーメニュー ▼ */
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid #ccc;
+      padding-top: 6px;
+      margin-top: 10px;
+    }
+
+    .under-menu a {
+      flex: 1;
+      text-align: center;
+    }
+
+    .under-menu img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+  </style>
 </head>
 
 <body>
-	<h2><a th:href="@{/group}">グループ管理</a>>>メンバー移動</h2>
-	<form th:action="@{/group/member}" th:object="${groupForm}" method="post">
-		<div th:each="group : ${groups}">
-			<p>[[${group.name}]]</p>
-			<div th:each="account : ${accounts}">
-				<div th:if="${group.id == account.groupId}">
-					<input type="checkbox" th:field="*{accountIds}" th:value="${account.id}">
-					[[${account.nickname}]]
-				</div>
-			</div>
-		</div>
-		<label>移動先グループを選択：</label>
-		<select th:field="*{id}">
-			<option th:each="group : ${groups}" th:value="${group.id}">
-				[[${group.name}]]
-			</option>
-		</select>
-		<input type="submit" value="確定">
-	</form>
-</body>
+  <div class="container">
+    <!-- パンくず -->
+    <h2>
+      <a th:href="@{/setting}">設定</a>
+      ＞＞
+      <a th:href="@{/setting/group}">グループ管理</a>
+      ＞＞メンバー移動
+    </h2>
 
+    <!-- メイン見出し -->
+    <div class="main-title">メンバーの移動</div>
+
+    <!-- メインフォーム -->
+    <form th:action="@{/setting/group/member}" th:object="${groupForm}" method="post">
+      <div th:each="group : ${groups}">
+        <p>[[${group.name}]]</p>
+        <div th:each="account : ${accounts}">
+          <div th:if="${group.id == account.groupId}">
+            <input type="checkbox" th:field="*{accountIds}" th:value="${account.id}">
+            [[${account.nickname}]]
+          </div>
+        </div>
+      </div>
+
+      <label>移動先グループを選択：</label>
+      <select th:field="*{id}">
+        <option th:each="group : ${groups}" th:value="${group.id}">
+          [[${group.name}]]
+        </option>
+      </select>
+
+      <input type="submit" value="確定">
+    </form>
+
+    <!-- ▼ 統一アンダーメニュー -->
+    <div>
+      <div class="under-menu">
+        <a th:href="@{/}">
+          <img src="/images/under01_transparent.png" alt="ホーム">
+        </a>
+        <a th:href="@{/calendar}">
+          <img src="/images/under02_transparent.png" alt="カレンダー">
+        </a>
+        <a th:href="@{/medicine}">
+          <img src="/images/under03_transparent.png" alt="薬">
+        </a>
+        <a th:href="@{/graph}">
+          <img src="/images/under04_transparent.png" alt="グラフ">
+        </a>
+        <a th:href="@{/info}">
+          <img src="/images/under05_transparent.png" alt="情報">
+        </a>
+        <a th:href="@{/setting}">
+          <img src="/images/under06_transparent.png" alt="設定">
+        </a>
+      </div>
+
+      <div class="footer">© KYO NO KIMOCHI Lab.</div>
+    </div>
+  </div>
+</body>
 </html>

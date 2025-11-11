@@ -5,32 +5,137 @@
   <title>Feelingグラフ</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+	.container {
+	  background-color: white;
+	  border: 2px solid #dbeafe;
+	  border-radius: 20px;
+	  padding: 20px;
+	  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	  text-align: center;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  position: relative;
+	  max-width: 400px;
+	  width: 100%;
+	  max-height: 95vh;
+	  height: auto;
+	  overflow-y: auto;
+
+    }
+
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 50px;
+      margin-bottom: 15px;
+      color: #1e3a8a;
+    }
+
+    label, select {
+      font-size: 16px;
+      margin: 10px 0;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+
+    select {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      width: 100%;
+    }
+
     #js-result {
       width: 100%;
-      max-width: 400px;
-      margin: 20px;
+      margin-top: 10px;
+      flex-grow: 1;
     }
+
     #js-result canvas {
       width: 100% !important;
       height: 300px !important;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
-    label, select {
-      font-size: 16px;
-      margin: 10px;
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      margin-top: 5px;
+    }
+
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 6px;
+      border-top: 1px solid #ccc;
+    }
+
+    .under-menu a {
+      flex: 1;
+      text-align: center;
+    }
+
+    .under-menu img {
+      width: 40px;
+      height: 40px;
     }
   </style>
 </head>
 <body>
-  <label for="month-select">年月を選択</label>
-  <select id="month-select" name="month">
-    <th:block th:each="opt : ${monthOptions}">
-      <option th:value="${opt.value}" th:text="${opt.label}"></option>
-    </th:block>
-  </select>
 
-  <div id="js-result">
-    <canvas id="feelingCanvas"></canvas>
+  <div class="container">
+
+    <h2>KYO NO KIMOCHI<br>Feelingグラフ</h2>
+
+    <label for="month-select">年月を選択</label>
+    <select id="month-select" name="month">
+      <th:block th:each="opt : ${monthOptions}">
+        <option th:value="${opt.value}" th:text="${opt.label}"></option>
+      </th:block>
+    </select>
+
+    <div id="js-result">
+      <canvas id="feelingCanvas"></canvas>
+    </div>
+
+    <div class="under-menu">
+      <a th:href="@{/}">
+        <img src="/images/under01_transparent.png" alt="ホーム">
+      </a>
+      <a th:href="@{/calendar}">
+        <img src="/images/under02_transparent.png" alt="カレンダー">
+      </a>
+      <a th:href="@{/medicine}">
+        <img src="/images/under03_transparent.png" alt="薬">
+      </a>
+      <a th:href="@{/graph}">
+        <img src="/images/under04_transparent.png" alt="グラフ">
+      </a>
+      <a th:href="@{/info}">
+        <img src="/images/under05_transparent.png" alt="情報">
+      </a>
+      <a th:href="@{/setting}">
+        <img src="/images/under06_transparent.png" alt="設定">
+      </a>
+    </div>
+
+    <div class="footer">© KYO NO KIMOCHI Lab.</div>
   </div>
 
   <script>
@@ -61,8 +166,8 @@
           scales: {
             y: {
               beginAtZero: true,
-              min: 1,
-              max: 5,
+              min: 0,
+              max: 6,
               ticks: { stepSize: 1 },
               title: { display: true, text: "気持ち" }
             },
@@ -99,5 +204,6 @@
       if (select) fetchAndDraw(select.value);
     })();
   </script>
+
 </body>
 </html>

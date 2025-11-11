@@ -1,39 +1,197 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>ホーム</title>
+  <meta charset="UTF-8">
+  <title>ホーム</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      border: 2px solid #dbeafe;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 90vh;
+      position: relative;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1e3a8a;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    h4 {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: #1e40af;
+      font-size: 16px;
+    }
+
+    p, a {
+      font-size: 14px;
+      margin: 4px 0;
+      color: #333;
+      word-wrap: break-word;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+      border: 2px solid #1e3a8a;
+    }
+
+    .info-table th, .info-table td {
+      border: 1px solid #1e3a8a;
+      padding: 8px;
+      vertical-align: top;
+      text-align: left;
+      background-color: #f0f9ff;
+    }
+
+    .info-table th {
+      background-color: #eff6ff;
+      color: #1e3a8a;
+    }
+
+    .fixed-text {
+      height: 100px;
+      overflow-wrap: break-word;
+      overflow-y: auto;
+      position: relative; /* 編集ボタン用に相対位置 */
+    }
+
+    .edit-button {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      font-size: 12px;
+      padding: 4px 8px;
+      background-color: #1e3a8a;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    .container-footer {
+      margin-top: auto;
+    }
+
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-top: 6px;
+      border-top: 1px solid #ccc;
+    }
+
+    .under-menu img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      text-align: center;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 
 <body>
-	<h2>ホーム画面</h2>
-	<p>今日の日付は [[${diary.date}]] です。</p>
-	<h4>気分</h4>
-	<p>[[${diary.feeling}]]</p>
-	<h4>本文</h4>
-	<p>[[${diary.text}]]</p>
-	
-	<h4>服薬情報</h4>
-	<div th:each="dailytaking: ${dailyTakings}">
-		<a>[[${dailytaking.medicineName}]]：[[${dailytaking.takingTime}]]</a>
-	</div>
-	
-	<h4>リアクション</h4>
-	<div th:if="${isPatient}">
-		<div th:each="dailyReaction: ${dailyReactions}">
-			<a>[[${dailyReaction.nickName}]]：[[${dailyReaction.stamp}]]
-				：[[${dailyReaction.comment}]]
-			</a>
-		</div>
-		<a th:href="@{/post}">日記編集</a>
-	</div>
-	
-	<div th:unless="${isPatient}">
-		<a>スタンプ：[[${reaction.stamp}]]</a>
-		<a>コメント：[[${reaction.comment}]]</a>
-		<a th:href="@{/reaction}">リアクション編集</a>
-	</div>
-	
-</body>
+  <div class="container">
+    <h2>ホーム画面</h2>
+    <p>[[${nickname}]]さんログイン中</p>
+    <p>[[${diary.date}]]の日記</p>
 
+    <h4>気分</h4>
+    <p>[[${diary.feeling}]]</p>
+
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th style="width:50%;">本文</th>
+          <th style="width:50%;">服薬情報</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fixed-text">
+            [[${diary.text}]]
+			<div th:if="${attribute}">
+            	<a th:href="@{/post}" class="edit-button">日記編集</a>
+			</div>
+          </td>
+          <td class="fixed-text">
+            <ul style="margin:0; padding-left:18px;">
+              <li th:each="dailytaking: ${dailyTakings}" th:text="${dailytaking.medicineName + '：' + dailytaking.takingTime}">
+                薬名：時間
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div th:if="${isNewPost}">
+		まだ日記が登録されていません
+    </div>
+    <div th:unless="${isNewPost}">
+		<div th:if="${attribute}">
+		    <table class="info-table">
+		      <thead>
+		        <tr>
+		          <th>ニックネーム</th>
+		          <th>スタンプ</th>
+		          <th>コメント</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr th:each="dailyReaction: ${dailyReactions}">
+		          <td>[[${dailyReaction.nickName}]]</td>
+		          <td>[[${dailyReaction.stamp}]]</td>
+		          <td class="fixed-text">[[${dailyReaction.comment}]]</td>
+		        </tr>
+		      </tbody>
+		    </table>
+		</div>
+	
+	    <div th:unless="${attribute}">
+	      <p>スタンプ：[[${reaction.stamp}]]</p>
+	      <p>コメント：[[${reaction.comment}]]</p>
+	      <a th:href="@{/reaction}">リアクション編集</a>
+	    </div>
+	</div>
+
+    <div class="container-footer">
+      <div class="under-menu">
+        <a th:href="@{/}"><img src="/images/under01_transparent.png" alt="ホーム"></a>
+        <a th:href="@{/calendar}"><img src="/images/under02_transparent.png" alt="カレンダー"></a>
+        <a th:href="@{/medicine}"><img src="/images/under03_transparent.png" alt="薬"></a>
+        <a th:href="@{/graph}"><img src="/images/under04_transparent.png" alt="グラフ"></a>
+        <a th:href="@{/info}"><img src="/images/under05_transparent.png" alt="情報"></a>
+        <a th:href="@{/setting}"><img src="/images/under06_transparent.png" alt="設定"></a>
+      </div>
+      <div class="footer">© KYO NO KIMOCHI Lab.</div>
+    </div>
+  </div>
+</body>
 </html>

@@ -3,9 +3,12 @@
 <mapper namespace="com.example.webapp.repository.CreateMapper">
 	<!--登録 -->
 	<insert id="insert"
-		parameterType="com.example.webapp.entity.Create">
-		INSERT INTO accounts (address, password)
-		VALUES (#{address}, #{password})
+        parameterType="com.example.webapp.entity.Create"
+        useGeneratedKeys="true"
+        keyProperty="id">
+		INSERT INTO accounts (address, password, attribute)
+		VALUES (#{address}, #{password}, false)
+		RETURNING id
 	</insert>
 
 </mapper>

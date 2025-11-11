@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class LoginAccount {
-	public static String nickname = "たかし";
-	public static Integer id = 1;
-	public static boolean attribute = true;
+	public static String nickname;
+	public static Integer id;
+	public static boolean attribute;
+	public static Integer followId;
 
 }

@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Create {
-	//id
+	private Integer id;
 	private String address;
-	//パスワード
 	private String password;
-
 
 }

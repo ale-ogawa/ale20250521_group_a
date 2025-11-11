@@ -3,14 +3,22 @@ package com.example.webapp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.webapp.entity.Group;
 import com.example.webapp.form.CodeForm;
+import com.example.webapp.service.AccountService;
+import com.example.webapp.service.GroupService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class CodeController {
 
+	private final GroupService groupService;
+	private final AccountService accountService;
+	
     // 招待コード入力画面を表示（初回アクセス時）
     @GetMapping("/code")
     public String showCodeForm(Model model) {
@@ -20,18 +28,18 @@ public class CodeController {
 
     // 招待コード送信処理
     @PostMapping("/verifyCode")
-    public String verifyCode(@ModelAttribute("codeForm") CodeForm codeForm, Model model) {
+    public String verifyCode(Model model, CodeForm codeForm) {
 
-        String inputCode = codeForm.getCode();
-        String correctCode = "qn98ynp40"; // ✅ 仮の正解コード（DB照合にしてもOK）
+    	//DBからコードが一致するレコードを取得
+    	Group group = groupService.findByCode(codeForm.getCode());
+    	//nullならreturn "code";
+    	if (group == null) {
+    		model.addAttribute("error", "招待コードが違います");
+    		return "code"; // ❌ redirectしない → 無限ループ防止
+    	}
+    	//not nullならアカウントテーブルにfollow_idとgroup_idを登録
+    	accountService.updateNewFollower(group);
 
-        // 入力されたコードが違う場合
-        if (!correctCode.equals(inputCode)) {
-            model.addAttribute("error", "招待コードが違います");
-            return "code"; // ❌ redirectしない → 無限ループ防止
-        }
-
-        // ✅ 正しいコードなら次の画面へ
-        return "redirect:/home";
+        return "redirect:/register";
     }
 }

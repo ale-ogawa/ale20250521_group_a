@@ -1,6 +1,7 @@
 package com.example.webapp.service;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import com.example.webapp.entity.DailyReaction;
@@ -18,7 +19,7 @@ public interface DiaryService {
 	List<Group> findGroups();
 	List<DailyScope> makeDailyScopes(List<Group> groups, List<Scope> scopes);
 	List<DailyTaking> findTodaysTaking(LocalDate localDate);
-	List<Diary> findFeelings(LocalDate localDate);
+	List<Diary> findFeelings(YearMonth yearMonth);
 	List<DailyReaction> findReactions(Integer id);
 
 }

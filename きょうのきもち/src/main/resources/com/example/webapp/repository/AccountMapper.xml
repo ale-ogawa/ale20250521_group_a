@@ -6,16 +6,76 @@
 <mapper namespace="com.example.webapp.repository.AccountMapper">
 
   <!-- アカウント登録処理 -->
-  <insert id="insert"
-          parameterType="com.example.webapp.entity.Account"
-          useGeneratedKeys="true"
-          keyProperty="id">
+  <update id="update"
+          parameterType="com.example.webapp.entity.Account">
+    UPDATE accounts
+    SET nickname = #{nickname}, attribute = #{attribute}
+    WHERE id = #{id}
+  </update>
+  <update id="updateNickname"
+          parameterType="com.example.webapp.entity.Account">
+    UPDATE accounts
+    SET nickname = #{nickname}
+    WHERE id = #{id}
+  </update>
+  
+	<insert id="insertNewDisease"
+	        parameterType="com.example.webapp.entity.Disease"
+	        useGeneratedKeys="true"
+	        keyProperty="id">
+	    INSERT INTO diseases (name)
+	    VALUES (#{name})
+	</insert>
+	
+	<select id="getNickname"
+			resultType="com.example.webapp.entity.Account">
+		SELECT nickname FROM accounts
+		WHERE id = #{id}
+	</select>
+	
+	<select id="findDiseases"
+			resultType="com.example.webapp.entity.Disease">
+		SELECT d.name, d.id
+		FROM choices c
+		JOIN diseases d ON c.disease_id = d.id
+		WHERE c.account_id = #{accountId};
+	</select>
+	
+	<select id="findShare"
+			resultType="com.example.webapp.entity.Account">
+		SELECT share
+		FROM accounts
+		WHERE id = #{id};
+	</select>
 
-    INSERT INTO accounts
-      (address, password, nickname, attribute, group_id, follow_id)
-    VALUES
-      (#{address}, #{password}, #{nickname}, #{attribute}, #{groupId}, #{followId})
-
-  </insert>
-
+  <update id="updateMyShare"
+          parameterType="com.example.webapp.entity.Account">
+    UPDATE accounts
+    SET share = #{share}
+    WHERE id = #{id}
+  </update>
+  
+  <delete id="clearChoice"
+  		parameterType="com.example.webapp.entity.Choice">
+  	DELETE FROM choices
+  	WHERE account_id = #{accountId}
+  	AND disease_id IN
+    <foreach collection="diseaseIds" item="diseaseId" open="(" separator="," close=")">
+        #{diseaseId}
+    </foreach>
+  </delete>
+  
+  <update id="updateNewFollower"
+  		parameterType="com.example.webapp.entity.Group">
+ 	UPDATE accounts
+ 	SET
+ 	group_id = #{id},
+ 	follow_id = #{accountId}
+  </update>
+	
+	<select id="findMyInfo">
+		SELECT * FROM accounts
+		WHERE address = #{address}
+	</select>
+  
 </mapper>

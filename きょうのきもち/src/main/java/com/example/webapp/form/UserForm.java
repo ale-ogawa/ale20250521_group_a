@@ -9,27 +9,9 @@ import lombok.Data;
 public class UserForm {
 
     private String nickname;        // ニックネーム
-    private List<String> disorders; // チェックボックスの値（複数）
+    private List<Integer> disorders; // チェックボックスの値（複数）
     private String other;           // 「その他」の入力欄
 
-    /**
-     * disorders → choice番号へ変換
-     * （最初に選択された疾患をDB登録用IDに変換）
-     */
-    public Integer getSelectedChoiceId() {
-        if (disorders == null || disorders.isEmpty()) {
-            return null;
-        }
-
-        String first = disorders.get(0);
-        switch (first) {
-            case "うつ": return 1;
-            case "そううつ": return 2;
-            case "パニック障害": return 3;
-            case "その他": return 4;
-            default: return null;
-        }
-    }
 
     // ==============================
     // ✅ 入力チェック（Controllerで利用）

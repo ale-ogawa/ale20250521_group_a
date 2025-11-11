@@ -12,4 +12,5 @@ public class Account {
     private Boolean attribute;  // true: 患者, false: 招待者
     private Integer groupId;
     private Integer followId;
+    private String share;
 }

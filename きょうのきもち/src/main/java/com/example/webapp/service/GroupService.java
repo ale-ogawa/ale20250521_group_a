@@ -17,4 +17,8 @@ public interface GroupService {
 	void delete(Integer id);
 
 	void updateGroup(GroupForm form);
+
+	Group findByCode(Integer integer);
+
+	void changeName(GroupForm form);
 }

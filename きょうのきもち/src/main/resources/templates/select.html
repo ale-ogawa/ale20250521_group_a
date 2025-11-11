@@ -5,95 +5,216 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>選択画面</title>
 <style>
-  body {
-    font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
-    background-color: #f9fafb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+@charset "utf-8";
+
+/* ▼ 共通デザイン（あなたのCSSそのまま） ▼ */
+.wrapper{
+  width: 36vw;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.common_body{
+  background-image: url("../images/22705469.jpg");
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.common_content{
+  min-height: calc(100vh - 26.5rem);
+  z-index: 5;
+}
+
+.common_header{
+  margin: 0 auto;
+  padding-bottom: 5.4rem;
+}
+
+.common_kokoro_area{
+  display: flex;
+  justify-content: center;
+  padding-top: 7.2rem;
+}
+
+.common_kokoro_image{
+  width: 13rem;
+}
+
+.common_kokoro_title{
+  display: flex;
+  overflow: hidden;
+  font-weight: bold;
+  margin-top: 3.4rem;
+  margin-left: 1.8rem;
+}
+
+.common_kokoro_character{
+  font-size: 2.2rem;
+  font-weight: bold;
+  padding-right: 6.0rem;
+}
+
+.common_footer{
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 2.4rem;
+}
+
+.common_footer_area{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.common_footer_trademark{
+  color: gray;
+}
+
+.common_under_menu_area{
+  height: 9.0rem;
+  border: .2rem solid #0066cc;
+  border-radius: .8rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.common_under_img{
+  width: 7rem;
+  height: 6rem;
+}
+
+.common_under_img:hover{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px){
+  .wrapper{
+    width: 100vw;
+    margin: 0 auto;
+    background-color: white;
+  }
+  .common_kokoro_area{
+    justify-content: space-between;
   }
 
-  .container {
-    width: 320px;
-    border: 2px solid #cdd4e0;
-    border-radius: 25px;
-    padding: 25px;
-    text-align: center;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  .common_kokoro_image{
+    margin-left: 4.5rem;
   }
+  .common_kokoro_character{
+    font-size: 2.4rem;
+    padding-right: 10.0rem;
+  }
+}
 
-  .back-btn {
-    background-color: #3b5998;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px;
-    transition: 0.3s;
-  }
+/* ▼ 選択画面用の追加デザイン ▼ */
+.select-container {
+  width: 320px;
+  border: 1.8px solid #2b4ea2;
+  border-radius: 25px;
+  padding: 25px 20px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
 
-  .back-btn:hover {
-    background-color: #2f477a;
-  }
+.back-btn {
+  background-color: #2b4ea2;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  transition: 0.3s;
+  display: block;
+    margin-left: 10px; /* 数値で左寄せの調整（5〜20pxで好み調整） */
+    text-align: left; /* 念のためボタン内テキストも左寄せ */
+}
 
-  .cloud {
-    font-size: 60px;
-    margin: 20px 0;
-  }
+.back-btn:hover {
+  background-color: #1d3e91;
+}
 
-  .select-text {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #333;
-  }
+.select-text {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #333;
+}
 
-  .option {
-    border: 2px solid #cdd4e0;
-    border-radius: 35px;
-    padding: 18px;
-    margin: 15px 0;
-    cursor: pointer;
-    background-color: #fff;
-    transition: 0.3s;
-  }
+.cloud {
+  margin: 10px 0 25px 0;
+}
 
-  .option:hover {
-    background-color: #eef5ff;
-  }
+.cloud img {
+  width: 70px;
+  height: auto;
+}
 
-  .option-title {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
+.option {
+  border: 2px solid #2b4ea2;
+  border-radius: 40px;
+  padding: 18px;
+  margin: 15px 0;
+  cursor: pointer;
+  background-color: #fff;
+  transition: 0.3s;
+}
 
-  .option-sub {
-    font-size: 14px;
-    color: #444;
-  }
+.option:hover {
+  background-color: #eef5ff;
+}
+
+.option-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.option-sub {
+  font-size: 0.9rem;
+  color: #2b4ea2;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 0.7rem;
+  color: #777;
+}
 </style>
 </head>
-<body>
-  <div class="container">
-    <button class="back-btn" onclick="history.back()">戻る</button>
 
-    <div class="select-text">選択してください</div>
-    <div class="cloud">☁️</div>
+<body class="common_body">
+  <div class="wrapper">
+    <div class="common_content">
+      <div class="select-container">
+        <button class="back-btn" onclick="history.back()">戻る</button>
 
-    <!-- 患者さん用ボタン -->
-    <div class="option" th:onclick="|location.href='@{/register}'|">
-      <div class="option-title">患者さん💁‍♀️</div>
-      <div class="option-sub">【ユーザー情報登録画面へ】</div>
-    </div>
+        <div class="select-text">選択してください</div>
 
-    <!-- 招待された方ボタン -->
-    <div class="option" th:onclick="|location.href='@{/code}'|">
-      <div class="option-title">招待された方💁‍♂️</div>
-      <div class="option-sub">【招待コード入力画面へ】</div>
+        <div class="cloud">
+          <img src="/images/cloud.png" alt="cloud logo">
+        </div>
+
+        <!-- 患者さんボタン -->
+        <div class="option" th:onclick="|location.href='@{/register}'|">
+          <div class="option-title">患者さん☞</div>
+          <div class="option-sub">【ユーザー情報登録画面へ】</div>
+        </div>
+
+        <!-- 招待された方ボタン -->
+        <div class="option" th:onclick="|location.href='@{/code}'|">
+          <div class="option-title">招待された方☞</div>
+          <div class="option-sub">【招待コード入力画面へ】</div>
+        </div>
+
+        <footer>© KYO NO KIMOCHI Lab.</footer>
+      </div>
     </div>
   </div>
 </body>

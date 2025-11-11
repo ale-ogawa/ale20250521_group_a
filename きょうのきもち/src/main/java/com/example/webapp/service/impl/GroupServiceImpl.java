@@ -46,4 +46,14 @@ public class GroupServiceImpl implements GroupService {
 		groupMapper.update(form);
 	}
 
+	@Override
+	public Group findByCode(Integer code) {
+		return groupMapper.findByCode(code);
+	}
+
+	@Override
+	public void changeName(GroupForm form) {
+		groupMapper.changeName(form);
+	}
+
 }

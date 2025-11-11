@@ -1,22 +1,27 @@
 package com.example.webapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.webapp.entity.Account;
+import com.example.webapp.entity.Disease;
 import com.example.webapp.form.UserForm;
-import com.example.webapp.repository.AccountMapper;
+import com.example.webapp.service.AccountService;
 import com.example.webapp.service.DiseaseService;
+import com.example.webapp.utility.LoginAccount;
 
 @Controller
+@RequestMapping("/register")
 public class RegisterController {
 
     @Autowired
-    private AccountMapper accountMapper;
+    private AccountService accountService;
 
     @Autowired
     private DiseaseService diseaseService;
@@ -24,17 +29,18 @@ public class RegisterController {
     // ==============================
     // ✅ 登録画面の表示
     // ==============================
-    @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("userForm", new UserForm());
+    @GetMapping
+    public String showRegisterForm(Model model, UserForm userForm) {
+    	List<Disease> diseases = diseaseService.findAllDiseases();
+        model.addAttribute("diseases", diseases);
         return "register";
     }
-
+    
     // ==============================
     // ✅ フォーム送信処理
     // ==============================
-    @PostMapping("/register")
-    public String submitRegisterForm(@ModelAttribute("userForm") UserForm userForm, Model model) {
+    @PostMapping
+    public String submitRegisterForm(Model model, UserForm userForm) {
 
         boolean hasError = false;
 
@@ -62,36 +68,18 @@ public class RegisterController {
         // ✅ アカウント登録処理
         // ==============================
         Account account = new Account();
+        account.setId(LoginAccount.id);
         account.setNickname(userForm.getNickname());
         account.setAttribute(true); // 固定値（患者）
-        account.setAddress(null);
-        account.setPassword(null);
-        account.setGroupId(null);
-        account.setFollowId(null);
-
-        // INSERT実行（useGeneratedKeys=true でIDが自動取得）
-        accountMapper.insert(account);
-
-        // ==============================
-        // ✅ 疾患登録処理（choicesテーブル + diseasesテーブル）
-        // ==============================
-        if (userForm.getDisorders() != null) {
-            for (String disorder : userForm.getDisorders()) {
-                // 「その他」は除外して、既存疾患のみ登録
-                if (!"その他".equals(disorder)) {
-                    diseaseService.registerChoice(account.getId(), disorder);
-                }
-            }
+        accountService.update(account);
+        
+        if(userForm.getOther() != null) {
+        	Disease disease = diseaseService.insertNewDisease(userForm.getOther());
+        	userForm.getDisorders().removeLast();
+        	userForm.getDisorders().add(disease.getId());
         }
-
-        // 「その他」入力あり → diseases + choices に登録
-        if (userForm.getOther() != null && !userForm.getOther().isBlank()) {
-            diseaseService.registerOtherDisease(account.getId(), userForm.getOther());
-        }
-
-        // ==============================
-        // ✅ 登録完了ページへ遷移
-        // ==============================
-        return "test"; // 完了画面（HTML名は任意）
+        diseaseService.registerChoice(userForm.getDisorders());
+        
+        return "register_complete"; // 完了画面（HTML名は任意）
     }
 }

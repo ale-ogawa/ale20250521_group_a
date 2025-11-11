@@ -34,7 +34,11 @@ public class DiaryServiceImpl implements DiaryService {
 	
 	@Override
 	public Diary findToday(LocalDate localDate) {
-		return diaryMapper.findToday(localDate, LoginAccount.id);
+		if(LoginAccount.attribute) {
+			return diaryMapper.findToday(localDate, LoginAccount.id);
+		}else {
+			return diaryMapper.findToday(localDate, LoginAccount.followId);
+		}
 	}
 	
 	@Override
@@ -66,8 +70,7 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 	
 	@Override
-	public List<Diary> findFeelings(LocalDate localDate) {
-		YearMonth yearMonth = YearMonth.from(localDate);
+	public List<Diary> findFeelings(YearMonth yearMonth) {
         LocalDate firstDay = yearMonth.atDay(1);
         LocalDate lastDay = yearMonth.atEndOfMonth();
 		return diaryMapper.findFeelings(firstDay, lastDay);

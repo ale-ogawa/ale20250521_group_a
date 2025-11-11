@@ -18,7 +18,7 @@ import com.example.webapp.service.GroupService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/group")
+@RequestMapping("/setting/group")
 @RequiredArgsConstructor
 public class GroupController {
 	
@@ -27,13 +27,19 @@ public class GroupController {
 	List<Group> groups;
 	
 	@GetMapping
-    public String group(Model model) {
+    public String group(Model model, GroupForm form) {
 		accounts = groupService.selectAccounts();
 		groups = groupService.selectGroups();
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("groups", groups);
         return "group";
     }
+	
+	@PostMapping
+	public String group(GroupForm form) {
+		groupService.changeName(form);
+		return "redirect:/setting/group";
+	}
 	
 	@GetMapping("/edit")
 	public String edit(Model model, GroupForm form) {
@@ -51,7 +57,7 @@ public class GroupController {
 			groupService.insertGroup(group);
 		}
 		groups = groupService.selectGroups();
-		return "redirect:/group/edit";
+		return "redirect:/setting/group/edit";
 	}
 
 	@GetMapping("/member")
@@ -63,10 +69,9 @@ public class GroupController {
 	
 	@PostMapping("/member")
 	public String member(GroupForm form) {
-		System.out.println(form.getAccountIds());
 		groupService.updateGroup(form);
 		accounts = groupService.selectAccounts();
-		return "redirect:/group/member";
+		return "redirect:/setting/group/member";
 	}
 	
 }

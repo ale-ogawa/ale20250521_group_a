@@ -12,10 +12,18 @@
 </head>
 
 <body>
-	<h2>疾患一覧</h2>
-	<br>
-	<h3 th:text="${user.name} + 'さんは' + ${user.status} + 'です。'">山田さんは●●です(仮）</h3>
-
+	<h2>
+		<a th:href="@{/info}">情報ページ</a>
+		＞＞疾患一覧
+	</h2>
+	<h3>
+		[[${account.nickname}]]さんは、
+		<span th:each="disease, iterStat : ${diseases}">
+			[[${disease.name}]]<span th:if="${!iterStat.last}">/</span>
+		</span>
+		です。
+	</h3>
+	
 	<!-- 精神疾患 -->
 	<button id="btnSeishin" onclick="toggleSeishin()">▶</button>精神疾患<br>
 	<div id="toggleContentSeishin" style="display:none;" class="sub-item">
@@ -65,292 +73,6 @@
 				・精神療法（カウンセリング）
 				医師やカウンセラーとの対話を通じて、問題解決の糸口を見つけます。﻿
 				認知行動療法（CBT）:や対人関係療法などがあります。</p>
-		</div>
-		<!-- てんかん -->
-
-		<button id="btnTenkann" onclick="toggleTenkann()">▶</button>てんかん<br>
-		<div id="toggleTenkann" style="display:none;" class="sub-item">
-			<p>てんかんとは、脳の神経細胞の異常な電気活動によって繰り返し発作が起こる神経疾患です。発作は突然起こり、数秒～数分で収まることが多いですが、日常生活や社会生活に影響を与えることがあります。
-
-				🔹 主な特徴
-				1.反復する発作
-				1回きりの発作ではてんかんとは診断されません
-				繰り返し発作が起こることが特徴
-
-				2.発作の種類
-				・全般発作（脳全体が関与）
-				意識を失う、全身のけいれん、脱力、失神など
-				・部分発作（脳の一部が関与）
-				意識は保たれる場合もある
-				手足のけいれん、しびれ、感覚の異常、幻覚など
-
-				3.誘因やきっかけ
-				睡眠不足、ストレス、光刺激、発熱などが発作を誘発することがあります
-
-				🔹 原因
-				先天的要因：遺伝や胎児期の脳の発達異常
-				後天的要因：脳腫瘍、脳卒中、頭部外傷、感染症など
-				多くの場合、原因は特定できないこともあります
-
-				🔹 治療
-				1.薬物療法
-				抗てんかん薬（AED）が第一選択
-				発作の種類に応じて薬を使い分ける
-				2.手術療法（薬でコントロールできない場合）
-				発作の原因となる脳の部位を切除
-				3.生活上の注意
-				睡眠不足や過度なストレスを避ける
-				水泳や高所作業など危険を伴う活動の際には注意
-
-				まとめると、てんかんは 「脳の神経細胞の異常な電気活動により、繰り返し発作が起こる慢性の神経疾患」 です。適切な薬物治療や生活管理で、多くの場合は発作のコントロールが可能です。</p>
-		</div>
-		<!-- パニック障害 -->
-
-		<button id="btnPanic" onclick="togglePanic()">▶</button>パニック障害<br>
-		<div id="togglePanic" style="display:none;" class="sub-item">
-			<p> パニック障害とは、 予期せず突然起こる強い恐怖や不安の発作（パニック発作） を繰り返す精神的な疾患です。発作は通常数分でピークに達し、急激に現れることが特徴です。
-
-				主な症状
-				パニック発作の際には、以下のような身体的・精神的症状が現れます
-				・身体的症状
-				動悸や心拍数の増加
-				発汗
-				震え
-				息切れ、息苦しさ
-				胸の痛みや圧迫感
-				めまい、ふらつき
-				吐き気、腹部不快感
-				寒気や熱感
-				手足のしびれ、感覚異常
-
-				・精神的症状
-				「死んでしまうのではないか」「気が狂うのではないか」という強い恐怖
-				現実感がないように感じる（非現実感・自分離れ感）
-
-				特徴
-				発作が突然起こる
-				予期不安：発作の後、再発の不安が強くなることが多い
-				広場恐怖:発作が起きた際に、逃げ出せない、助けを求められないと感じる場所（電車、エレベーター、混雑した場所など）を避けるようになる。
-				ひどくなると、一人で外出できなくなることもある
-
-				原因
-				遺伝的要因、脳内神経伝達物質の異常
-				ストレスや生活習慣の影響
-				性格的要素（過度の心配性など）
-
-				治療
-				薬物療法：抗うつ薬（SSRIなど）、抗不安薬
-				心理療法：認知行動療法（CBT）が有効
-				生活習慣の改善：十分な睡眠、適度な運動、カフェインやアルコールの制限
-			</p>
-		</div>
-		<!-- 強迫性障害 -->
-		<button id="btnKyohaku" onclick="toggleKyohaku()">▶</button>強迫性障害<br>
-		<div id="toggleKyohaku" style="display:none; margin-left:20px;">
-			<p> 強迫性障害とは、本人が望まなくても繰り返し現れる不安や考え（強迫観念）と、それを抑えるために行う行動や儀式（強迫行為）が中心となる精神疾患です。
-
-				🔹 主な特徴
-
-				1.強迫観念
-				繰り返し浮かぶ不快な考えやイメージ
-				例：
-				「手が汚れているのではないか」
-				「鍵をかけ忘れたかもしれない」
-				「他人を傷つけてしまうのではないか」
-
-				2.強迫行為
-				強迫観念による不安を和らげるために行う反復行動や心の儀式
-				例：
-				手洗いを何度も繰り返す
-				鍵や戸締まりを何度も確認する
-				頭の中で特定の言葉を唱える
-
-				🔹 特徴的なポイント
-				本人は異常だと自覚しているが、やめられない
-				日常生活に支障が出ることが多い
-				仕事や学業、家事に時間がかかりすぎる
-				社会生活や人間関係に影響する
-				発症は10代後半～20代前半が多い
-
-				🔹 治療
-				1.心理療法
-				認知行動療法（特に曝露反応妨害法：ERP）が有効
-
-				2.薬物療法
-				選択的セロトニン再取り込み阻害薬（SSRI）が第一選択</p>
-		</div>
-		<!-- 自閉症スペクトラム障害（ASD） -->
-		<button id="btnAsd" onclick="toggleAsd()">▶</button>自閉症スペクトラム障害（ASD）<br>
-		<div id="toggleAsd" style="display:none; margin-left:20px;">
-			<p> 自閉スペクトラム症（ASD）とは、社会的コミュニケーションや対人関係に特徴的な困難があり、限定された反復行動や興味・活動にこだわりが強い発達障害の一種です。
-
-				🔹 主な特徴
-				1.社会的コミュニケーション・対人関係の困難
-				相手の気持ちを読み取りにくい
-				会話やジェスチャーの理解が苦手
-				友人関係を築くのが難しいことがある
-
-				2.限定された反復的な行動や興味
-				特定のルールやパターンにこだわる
-				同じ動作を繰り返す（手をひらひらさせる、並べるなど）
-				特定の分野に強い関心を示す（電車や数字など）
-
-				3.感覚の過敏・鈍感
-				音・光・触覚などに極端に敏感、または鈍感
-
-				🔹 発症と経過
-				幼児期から症状が現れることが多い
-				知的障害の有無は個人差があり、知的能力は高い人もいる
-				早期に理解と支援を受けることで、生活の質を向上できる
-
-				🔹 治療・支援
-				・行動療法・発達支援
-				ABA（応用行動分析）などの療育
-				社会性やコミュニケーション能力の訓練
-
-				・教育・職業支援
-				個別の学習プラン、就労支援
-
-				・心理療法
-				不安・ストレス対応
-				↓
-				1.環境の調整
-				音や光に過敏な場合は照明や音量を調整
-				教室や職場で刺激の少ない場所を確保
-				予定やルールを明確にして安心感を持たせる
-
-				2.視覚的支援
-				スケジュールや手順を絵や図で示す
-				予定の変更や新しい課題を事前に視覚的に知らせる
-
-				3.行動・感情のセルフコントロール支援
-				深呼吸や簡単なストレッチなどリラックス法を教える
-				感情を表すカードやボードを使って「今の気持ち」を示せるようにする
-				感情を言葉にして整理する練習（言語化支援）
-
-				4.段階的慣れ（曝露的支援）
-				苦手な状況に少しずつ慣れる練習を段階的に行う
-				例：人混みが苦手 → 空いている時間に短時間だけ外出 → 徐々に時間や混雑度を増やす
-
-				5.心理的支援
-				認知行動療法（CBT）を応用して、不安やストレスの原因と対処法を学ぶ
-				気持ちを整理し、行動パターンを改善する
-
-				ASDの人に対する「不安・ストレス対応」は 環境や情報をわかりやすく整理して安心感を持たせ、感情や行動のコントロールを支援すること</p>
-		</div>
-		<!-- 心的外傷後ストレス障害（PTSD） -->
-		<button id="btnPtsd" onclick="togglePtsd()">▶</button>心的外傷後ストレス障害（PTSD）<br>
-		<div id="togglePtsd" style="display:none; margin-left:20px;">
-			<p> PTSD（心的外傷後ストレス障害）とは、強いトラウマ体験をきっかけに発症する精神疾患です。普通のストレスや不安とは異なり、心や身体に強く持続的な影響を与えます。
-
-				🔹 原因
-				PTSDは、以下のような極端に恐怖やショックを伴う出来事が引き金となります
-				交通事故や自然災害
-				暴力や虐待、性的被害
-				戦争やテロ、命の危険を伴う事件
-				重大な事故や医療上のトラウマ
-
-				🔹 主な症状
-				1.再体験（フラッシュバック）トラウマ体験を繰り返し思い出す
-				悪夢やフラッシュバックにより強い恐怖やパニックを感じる
-				2.回避行動
-				トラウマに関連する場所や人、状況を避ける
-				思い出すだけでも不快になる
-				3.認知・感情の変化
-				感情の鈍麻、興味・喜びの喪失
-				他人への信頼感の低下、自己評価の低下
-				4.過覚醒（過敏状態）
-				些細な刺激に過剰に反応する
-				不眠、イライラ、集中力低下、驚きやすさ
-
-				🔹 発症のタイミング
-				トラウマ体験の数日～数ヶ月後に症状が現れることが多い
-				時には何年も経ってから症状が出ることもある
-
-				🔹 治療
-
-				PTSDは早期に適切な治療を受けることで改善が期待できます
-
-				心理療法
-				認知行動療法（CBT）、曝露療法、EMDR（眼球運動による脱感作と再処理法）
-
-				薬物療法
-				抗うつ薬、抗不安薬など</p>
-		</div>
-		<!-- 睡眠障害 -->
-		<button id="btnSuimin" onclick="toggleSuimin()">▶</button>睡眠障害<br>
-		<div id="toggleSuimin" style="display:none; margin-left:20px;">
-			<p> 睡眠障害とは、睡眠の質・量・タイミングが持続的に乱れ、日中の生活や健康に支障をきたす状態を総称した精神・神経疾患です。
-
-				🔹 主な種類
-				1.不眠症
-				寝つきが悪い（入眠困難）
-				夜中に何度も目が覚める（中途覚醒）
-				朝早く目が覚めてしまう（早朝覚醒）
-				日中の眠気や集中力低下を伴う
-
-				2.過眠症
-				日中に強い眠気がある
-				ナルコレプシー（突発的な睡眠発作）を含む
-
-				3.概日リズム睡眠障害（Circadian Rhythm Sleep-Wake Disorders）
-				夜型や朝型など、体内時計と社会生活のズレによる睡眠障害
-				シフト勤務者や時差ぼけで起こることがある
-
-				4.睡眠関連呼吸障害（Sleep-Related Breathing Disorders）
-				睡眠時無呼吸症候群（SAS）など
-				睡眠中の呼吸の異常によって熟睡できない
-
-				5.むずむず脚症候群・周期性四肢運動障害
-				就寝中に脚を動かしたくなる衝動がある
-				睡眠の中断や不眠の原因となる
-
-				🔹 原因
-				精神的要因：ストレス、うつ病、双極性障害など
-				身体的要因：呼吸器疾患、疼痛、ホルモン異常
-				生活習慣：不規則な生活、過度のスマホ・パソコン使用、カフェイン・アルコール摂取
-
-				🔹 治療
-				治療
-				睡眠衛生指導（生活リズムの改善）
-				認知行動療法（CBT-I）
-				薬物療法（必要に応じて睡眠薬や覚醒薬）</p>
-		</div>
-		<!-- 摂食障害 -->
-		<button id="btnShoku" onclick="toggleShoku()">▶</button>摂食障害<br>
-		<div id="toggleShoku" style="display:none; margin-left:20px;">
-			<p> 摂食障害とは、食事や体重、体型に関する強いこだわりが原因で、食行動や体重管理に異常が生じ、心身に深刻な影響を与える精神疾患の総称です。単なるダイエットや偏食とは異なり、生活や健康に支障をきたします。
-
-				🔹 主な種類
-				1.神経性やせ症（拒食症：Anorexia Nervosa）
-				極端な食事制限による著しい体重減少
-				「痩せていなければならない」という強い恐怖心
-				月経停止や低血圧、骨密度低下など身体的合併症を伴うこともある
-
-				2.神経性過食症（過食・排出型：Bulimia Nervosa）
-				短時間に大量に食べる過食エピソード
-				その後、吐く・下剤を使う・過剰運動などで体重増加を防ぐ行動（排出行動）
-				電解質異常や胃腸障害、歯の損傷など身体への影響がある
-
-				3.過食性障害（Binge Eating Disorder, BED）
-				過食はするが排出行動は行わない
-				食べた後に罪悪感や抑うつ感を強く感じる
-				肥満や生活習慣病につながるリスクが高い
-
-				4.その他の指定不能の摂食障害（OSFED）
-				上記の基準には完全に当てはまらないが、食行動や体重管理の問題で健康や生活に支障がある場合
-
-				🔹 主な原因
-				心理的要因：自己評価の低さ、完璧主義、ストレス
-				社会・文化的要因：痩せ志向の強い文化、メディアの影響
-				生物学的要因：遺伝的素因や脳の神経伝達物質の影響
-
-				🔹 治療
-				心理療法：認知行動療法（CBT）、家族療法
-				栄養療法：体重回復や食習慣改善
-				薬物療法：合併症や気分障害に応じて抗うつ薬など
-
-				摂食障害は 命に関わることもある深刻な疾患であり、早期発見と専門的治療が重要です。</p>
 		</div>
 		<!-- 双極性障害Ⅰ型 -->
 		<button id="btnSoukyoku1" onclick="toggleSoukyoku1()">▶</button>双極性障害Ⅰ型<br>
@@ -450,45 +172,6 @@
 				﻿
 				生活習慣指導:睡眠不足や徹夜が躁状態の引き金になることがあるため、規則正しい生活習慣を身につけることが大切です。﻿</p>
 		</div>
-		<!-- 注意欠如・多動症 -->
-		<button id="btnTadou" onclick="toggleTadou()">▶</button>注意欠陥・多動症<br>
-		<div id="toggleTadou" style="display:none; margin-left:20px;">
-			<p> ADHD（注意欠如・多動症）とは、注意力の持続が難しい、多動・衝動的な行動が目立つ神経発達障害です。子どもだけでなく大人にも見られ、学業・仕事・人間関係に影響を及ぼすことがあります。
-
-				🔹 主な特徴
-
-				1.不注意（Attention Deficit）
-				注意を集中させ続けるのが苦手
-				宿題や仕事でうっかりミスが多い
-				物をよくなくす、計画性が乏しい
-
-				2.多動性（Hyperactivity）
-				落ち着きがなく、じっとしていられない
-				過剰に動き回る、手足をそわそわ動かす
-
-				3.衝動性（Impulsivity）
-				思いついたことをすぐ行動してしまう
-				順番を待てない、会話を遮る
-				衝動買いや危険行動が出ることもある
-
-				🔹 発症と経過
-				発症は幼児期～学童期に見られることが多い
-				大人になっても症状が続くことがある（約60%の人が持続）
-				学校や仕事、対人関係で困難を感じやすい
-
-				🔹 治療
-
-				1.薬物療法
-				ストラテラ、メチルフェニデートなど注意力・衝動性の改善薬
-
-				2.心理・行動療法
-				認知行動療法（CBT）
-				注意力や自己管理能力の訓練
-
-				3.生活支援
-				学校・職場での環境調整
-				タイムマネジメントやタスク管理の支援</p>
-		</div>
 		<!-- 適応障害 -->
 		<button id="btnTekiou" onclick="toggleTekiou()">▶</button>適応障害<br>
 		<div id="toggleTekiou" style="display:none; margin-left:20px;">
@@ -540,6 +223,198 @@
 				ストレス対処法（リラクゼーション、趣味、運動など）を身につける
 			</p>
 		</div>
+
+		<!-- パニック障害 -->
+
+		<button id="btnPanic" onclick="togglePanic()">▶</button>パニック障害<br>
+		<div id="togglePanic" style="display:none;" class="sub-item">
+			<p> パニック障害とは、 予期せず突然起こる強い恐怖や不安の発作（パニック発作） を繰り返す精神的な疾患です。発作は通常数分でピークに達し、急激に現れることが特徴です。
+
+				主な症状
+				パニック発作の際には、以下のような身体的・精神的症状が現れます
+				・身体的症状
+				動悸や心拍数の増加
+				発汗
+				震え
+				息切れ、息苦しさ
+				胸の痛みや圧迫感
+				めまい、ふらつき
+				吐き気、腹部不快感
+				寒気や熱感
+				手足のしびれ、感覚異常
+
+				・精神的症状
+				「死んでしまうのではないか」「気が狂うのではないか」という強い恐怖
+				現実感がないように感じる（非現実感・自分離れ感）
+
+				特徴
+				発作が突然起こる
+				予期不安：発作の後、再発の不安が強くなることが多い
+				広場恐怖:発作が起きた際に、逃げ出せない、助けを求められないと感じる場所（電車、エレベーター、混雑した場所など）を避けるようになる。
+				ひどくなると、一人で外出できなくなることもある
+
+				原因
+				遺伝的要因、脳内神経伝達物質の異常
+				ストレスや生活習慣の影響
+				性格的要素（過度の心配性など）
+
+				治療
+				薬物療法：抗うつ薬（SSRIなど）、抗不安薬
+				心理療法：認知行動療法（CBT）が有効
+				生活習慣の改善：十分な睡眠、適度な運動、カフェインやアルコールの制限
+			</p>
+		</div>
+		<!-- 睡眠障害 -->
+		<button id="btnSuimin" onclick="toggleSuimin()">▶</button>睡眠障害<br>
+		<div id="toggleSuimin" style="display:none; margin-left:20px;">
+			<p> 睡眠障害とは、睡眠の質・量・タイミングが持続的に乱れ、日中の生活や健康に支障をきたす状態を総称した精神・神経疾患です。
+
+				🔹 主な種類
+				1.不眠症
+				寝つきが悪い（入眠困難）
+				夜中に何度も目が覚める（中途覚醒）
+				朝早く目が覚めてしまう（早朝覚醒）
+				日中の眠気や集中力低下を伴う
+
+				2.過眠症
+				日中に強い眠気がある
+				ナルコレプシー（突発的な睡眠発作）を含む
+
+				3.概日リズム睡眠障害（Circadian Rhythm Sleep-Wake Disorders）
+				夜型や朝型など、体内時計と社会生活のズレによる睡眠障害
+				シフト勤務者や時差ぼけで起こることがある
+
+				4.睡眠関連呼吸障害（Sleep-Related Breathing Disorders）
+				睡眠時無呼吸症候群（SAS）など
+				睡眠中の呼吸の異常によって熟睡できない
+
+				5.むずむず脚症候群・周期性四肢運動障害
+				就寝中に脚を動かしたくなる衝動がある
+				睡眠の中断や不眠の原因となる
+
+				🔹 原因
+				精神的要因：ストレス、うつ病、双極性障害など
+				身体的要因：呼吸器疾患、疼痛、ホルモン異常
+				生活習慣：不規則な生活、過度のスマホ・パソコン使用、カフェイン・アルコール摂取
+
+				🔹 治療
+				治療
+				睡眠衛生指導（生活リズムの改善）
+				認知行動療法（CBT-I）
+				薬物療法（必要に応じて睡眠薬や覚醒薬）</p>
+		</div>
+		<!-- 強迫性障害 -->
+		<button id="btnKyohaku" onclick="toggleKyohaku()">▶</button>強迫性障害<br>
+		<div id="toggleKyohaku" style="display:none; margin-left:20px;">
+			<p> 強迫性障害とは、本人が望まなくても繰り返し現れる不安や考え（強迫観念）と、それを抑えるために行う行動や儀式（強迫行為）が中心となる精神疾患です。
+
+				🔹 主な特徴
+
+				1.強迫観念
+				繰り返し浮かぶ不快な考えやイメージ
+				例：
+				「手が汚れているのではないか」
+				「鍵をかけ忘れたかもしれない」
+				「他人を傷つけてしまうのではないか」
+
+				2.強迫行為
+				強迫観念による不安を和らげるために行う反復行動や心の儀式
+				例：
+				手洗いを何度も繰り返す
+				鍵や戸締まりを何度も確認する
+				頭の中で特定の言葉を唱える
+
+				🔹 特徴的なポイント
+				本人は異常だと自覚しているが、やめられない
+				日常生活に支障が出ることが多い
+				仕事や学業、家事に時間がかかりすぎる
+				社会生活や人間関係に影響する
+				発症は10代後半～20代前半が多い
+
+				🔹 治療
+				1.心理療法
+				認知行動療法（特に曝露反応妨害法：ERP）が有効
+
+				2.薬物療法
+				選択的セロトニン再取り込み阻害薬（SSRI）が第一選択</p>
+		</div>
+
+		<!-- 心的外傷後ストレス障害（PTSD） -->
+		<button id="btnPtsd" onclick="togglePtsd()">▶</button>心的外傷後ストレス障害（PTSD）<br>
+		<div id="togglePtsd" style="display:none; margin-left:20px;">
+			<p> PTSD（心的外傷後ストレス障害）とは、強いトラウマ体験をきっかけに発症する精神疾患です。普通のストレスや不安とは異なり、心や身体に強く持続的な影響を与えます。
+
+				🔹 原因
+				PTSDは、以下のような極端に恐怖やショックを伴う出来事が引き金となります
+				交通事故や自然災害
+				暴力や虐待、性的被害
+				戦争やテロ、命の危険を伴う事件
+				重大な事故や医療上のトラウマ
+
+				🔹 主な症状
+				1.再体験（フラッシュバック）トラウマ体験を繰り返し思い出す
+				悪夢やフラッシュバックにより強い恐怖やパニックを感じる
+				2.回避行動
+				トラウマに関連する場所や人、状況を避ける
+				思い出すだけでも不快になる
+				3.認知・感情の変化
+				感情の鈍麻、興味・喜びの喪失
+				他人への信頼感の低下、自己評価の低下
+				4.過覚醒（過敏状態）
+				些細な刺激に過剰に反応する
+				不眠、イライラ、集中力低下、驚きやすさ
+
+				🔹 発症のタイミング
+				トラウマ体験の数日～数ヶ月後に症状が現れることが多い
+				時には何年も経ってから症状が出ることもある
+
+				🔹 治療
+
+				PTSDは早期に適切な治療を受けることで改善が期待できます
+
+				心理療法
+				認知行動療法（CBT）、曝露療法、EMDR（眼球運動による脱感作と再処理法）
+
+				薬物療法
+				抗うつ薬、抗不安薬など</p>
+		</div>
+
+		<!-- 摂食障害 -->
+		<button id="btnShoku" onclick="toggleShoku()">▶</button>摂食障害<br>
+		<div id="toggleShoku" style="display:none; margin-left:20px;">
+			<p> 摂食障害とは、食事や体重、体型に関する強いこだわりが原因で、食行動や体重管理に異常が生じ、心身に深刻な影響を与える精神疾患の総称です。単なるダイエットや偏食とは異なり、生活や健康に支障をきたします。
+
+				🔹 主な種類
+				1.神経性やせ症（拒食症：Anorexia Nervosa）
+				極端な食事制限による著しい体重減少
+				「痩せていなければならない」という強い恐怖心
+				月経停止や低血圧、骨密度低下など身体的合併症を伴うこともある
+
+				2.神経性過食症（過食・排出型：Bulimia Nervosa）
+				短時間に大量に食べる過食エピソード
+				その後、吐く・下剤を使う・過剰運動などで体重増加を防ぐ行動（排出行動）
+				電解質異常や胃腸障害、歯の損傷など身体への影響がある
+
+				3.過食性障害（Binge Eating Disorder, BED）
+				過食はするが排出行動は行わない
+				食べた後に罪悪感や抑うつ感を強く感じる
+				肥満や生活習慣病につながるリスクが高い
+
+				4.その他の指定不能の摂食障害（OSFED）
+				上記の基準には完全に当てはまらないが、食行動や体重管理の問題で健康や生活に支障がある場合
+
+				🔹 主な原因
+				心理的要因：自己評価の低さ、完璧主義、ストレス
+				社会・文化的要因：痩せ志向の強い文化、メディアの影響
+				生物学的要因：遺伝的素因や脳の神経伝達物質の影響
+
+				🔹 治療
+				心理療法：認知行動療法（CBT）、家族療法
+				栄養療法：体重回復や食習慣改善
+				薬物療法：合併症や気分障害に応じて抗うつ薬など
+
+				摂食障害は 命に関わることもある深刻な疾患であり、早期発見と専門的治療が重要です。</p>
+		</div>
 		<!-- 統合失調症 -->
 		<button id="btnToushitsu" onclick="toggleToushitsu()">▶</button>統合失調症<br>
 		<div id="toggleToushitsu" style="display:none; margin-left:20px;">
@@ -579,6 +454,176 @@
 				生活支援：就労支援や住居支援など</p>
 		</div>
 	</div>
+	<!-- 発達障害 -->
+	<button id="btnHattatsu" onclick="toggleHattatsu()">▶</button>発達障害<br>
+	<div id="toggleContentHattatsu" style="display:none;" class="sub-item">
+		<!-- 自閉症スペクトラム障害（ASD） -->
+		<button id="btnAsd" onclick="toggleAsd()">▶</button>自閉症スペクトラム障害（ASD）<br>
+		<div id="toggleAsd" style="display:none; margin-left:20px;">
+			<p> 自閉スペクトラム症（ASD）とは、社会的コミュニケーションや対人関係に特徴的な困難があり、限定された反復行動や興味・活動にこだわりが強い発達障害の一種です。
+
+				🔹 主な特徴
+				1.社会的コミュニケーション・対人関係の困難
+				相手の気持ちを読み取りにくい
+				会話やジェスチャーの理解が苦手
+				友人関係を築くのが難しいことがある
+
+				2.限定された反復的な行動や興味
+				特定のルールやパターンにこだわる
+				同じ動作を繰り返す（手をひらひらさせる、並べるなど）
+				特定の分野に強い関心を示す（電車や数字など）
+
+				3.感覚の過敏・鈍感
+				音・光・触覚などに極端に敏感、または鈍感
+
+				🔹 発症と経過
+				幼児期から症状が現れることが多い
+				知的障害の有無は個人差があり、知的能力は高い人もいる
+				早期に理解と支援を受けることで、生活の質を向上できる
+
+				🔹 治療・支援
+				・行動療法・発達支援
+				ABA（応用行動分析）などの療育
+				社会性やコミュニケーション能力の訓練
+
+				・教育・職業支援
+				個別の学習プラン、就労支援
+
+				・心理療法
+				不安・ストレス対応
+				↓
+				1.環境の調整
+				音や光に過敏な場合は照明や音量を調整
+				教室や職場で刺激の少ない場所を確保
+				予定やルールを明確にして安心感を持たせる
+
+				2.視覚的支援
+				スケジュールや手順を絵や図で示す
+				予定の変更や新しい課題を事前に視覚的に知らせる
+
+				3.行動・感情のセルフコントロール支援
+				深呼吸や簡単なストレッチなどリラックス法を教える
+				感情を表すカードやボードを使って「今の気持ち」を示せるようにする
+				感情を言葉にして整理する練習（言語化支援）
+
+				4.段階的慣れ（曝露的支援）
+				苦手な状況に少しずつ慣れる練習を段階的に行う
+				例：人混みが苦手 → 空いている時間に短時間だけ外出 → 徐々に時間や混雑度を増やす
+
+				5.心理的支援
+				認知行動療法（CBT）を応用して、不安やストレスの原因と対処法を学ぶ
+				気持ちを整理し、行動パターンを改善する
+
+				ASDの人に対する「不安・ストレス対応」は 環境や情報をわかりやすく整理して安心感を持たせ、感情や行動のコントロールを支援すること</p>
+		</div>
+		<!-- 注意欠如・多動症 -->
+		<button id="btnTadou" onclick="toggleTadou()">▶</button>注意欠陥・多動症（ADHD）<br>
+		<div id="toggleTadou" style="display:none; margin-left:20px;">
+			<p> ADHD（注意欠如・多動症）とは、注意力の持続が難しい、多動・衝動的な行動が目立つ神経発達障害です。子どもだけでなく大人にも見られ、学業・仕事・人間関係に影響を及ぼすことがあります。
+
+				🔹 主な特徴
+
+				1.不注意（Attention Deficit）
+				注意を集中させ続けるのが苦手
+				宿題や仕事でうっかりミスが多い
+				物をよくなくす、計画性が乏しい
+
+				2.多動性（Hyperactivity）
+				落ち着きがなく、じっとしていられない
+				過剰に動き回る、手足をそわそわ動かす
+
+				3.衝動性（Impulsivity）
+				思いついたことをすぐ行動してしまう
+				順番を待てない、会話を遮る
+				衝動買いや危険行動が出ることもある
+
+				🔹 発症と経過
+				発症は幼児期～学童期に見られることが多い
+				大人になっても症状が続くことがある（約60%の人が持続）
+				学校や仕事、対人関係で困難を感じやすい
+
+				🔹 治療
+
+				1.薬物療法
+				ストラテラ、メチルフェニデートなど注意力・衝動性の改善薬
+
+				2.心理・行動療法
+				認知行動療法（CBT）
+				注意力や自己管理能力の訓練
+
+				3.生活支援
+				学校・職場での環境調整
+				タイムマネジメントやタスク管理の支援</p>
+		</div>
+	</div>
+	<!-- 身体疾患 -->
+	<button id="btnShintai" onclick="toggleShintai()">▶</button>身体疾患<br>
+	<div id="toggleContentShintai" style="display:none;" class="sub-item">
+		<!-- てんかん -->
+
+		<button id="btnTenkann" onclick="toggleTenkann()">▶</button>てんかん<br>
+		<div id="toggleTenkann" style="display:none;" class="sub-item">
+			<p>てんかんとは、脳の神経細胞の異常な電気活動によって繰り返し発作が起こる神経疾患です。発作は突然起こり、数秒～数分で収まることが多いですが、日常生活や社会生活に影響を与えることがあります。
+
+				🔹 主な特徴
+				1.反復する発作
+				1回きりの発作ではてんかんとは診断されません
+				繰り返し発作が起こることが特徴
+
+				2.発作の種類
+				・全般発作（脳全体が関与）
+				意識を失う、全身のけいれん、脱力、失神など
+				・部分発作（脳の一部が関与）
+				意識は保たれる場合もある
+				手足のけいれん、しびれ、感覚の異常、幻覚など
+
+				3.誘因やきっかけ
+				睡眠不足、ストレス、光刺激、発熱などが発作を誘発することがあります
+
+				🔹 原因
+				先天的要因：遺伝や胎児期の脳の発達異常
+				後天的要因：脳腫瘍、脳卒中、頭部外傷、感染症など
+				多くの場合、原因は特定できないこともあります
+
+				🔹 治療
+				1.薬物療法
+				抗てんかん薬（AED）が第一選択
+				発作の種類に応じて薬を使い分ける
+				2.手術療法（薬でコントロールできない場合）
+				発作の原因となる脳の部位を切除
+				3.生活上の注意
+				睡眠不足や過度なストレスを避ける
+				水泳や高所作業など危険を伴う活動の際には注意
+
+				まとめると、てんかんは 「脳の神経細胞の異常な電気活動により、繰り返し発作が起こる慢性の神経疾患」 です。適切な薬物治療や生活管理で、多くの場合は発作のコントロールが可能です。</p>
+		</div>
+	</div>
+	
+	<a th:href="@{/}" class="button-link">ホーム</a>
+	<a th:href="@{/medicine}" class="button-link">薬</a>
+	<a th:href="@{/calendar}" class="button-link">カレンダー</a>
+	<a th:href="@{/graph}" class="button-link">グラフ</a>
+	<a th:href="@{/info}" class="button-link">情報</a>
+	<a th:href="@{/setting}" class="button-link">設定</a>
+
+	<style>
+	.button-link {
+	    display: inline-block;
+	    padding: 10px 20px;
+	    margin: 5px 0;
+	    background-color: #4CAF50; /* 緑色 */
+	    color: white;
+	    text-decoration: none;
+	    border-radius: 5px;
+	    text-align: center;
+	    font-weight: bold;
+	    transition: background-color 0.3s;
+	}
+
+	.button-link:hover {
+	    background-color: #45a049; /* ホバー時 */
+	}
+	</style>
 
 	<script>
 		function toggleSeishin() {
@@ -592,14 +637,6 @@
 		function toggleSeishinUtsu() {
 			const content = document.getElementById("toggleSeishinUtsu");
 			const button = document.getElementById("btnUtsu");
-			const isHidden = content.style.display === "none";
-			content.style.display = isHidden ? "block" : "none";
-			button.textContent = isHidden ? "▼" : "▶";
-		}
-
-		function toggleTenkann() {
-			const content = document.getElementById("toggleTenkann");
-			const button = document.getElementById("btnTenkann");
 			const isHidden = content.style.display === "none";
 			content.style.display = isHidden ? "block" : "none";
 			button.textContent = isHidden ? "▼" : "▶";
@@ -619,13 +656,7 @@
 			content.style.display = isHidden ? "block" : "none";
 			button.textContent = isHidden ? "▼" : "▶";
 		}
-		function toggleAsd() {
-			const content = document.getElementById("toggleAsd");
-			const button = document.getElementById("btnAsd");
-			const isHidden = content.style.display === "none";
-			content.style.display = isHidden ? "block" : "none";
-			button.textContent = isHidden ? "▼" : "▶";
-		}
+		
 		function togglePtsd() {
 			const content = document.getElementById("togglePtsd");
 			const button = document.getElementById("btnPtsd");
@@ -661,13 +692,7 @@
 			content.style.display = isHidden ? "block" : "none";
 			button.textContent = isHidden ? "▼" : "▶";
 		}
-		function toggleTadou() {
-			const content = document.getElementById("toggleTadou");
-			const button = document.getElementById("btnTadou");
-			const isHidden = content.style.display === "none";
-			content.style.display = isHidden ? "block" : "none";
-			button.textContent = isHidden ? "▼" : "▶";
-		}
+		
 		function toggleTekiou() {
 			const content = document.getElementById("toggleTekiou");
 			const button = document.getElementById("btnTekiou");
@@ -682,6 +707,43 @@
 			content.style.display = isHidden ? "block" : "none";
 			button.textContent = isHidden ? "▼" : "▶";
 		}
+		function toggleHattatsu() {
+			const content = document.getElementById("toggleContentHattatsu");
+			const button = document.getElementById("btnHattatsu");
+			const isHidden = content.style.display === "none";
+			content.style.display = isHidden ? "block" : "none";
+			button.textContent = isHidden ? "▼" : "▶";
+		}
+		function toggleAsd() {
+			const content = document.getElementById("toggleAsd");
+			const button = document.getElementById("btnAsd");
+			const isHidden = content.style.display === "none";
+			content.style.display = isHidden ? "block" : "none";
+			button.textContent = isHidden ? "▼" : "▶";
+		}
+		function toggleTadou() {
+			const content = document.getElementById("toggleTadou");
+			const button = document.getElementById("btnTadou");
+			const isHidden = content.style.display === "none";
+			content.style.display = isHidden ? "block" : "none";
+			button.textContent = isHidden ? "▼" : "▶";
+		}
+		function toggleShintai() {
+			const content = document.getElementById("toggleContentShintai");
+			const button = document.getElementById("btnShintai");
+			const isHidden = content.style.display === "none";
+			content.style.display = isHidden ? "block" : "none";
+			button.textContent = isHidden ? "▼" : "▶";
+		}
+		function toggleTenkann() {
+			const content = document.getElementById("toggleTenkann");
+			const button = document.getElementById("btnTenkann");
+			const isHidden = content.style.display === "none";
+			content.style.display = isHidden ? "block" : "none";
+			button.textContent = isHidden ? "▼" : "▶";
+		}
+				
+
 
 	</script>
 </body>

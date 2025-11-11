@@ -1,23 +1,223 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>グループ管理画面</title>
+  <meta charset="UTF-8">
+  <title>グループ管理画面</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+
+  <style>
+    @charset "utf-8";
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 280px;
+      height: 520px;
+      background-color: #fff;
+      border: 1px solid #1e3a8a;
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 15px 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 見出し */
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #000;
+      transform: translateX(-6px);
+    }
+
+    h2 span {
+      font-size: 20px;
+    }
+
+    /* メイン領域（スクロール可） */
+    .menu {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+      gap: 10px;
+      margin-top: 10px;
+      padding-bottom: 130px; /* 下部固定ボタン＋アンダーメニュー分の余白 */
+    }
+
+    .menu form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    input[type="text"] {
+      width: 120px;
+      padding: 2px 4px;
+      font-size: 14px;
+      border: 1px solid #999;
+      border-radius: 4px;
+    }
+
+    input[type="submit"] {
+      font-size: 14px;
+      padding: 3px 6px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #388e3c;
+    }
+
+    .group-info {
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    /* ▼ コンテナ内右下固定（アンダーメニューにかからない） */
+    .sub-buttons {
+      position: absolute;
+      right: 10px;
+      bottom: 100px; /* ← さらに上に移動してかからないように調整 */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .sub-buttons a {
+      display: block;
+      padding: 8px 12px;
+      background-color: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.2s;
+    }
+
+    .sub-buttons a:hover {
+      background-color: #1e3a8a;
+    }
+
+    /* ▼ 統一アンダーメニュー ▼ */
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid #ccc;
+      padding-top: 6px;
+      margin-top: 10px;
+    }
+
+    .under-menu a {
+      flex: 1;
+      text-align: center;
+    }
+
+    .under-menu img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      text-align: center;
+      margin-top: 4px;
+    }
+  </style>
 </head>
 
 <body>
-	<h2>グループ管理</h2>
-		<div th:each="group : ${groups}">
-			<p>[[${group.name}]]　(招待コード:[[${group.code}]])</p>
-			<div th:each="account : ${accounts}">
-				<ul th:if="${group.id == account.groupId}">
-					<li th:text="${account.nickname}"></li>
-				</ul>
-			</div>
-		</div>
-		<a th:href="@{/group/edit}">グループ追加・削除</a>
-		<br>
-		<a th:href="@{/group/member}">メンバーの移動</a>
-</body>
+  <div class="container">
+    <h2><span>👥</span>グループ管理</h2>
 
+    <div class="menu">
+      <div th:each="group : ${groups}">
+        <div class="group-info">
+          <form th:action="@{/setting/group}" th:object="${groupForm}" method="post">
+            <input type="text" th:name="name" th:value="${group.name}">
+            <input type="hidden" th:name="id" th:value="${group.id}">
+            <input type="submit" value="変更">
+          </form>
+          <div>(招待コード:[[${group.code}]])</div>
+        </div>
+
+        <div th:each="account : ${accounts}">
+          <ul th:if="${group.id == account.groupId}">
+            <li th:text="${account.nickname}"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ▼ グループ操作ボタン（アンダーメニューにかからない） -->
+    <div class="sub-buttons">
+      <a th:href="@{/setting/group/edit}">グループ追加・削除</a>
+      <a th:href="@{/setting/group/member}">メンバーの移動</a>
+    </div>
+
+    <!-- ▼ アンダーメニュー -->
+    <div>
+      <div class="under-menu">
+        <a th:href="@{/}">
+          <img src="/images/under01_transparent.png" alt="ホーム">
+        </a>
+        <a th:href="@{/calendar}">
+          <img src="/images/under02_transparent.png" alt="カレンダー">
+        </a>
+        <a th:href="@{/medicine}">
+          <img src="/images/under03_transparent.png" alt="薬">
+        </a>
+        <a th:href="@{/graph}">
+          <img src="/images/under04_transparent.png" alt="グラフ">
+        </a>
+        <a th:href="@{/info}">
+          <img src="/images/under05_transparent.png" alt="情報">
+        </a>
+        <a th:href="@{/setting}">
+          <img src="/images/under06_transparent.png" alt="設定">
+        </a>
+      </div>
+
+      <div class="footer">© KYO NO KIMOCHI Lab.</div>
+    </div>
+  </div>
+</body>
 </html>

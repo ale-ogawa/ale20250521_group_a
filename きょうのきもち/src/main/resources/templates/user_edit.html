@@ -1,28 +1,280 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>ユーザー情報編集</title>
+  <meta charset="UTF-8">
+  <title>ユーザー情報登録</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+      margin: 0;
+    }
+
+    /* 🔙 左上の戻るボタン */
+    .back-button {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      background-color: #3B82F6;
+      color: white;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .back-button:hover {
+      background-color: #2563EB;
+    }
+
+    .container {
+      background-color: white;
+      border: 2px solid #dbeafe;
+      border-radius: 20px;
+      width: 320px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* 下部に固定するため */
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .cloud {
+      font-size: 40px;
+      margin: 10px 0;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #1e3a8a;
+    }
+
+    .form-box {
+      background-color: #dbeafe;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .radio-group label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+
+    /* ラジオ風チェックボックス */
+    input[type="checkbox"].radio-toggle {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #555;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 5px;
+      position: relative;
+    }
+
+    input[type="checkbox"].radio-toggle:checked::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background-color: #3B82F6;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #444;
+      margin: 10px 0;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #3B82F6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #2563EB;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      margin-top: 5px;
+    }
+
+    /* 下部メニュー */
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 6px;
+      border-top: 1px solid #ccc;
+    }
+
+    .under-menu a {
+      flex: 1;
+      text-align: center;
+    }
+
+    .under-menu img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .button-link {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px 0;
+      background-color: #4CAF50; /* 緑色 */
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .button-link:hover {
+      background-color: #45a049;
+    }
+	.cloud-image {
+	  width: 100px;    
+	  height: auto;    
+	  display: block;  
+	  margin: 20px auto;
+	}
+
+  </style>
 </head>
 <body>
-    <h2>ユーザー情報編集</h2>
 
-	<form th:action="@{/user/update}" th:object="${userInfo}" method="post">
-	    <input type="hidden" th:field="*{id}" />
+  <div class="container">
+	<img src="/images/cloud.png" class="cloud-image" alt="Cloud">
+    <h2>
+      <a th:href="@{/setting}">設定</a>
+      ＞＞
+      <a th:href="@{/setting/user}">ユーザー情報</a>
+      ＞＞ユーザー情報編集
+    </h2>
 
-	    <label>ニックネーム:</label>
-	    <input type="text" th:field="*{nickname}" /><br><br>
+    <form th:action="@{/setting/user/edit}" th:object="${userForm}" method="post">
+      <!-- ニックネーム -->
+      <div class="form-box">
+        <label for="nickname">ニックネーム</label>
+        <input type="text" id="nickname" th:name="nickname"
+         th:value="${account.nickname}" maxlength="10" required>
+        <p th:if="${errorNickname}" th:text="${errorNickname}" class="error"></p>
+      </div>
 
-	    <label>疾患:</label>
-	    <select th:field="*{choice}">
-	        <option th:each="d : ${disease}" th:value="${d.id}" th:text="${d.name}"></option>
-	    </select><br><br>
+      <!-- 疾患 -->
+      <div th:if="${attribute}" class="form-box">
+        <label>疾患</label>
+        <div class="radio-group">
+          <div th:each="disease : ${allDiseases}">
+            <input type="checkbox" th:name="disorders" th:value="${disease.id}"
+              th:checked="${myDiseaseIds.contains(disease.id)}" class="radio-toggle">
+            [[${disease.name}]]
+          </div>
+          <input type="checkbox" th:name="disorders" th:value="0"
+            class="radio-toggle" id="otherCheck">その他
+          <input type="text" th:field="*{other}" placeholder="その他の場合入力" id="otherText" disabled>
+          <p th:if="${errorOther}" th:text="${errorOther}" class="error"></p>
+        </div>
+      </div>
 
-	    <button type="submit">保存</button>
-	</form>
+      <p class="note">※設定は後で変更できます</p>
 
+      <button type="submit">登録</button>
+    </form>
 
-    <br>
-    <a href="user.html">戻る</a>
+    <div class="footer">© KYO NO KIMOCHI Lab.</div>
+
+    <!-- 下部固定メニュー -->
+    <div class="under-menu">
+      <a th:href="@{/}"><img src="/images/under01_transparent.png" alt="ホーム"></a>
+      <a th:href="@{/medicine}"><img src="/images/under02_transparent.png" alt="薬"></a>
+      <a th:href="@{/calendar}"><img src="/images/under03_transparent.png" alt="カレンダー"></a>
+      <a th:href="@{/graph}"><img src="/images/under04_transparent.png" alt="グラフ"></a>
+      <a th:href="@{/info}"><img src="/images/under05_transparent.png" alt="情報"></a>
+      <a th:href="@{/setting}"><img src="/images/under06_transparent.png" alt="設定"></a>
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const otherCheck = document.getElementById('otherCheck');
+      const otherText = document.getElementById('otherText');
+
+      if (otherCheck && otherText) {
+        otherCheck.addEventListener('change', function() {
+          otherText.disabled = !this.checked;
+          if (!this.checked) {
+            otherText.value = '';
+          }
+        });
+      }
+
+      document.querySelectorAll('.radio-toggle').forEach(input => {
+        input.addEventListener('click', function() {
+          if (this.hasAttribute('data-waschecked')) {
+            this.checked = false;
+            this.removeAttribute('data-waschecked');
+          } else {
+            this.setAttribute('data-waschecked', 'true');
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>

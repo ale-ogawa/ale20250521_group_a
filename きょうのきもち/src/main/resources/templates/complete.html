@@ -1,49 +1,33 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>アカウント登録完了</title>
-  <link rel="stylesheet" th:href="@{/css/reset.css}">
-  <link rel="stylesheet" th:href="@{/css/common.css}">
-  <link rel="stylesheet" th:href="@{/css/complete.css}">
+  
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/confirm.css">
 </head>
 <body class="common_body">
 
-  <!-- Header -->
-  <header class="common_header wrapper"></header>
+  <div class="wrapper">
+    <header class="common_header"></header>
 
-  <div class="common_content wrapper">
-    <main class="complete_main">
+    <div class="common_content">
+        <p class="style_sub_title">アカウント登録</p>
+        <div class="complete_image_area">
+          <img src="/images/cloud_transparent.png" alt="雲のアイコン" class="complete_image">
+        </div>
+        <p class="complete_message">登録が完了しました。</p>
+        <div class="style_certificate_button_area">
+          <a th:href="@{/select}" class="style_certificate_button">ログイン画面へ進む</a>
+        </div>
+    </div>
 
-      <!-- タイトルバー -->
-      <div class="complete_title_bar">アカウント登録</div>
-
-      <!-- 完了メッセージ -->
-      <p class="complete_message">登録が完了しました。</p>
-
-      <!-- 画像 -->
-      <div class="complete_image_area">
-        <img th:src="@{/images/cloud_transparent.png}" alt="雲のアイコン" class="complete_image">
-      </div>
-
-      <!-- ログイン画面リンク -->
-      <p class="complete_link">
-        <a th:href="@{/login}" class="login_link">① ログイン画面に進む</a>
-      </p>
-
-      <!-- 戻るボタン -->
-      <div class="complete_back">
-        <form th:action="@{/create}" method="get">
-          <button type="submit" class="back_button">戻る</button>
-        </form>
-      </div>
-
-    </main>
+    <footer class="common_footer"></footer>
   </div>
-
-  <footer class="common_footer wrapper"></footer>
-  <script th:src="@{/js/header.js}"></script>
-  <script th:src="@{/js/footer.js}"></script>
-
+  
 </body>
+
 </html>

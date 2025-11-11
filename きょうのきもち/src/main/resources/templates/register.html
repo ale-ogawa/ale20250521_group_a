@@ -1,71 +1,94 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
   <meta charset="UTF-8">
   <title>ユーザー情報登録</title>
+
   <style>
+    @charset "utf-8";
+
     body {
       font-family: "Noto Sans JP", sans-serif;
-      background-color: #f5f7fa;
+      background-image: url("../images/22705469.jpg");
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      height: auto;
+      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       position: relative;
+      padding: 40px 0;
+      overflow-y: auto;
     }
 
-    /* 🔙 左上の戻るボタン */
+    /* 白いカード全体 */
+    .container {
+      background-color: #ffffff;
+      border: 2px solid #2b4ea2;
+      border-radius: 25px;
+      width: 380px;
+      padding: 25px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      position: relative; /* ← 戻るボタンの配置基準にする */
+    }
+
+    /* 戻るボタン（container内左上に配置） */
     .back-button {
       position: absolute;
-      top: 30px;         /* ← 少し下げる */
-      left: 30px;        /* ← 左端に寄せる */
-      background-color: #3B82F6;
+      top: 15px;
+      left: 15px;
+      background-color: #2b4ea2;
       color: white;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border: none;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13px;
       text-decoration: none;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: 0.3s;
     }
 
     .back-button:hover {
-      background-color: #2563EB;
+      background-color: #1d3e91;
     }
 
-    .container {
-      background-color: white;
-      border: 2px solid #dbeafe;
-      border-radius: 20px;
-      width: 320px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
+    /* 雲アイコン */
+    .cloud-logo img {
+      width: 80px;
+      height: auto;
+      margin-top: 25px; /* ボタンと被らないように調整 */
     }
 
-    .cloud {
-      font-size: 40px;
-      margin: 10px 0;
-    }
-
-    h2 {
-      font-size: 18px;
+    /* タイトル */
+    .title {
       font-weight: bold;
-      margin-bottom: 15px;
-      color: #1e3a8a;
+      margin-top: 8px;
+      color: #333;
+      font-size: 1rem;
     }
 
+    .subtitle {
+      font-weight: bold;
+      color: #2b4ea2;
+      font-size: 1rem;
+      margin: 15px 0;
+    }
+
+    /* 入力エリア全体 */
     .form-box {
       background-color: #dbeafe;
-      padding: 15px;
       border-radius: 12px;
       text-align: left;
+      padding: 15px;
       margin-bottom: 12px;
     }
 
     label {
       font-weight: bold;
+      font-size: 0.95rem;
       display: block;
       margin-bottom: 6px;
     }
@@ -74,8 +97,13 @@
       width: 100%;
       padding: 6px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 6px;
       font-size: 14px;
+    }
+
+    /* 疾患選択 */
+    .radio-group {
+      margin-top: 5px;
     }
 
     .radio-group label {
@@ -100,7 +128,7 @@
       content: '';
       width: 10px;
       height: 10px;
-      background-color: #3B82F6;
+      background-color: #2b4ea2;
       border-radius: 50%;
       position: absolute;
       top: 2px;
@@ -110,49 +138,67 @@
     .note {
       font-size: 12px;
       color: #444;
-      margin: 10px 0;
+      margin: 8px 0;
     }
 
+    /* 登録ボタン */
     button {
       display: block;
       width: 100%;
       padding: 10px;
-      background-color: #3B82F6;
+      background-color: #2b4ea2;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 15px;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: 0.3s;
+      margin-top: 10px;
     }
 
     button:hover {
-      background-color: #2563EB;
+      background-color: #1d3e91;
     }
 
+    /* エラー表示 */
     .error {
       color: red;
       font-size: 13px;
       margin-top: 4px;
     }
 
+    /* フッター */
     .footer {
       font-size: 10px;
       color: #888;
-      margin-top: 10px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    /* スマホ対応 */
+    @media screen and (max-width: 768px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- 🔙 左上固定の戻るボタン -->
-  <a th:href="@{/select}" class="back-button">戻る</a>
-
   <div class="container">
-    <div class="cloud">☁️</div>
-    <h2>KYO NO KIMOCHI<br>ユーザー情報登録</h2>
+    <!-- 戻るボタン（container内） -->
+    <a th:href="@{/select}" class="back-button">戻る</a>
+
+    <div class="cloud-logo">
+      <img src="/images/cloud.png" alt="cloud logo">
+    </div>
+    <div class="title">KYO NO KIMOCHI</div>
+    <div class="subtitle">ユーザー情報登録</div>
 
     <form th:action="@{/register}" th:object="${userForm}" method="post">
+      
       <!-- ニックネーム -->
       <div class="form-box">
         <label for="nickname">ニックネーム</label>
@@ -164,10 +210,11 @@
       <div class="form-box">
         <label>疾患</label>
         <div class="radio-group">
-          <label><input type="checkbox" name="disorders" value="うつ" th:field="*{disorders}" class="radio-toggle">うつ</label>
-          <label><input type="checkbox" name="disorders" value="そううつ" th:field="*{disorders}" class="radio-toggle">そううつ</label>
-          <label><input type="checkbox" name="disorders" value="パニック障害" th:field="*{disorders}" class="radio-toggle">パニック障害</label>
-          <label><input type="checkbox" name="disorders" value="その他" th:field="*{disorders}" class="radio-toggle" id="otherCheck">その他</label>
+          <div th:each="disease : ${diseases}">
+            <input type="checkbox" th:name="disorders" th:value="${disease.id}" class="radio-toggle">
+            [[${disease.name}]]
+          </div>
+          <input type="checkbox" th:name="disorders" th:value="0" class="radio-toggle" id="otherCheck">その他
           <input type="text" th:field="*{other}" placeholder="その他の場合入力" id="otherText" disabled>
           <p th:if="${errorOther}" th:text="${errorOther}" class="error"></p>
         </div>
@@ -195,13 +242,14 @@
         });
       }
 
-      // ✅ チェックボックスを「ラジオボタン風」にして、2回押しでオフにする
+      // ✅ チェックボックスをラジオ風＋2回押しで解除できるように
       document.querySelectorAll('.radio-toggle').forEach(input => {
         input.addEventListener('click', function() {
           if (this.hasAttribute('data-waschecked')) {
             this.checked = false;
             this.removeAttribute('data-waschecked');
           } else {
+            document.querySelectorAll('.radio-toggle').forEach(i => i.removeAttribute('data-waschecked'));
             this.setAttribute('data-waschecked', 'true');
           }
         });

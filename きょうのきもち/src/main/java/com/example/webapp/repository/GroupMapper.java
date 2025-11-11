@@ -21,4 +21,8 @@ public interface GroupMapper {
 
 	void update(GroupForm form);
 
+	Group findByCode(Integer code);
+
+	void changeName(GroupForm form);
+
 }

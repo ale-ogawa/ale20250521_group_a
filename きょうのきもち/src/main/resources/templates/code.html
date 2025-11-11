@@ -95,7 +95,7 @@
     <form th:action="@{/verifyCode}" th:object="${codeForm}" method="post">
       <input type="text" th:field="*{code}" maxlength="20" required>
       <div class="confirm">
-        <a href="#" onclick="this.closest('form').submit(); return false;">確定 【ホーム画面へ】 &gt;&gt;</a>
+        <a href="#" onclick="this.closest('form').submit(); return false;">決定して次へ</a>
       </div>
       <p th:if="${error}" th:text="${error}" class="error"></p>
     </form>

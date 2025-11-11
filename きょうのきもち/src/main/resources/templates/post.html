@@ -1,56 +1,169 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>ホーム</title>
+  <meta charset="UTF-8">
+  <title>ホーム</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      border: 2px solid #dbeafe;
+      border-radius: 20px;
+      width: 320px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .cloud-image {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #1e3a8a;
+    }
+
+    .form-box {
+      background-color: #dbeafe;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .button-link {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px 0;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .button-link:hover {
+      background-color: #45a049;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      margin-top: 10px;
+    }
+
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 6px;
+      border-top: 1px solid #ccc;
+    }
+
+    .under-menu a img {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
 </head>
 
 <body>
-	<h2>ホーム画面</h2>
-	<a th:href="@{/}">戻る</a>
-	<p>今日の日付は [[${diary.date}]] です。</p>
-	<form th:action="@{/post}" method="post" th:object="${form}">
-		<h4>気分</h4>
-		<label>
-	        <input type="radio" th:name="feeling" value="1" th:checked="${diary.feeling == 1}"> 1
-	    </label>
-	    <label>
-	        <input type="radio" th:name="feeling" value="2" th:checked="${diary.feeling == 2}"> 2
-	    </label>
-	    <label>
-	        <input type="radio" th:name="feeling" value="3" th:checked="${diary.feeling == 3}"> 3
-	    </label>
-	    <label>
-	        <input type="radio" th:name="feeling" value="4" th:checked="${diary.feeling == 4}"> 4
-	    </label>
-	    <label>
-	        <input type="radio" th:name="feeling" value="5" th:checked="${diary.feeling == 5}"> 5
-	    </label>
-		<h4>本文</h4>
-		<input type="text" th:name="text" th:value="${diary.text}">
-		<h4>公開設定</h4>
-		<div th:each="dailyScope: ${dailyScopes}">
-		    <input type="checkbox" th:name="groupIds" th:value="${dailyScope.groupId}"
-				th:checked="${dailyScope.setting}">
-		    <span th:text="${dailyScope.groupName}"></span>
-			<br>
-		</div>
-		<input type="submit" value="投稿">
-		
-	</form>
-	
-	<h4>服薬情報</h4>
-	<div th:each="dailytaking: ${dailyTakings}">
-		<a>[[${dailytaking.medicineName}]]：[[${dailytaking.takingTime}]]</a>
-	</div>
-	
-	<h4>リアクション</h4>
-	<div th:each="dailyReaction: ${dailyReactions}">
-		<a>[[${dailyReaction.nickName}]]：[[${dailyReaction.stamp}]]
-			：[[${dailyReaction.comment}]]
-		</a>
-	</div>
-	
-</body>
+  <div class="container">
+    <img src="/images/cloud.png" class="cloud-image" alt="Cloud">
 
+    <h2>ホーム画面</h2>
+
+    <a th:href="@{/}" class="button-link">戻る</a>
+
+    <p>今日の日付は [[${diary.date}]] です。</p>
+
+    <form th:action="@{/post}" method="post" th:object="${form}" class="form-box">
+      <h4>気分</h4>
+      <div class="radio-group">
+        <label><input type="radio" th:name="feeling" value="1" th:checked="${diary.feeling == 1}">1</label>
+        <label><input type="radio" th:name="feeling" value="2" th:checked="${diary.feeling == 2}">2</label>
+        <label><input type="radio" th:name="feeling" value="3" th:checked="${diary.feeling == 3}">3</label>
+        <label><input type="radio" th:name="feeling" value="4" th:checked="${diary.feeling == 4}">4</label>
+        <label><input type="radio" th:name="feeling" value="5" th:checked="${diary.feeling == 5}">5</label>
+      </div>
+
+      <h4>本文</h4>
+      <textarea th:name="text" th:value="${diary.text}" rows="4" maxlength="100" placeholder="入力欄"></textarea>
+
+      <h4>公開設定</h4>
+      <div th:each="dailyScope: ${dailyScopes}">
+        <input type="checkbox" th:name="groupIds" th:value="${dailyScope.groupId}"
+               th:checked="${dailyScope.setting}">
+        <span th:text="${dailyScope.groupName}"></span>
+        <br>
+      </div>
+
+      <input type="submit" value="投稿" class="button-link">
+    </form>
+
+    <h4>服薬情報</h4>
+    <div th:each="dailytaking: ${dailyTakings}">
+      <a>[[${dailytaking.medicineName}]]：[[${dailytaking.takingTime}]]</a>
+    </div>
+
+    <h4>リアクション</h4>
+    <div th:each="dailyReaction: ${dailyReactions}">
+      <a>[[${dailyReaction.nickName}]]：[[${dailyReaction.stamp}]]：[[${dailyReaction.comment}]]</a>
+    </div>
+
+    <div class="under-menu">
+      <a th:href="@{/}"><img src="/images/under01_transparent.png" alt="ホーム"></a>
+      <a th:href="@{/medicine}"><img src="/images/under02_transparent.png" alt="薬"></a>
+      <a th:href="@{/calendar}"><img src="/images/under03_transparent.png" alt="カレンダー"></a>
+      <a th:href="@{/graph}"><img src="/images/under04_transparent.png" alt="グラフ"></a>
+      <a th:href="@{/info}"><img src="/images/under05_transparent.png" alt="情報"></a>
+      <a th:href="@{/setting}"><img src="/images/under06_transparent.png" alt="設定"></a>
+    </div>
+
+    <div class="footer">© KYO NO KIMOCHI Lab.</div>
+  </div>
+</body>
 </html>

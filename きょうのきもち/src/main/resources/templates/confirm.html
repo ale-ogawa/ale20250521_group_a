@@ -2,48 +2,188 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>アカウント登録完了</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アカウント登録確認</title>
+
+  <!-- 共通CSS -->
   <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
   <link rel="stylesheet" th:href="@{/css/common.css}">
-  <link rel="stylesheet" th:href="@{/css/confirm.css}">
+
+  <style>
+    @charset "utf-8";
+
+    .wrapper {
+      width: 40vw;
+      margin: 0 auto;
+      background-color: white;
+    }
+
+    .common_body {
+      background-image: url("../images/22705469.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .common_content {
+      min-height: calc(100vh - 26.5rem);
+      z-index: 5;
+    }
+
+    /* ▼ 登録確認ページ専用 ▼ */
+    .confirm-container {
+      width: 420px;
+      border: 2px solid #2b4ea2;
+      border-radius: 25px;
+      background-color: #fff;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      margin: 100px auto;
+    }
+
+    .cloud-logo {
+      margin-bottom: 12px;
+    }
+
+    .cloud-logo img {
+      width: 80px;
+      height: auto;
+    }
+
+    .app-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 25px;
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      background-color: #e6e6e6;
+      font-weight: bold;
+      padding: 10px 0;
+      margin-bottom: 25px;
+      border-radius: 5px;
+      font-size: 1.05rem;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #2b4ea2;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .info-value {
+      font-size: 1.25rem;
+      color: #222;
+      margin-bottom: 20px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* ← この部分を強調してサイズアップ */
+    .confirm-text {
+      font-size: 1.35rem;   /* 以前: 1.05rem → 大幅アップ */
+      font-weight: bold;
+      color: #000;
+      margin: 35px 0 25px 0;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+
+    .button {
+      background-color: #2b4ea2;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .button:hover {
+      background-color: #1d3e91;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      display: block;
+      margin: 30px auto 0;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    @media screen and (max-width: 768px) {
+      .wrapper {
+        width: 100vw;
+      }
+
+      .confirm-container {
+        width: 90%;
+        padding: 30px 20px;
+        margin: 60px auto;
+      }
+
+      .app-title {
+        font-size: 1.1rem;
+      }
+
+      .info-label {
+        font-size: 0.95rem;
+      }
+
+      .info-value {
+        font-size: 1.1rem;
+      }
+
+      .confirm-text {
+        font-size: 1.15rem; /* スマホでも見やすく大きめ */
+      }
+    }
+  </style>
 </head>
+
 <body class="common_body">
+  <div class="wrapper">
+    <div class="common_content">
+      <div class="confirm-container">
 
-  <!-- Header -->
-  <header class="common_header wrapper"></header>
+        <div class="cloud-logo">
+          <img src="/images/cloud.png" alt="cloud logo">
+        </div>
 
-  <div class="common_content wrapper">
-    <main class="complete_main">
+        <div class="app-title">KYO NO KIMOCHI</div>
 
-      <!-- タイトルバー -->
-      <div class="complete_title_bar">アカウント登録</div>
+        <div class="section-title">入力情報</div>
 
-      <!-- 完了メッセージ -->
-      <p class="complete_message">登録が完了しました。</p>
+        <div th:object="${createForm}">
+          <div class="info-label">メールアドレス(ID)</div>
+          <div class="info-value" th:text="*{address}">sample@gmail.com</div>
 
-      <!-- 画像 -->
-      <div class="complete_image_area">
-        <img th:src="@{/images/cloud_transparent.png}" alt="雲のアイコン" class="complete_image">
-      </div>
+          <div class="info-label">パスワード</div>
+          <div class="info-value">******</div>
+        </div>
 
-      <!-- ログイン画面リンク -->
-      <p class="complete_link">
-        <a th:href="@{/login}" class="login_link">① ログイン画面に進む</a>
-      </p>
+        <div class="confirm-text">上記の内容で登録しますか？</div>
 
-      <!-- 戻るボタン -->
-      <div class="complete_back">
-        <form th:action="@{/create}" method="get">
-          <button type="submit" class="back_button">戻る</button>
+        <form th:action="@{/create/complete}" th:object="${createForm}" method="post">
+          <input type="hidden" th:field="*{address}">
+          <input type="hidden" th:field="*{password}">
+          <button type="submit" class="button">登録</button>
         </form>
+
+        <a th:href="@{/login}" class="button" style="margin-top: 15px;">戻る</a>
+
+        <footer>© KYO NO KIMOCHI Lab.</footer>
       </div>
-
-    </main>
+    </div>
   </div>
-
-  <footer class="common_footer wrapper"></footer>
-  <script th:src="@{/js/header.js}"></script>
-  <script th:src="@{/js/footer.js}"></script>
-
 </body>
 </html>
