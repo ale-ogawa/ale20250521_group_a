@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/userinfo.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <title>(userinfo)きょうのきもち</title>
+</head>
+<body class="common_body">
+
+  <header class="common_header wrapper">
+    <script src="./js/header.js"></script>
+  </header>
+  
+  <div class="common_content wrapper">
+    <main>
+      <p class="userinfo_sub_title">ユーザー情報</p>
+
+      <p class="userinfo_nickname_title">ニックネーム</p>
+      <p class="userinfo_nickname">さだまさし</p>
+
+      <p class="userinfo_disease_title">疾患名</p>
+      <p class="userinfo_disease">双極性障害Ⅱ型</p>
+      <p class="userinfo_disease">適応障害</p>
+
+      <!-- <div class="userinfo_cloudedit"> -->
+    <div class="userinfo_flex">
+        <img class="userinfo_img" src="./images/cloud_transparent.png" alt="">
+       <a class="userinfo_edit" th:href="" href="">編集</a>
+    </div>
+      
+      
+          <div class="common_under_menu_area wrapper">
+        <script src="./js/under_menu.js"></script>
+      </div>
+    </main>
+  </div>
+  
+  <footer class="common_footer wrapper">
+    <script src="./js/footer.js"></script>
+  </footer>
+</body>
+</html>

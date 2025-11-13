@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/tab.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <title>(Tab)きょうのきもち</title>
+</head>
+<body class="common_body">
+
+  <header class="common_header wrapper">
+    <script src="./js/header.js"></script>
+  </header>
+
+  <div class="common_content wrapper">
+    <main>
+      <p class="tab_sub_title">お薬登録・編集</p>
+      
+      <div class="tab_menu_area">
+        <div class="tab_menu">
+
+          <input id="tab-all" class="tab_menu_input" type="radio" name="tab_item" checked>
+          <label class="tab_item" for="tab-all">服薬登録</label>
+          <input id="tab-programming" class="tab_menu_input" type="radio" name="tab_item">
+          <label class="tab_item" for="tab-programming">お薬情報</label>
+          <input id="tab-design"  class="tab_menu_input" type="radio" name="tab_item">
+          <label class="tab_item" for="tab-design">服薬履歴</label>
+          
+          <div class="tab_content" id="tab-all-content">
+            <div class="tab_content_taking">
+              
+              <!-- <p class="tab-text">服薬登録の内容がここに入ります</p> -->
+              <div class="tab_content_taking_box">
+                <!-- <p class="tab_content_taking"></p> -->
+                <span class="tab_content_taking_name">フルニトラゼパム</span>
+                <input type="text" class="tab_content_taking_amount_input">
+                <span class="tab_content_taking_amount_text">錠</span>
+                <input class="tab_content_taking_amount_time" type="text">
+                <img class="tab_content_taking_recycled_img" src="./images/recycled_transparent.png" alt="">
+                <!-- <input class="tab_content_taking_box" type="text"> -->
+              </div>
+              <div class="tab_content_taking_box">
+                <!-- <p class="tab_content_taking"></p> -->
+                <span class="tab_content_taking_name">クエチアピン</span>
+                <input type="text" class="tab_content_taking_amount_input">
+                <span class="tab_content_taking_amount_text">錠</span>
+                <input class="tab_content_taking_amount_time" type="text">
+                <img class="tab_content_taking_recycled_img" src="./images/recycled_transparent.png" alt="">
+                <!-- <input class="tab_content_taking_box" type="text"> -->
+              </div>
+              <div class="tab_content_taking_box">
+                <!-- <p class="tab_content_taking"></p> -->
+                <span class="tab_content_taking_name">ラモトリギン</span>
+                <input type="text" class="tab_content_taking_amount_input">
+                <span class="tab_content_taking_amount_text">錠</span>
+                <input class="tab_content_taking_amount_time" type="text">
+                <img class="tab_content_taking_recycled_img" src="./images/recycled_transparent.png" alt="">
+                <!-- <input class="tab_content_taking_box" type="text"> -->
+              </div>
+              <div class="tab_content_taking_box">
+                <!-- <p class="tab_content_taking"></p> -->
+                <span class="tab_content_taking_name">エビリファイ</span>
+                <input type="text" class="tab_content_taking_amount_input">
+                <span class="tab_content_taking_amount_text">錠</span>
+                <input class="tab_content_taking_amount_time" type="text">
+                <img class="tab_content_taking_recycled_img" src="./images/recycled_transparent.png" alt="">
+                <!-- <input class="tab_content_taking_box" type="text"> -->
+              </div>
+              <input class="tab_content_taking_button" type="submit" value="登録">
+            </div>
+            <div class="tab_content_already_area">
+              <div class="tab_content_already_medicine">
+                <img class="tab_content_already_img" src="./images/medicine01_transparent.png" alt="">
+                <span class="tab_content_already_medicine_name">フルニトラゼパム</span>
+                <img class="tab_content_already_plus_img" src="./images/plus_transparent.png" alt="">
+              </div>
+              <div class="tab_content_already_medicine">
+                <img class="tab_content_already_img"src="./images/medicine02_transparent.png" alt="">
+                <span class="tab_content_already_medicine_name">クエチアピン</span>
+                <img class="tab_content_already_plus_img"src="./images/plus_transparent.png" alt="">
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab_content" id="tab-programming-content">
+            <div class="tab_content_information_area">
+              <div class="tab_content_information_medicine">
+                <img class="tab_content_information_img" src="./images/medicine01_transparent.png" alt="">
+                <span class="tab_content_information_medicine_name">フルニトラゼパム</span>
+                <img class="tab_content_information_triangle_img" src="./images/triangle_transparent.png" alt="">
+              </div>
+              <div class="tab_content_information_medicine">
+                <img class="tab_content_information_img"src="./images/medicine02_transparent.png" alt="">
+                <span class="tab_content_information_medicine_name">クエチアピン</span>
+                <img class="tab_content_information_triangle_img"src="./images/triangle_transparent.png" alt="">
+              </div>
+            </div>
+
+            <div class="tab_content_enter_area">
+              <div class="tab_content_enter_medicine">
+                <img class="tab_content_enter_plus_image" src="./images/plus_transparent.png" alt="">
+                <div class="tab_content_enter_display">
+                  <div class="tab_content_enter_detail">
+                    <span class="tab_content_enter_name">お　薬</span>
+                    <input class="tab_content_enter_input" type="text">
+                  </div>
+                  <div class="tab_content_enter_detail">
+                    <span class="tab_content_enter_name">用　量</span>
+                    <input class="tab_content_enter_input" type="text">
+                  </div>
+                  <div class="tab_content_enter_detail">
+                    <span class="tab_content_enter_name">効　能</span>
+                    <input class="tab_content_enter_input" type="text">
+                  </div>
+                  <div class="tab_content_enter_detail">
+                    <span class="tab_content_enter_name">副作用</span>
+                    <input class="tab_content_enter_input" type="text">
+                  </div>
+                  <div class="tab_content_enter_detail">
+                    <span class="tab_content_enter_name">タイプ</span>
+                    <select class="tab_content_enter_select" name="type">
+                      <option value="">選択してください</option>
+                      <option value="錠剤">錠剤</option>
+                      <option value="カプセル">カプセル</option>
+                      <option value="液体">液体</option>
+                      <option value="粉末">粉末</option>
+                      <option value="その他">その他</option>
+                    </select>
+                    <!-- <span class="tab_content_enter_name">タイプ</span>
+                    <input class="tab_content_enter_input" type="text"> -->
+                  </div>
+                  <input class="tab_content_enter_button" type="submit" value="登録">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 服薬履歴（第３画面） -->
+          <div class="tab_content" id="tab-design-content">
+            <!-- 服薬履歴の年月指定 -->
+            <div class="tab_content_history_select">
+              <div class="tab_content_history_from_area">
+                <select class="tab_content_history_from_select" name="" id="">
+                  <option class="tab_content_history_from_option" value="">2025年 8月</option>
+                  <option class="tab_content_history_from_option" value="">2025年 9月</option>
+                  <option class="tab_content_history_from_option" value="">2025年10月</option>
+                  <option class="tab_content_history_from_option" value="">2025年11月</option>
+                </select>
+              </div>
+            
+              <div class="tab_content_history_symbol">～</div>
+
+              <div class="tab_content_history_to_area">
+                <select class="tab_content_history_to_select" name="" id="">
+                  <option class="tab_content_history_to_option" value="">2025年 8月</option>
+                  <option class="tab_content_history_to_option" value="">2025年 9月</option>
+                  <option class="tab_content_history_to_option" value="">2025年10月</option>
+                  <option class="tab_content_history_to_option" value="">2025年11月</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 明細エリア -->
+            <!-- 白いエリアの設定 -->
+            <div class="tab_content_history">
+                
+              <div class="tab_content_history_divide">
+                <p class="tab_content_history_date">8/15</p>
+                <div class="tab_content_history_flex">
+                  <p class="tab_content_history_time">9:00</p>
+                  <p class="tab_content_history_medicine">メイラックス</p>
+                  <p class="tab_content_history_amount">1錠</p>  
+                </div>
+                <div class="tab_content_history_flex">
+                  <p class="tab_content_history_time">12:00</p>
+                  <p class="tab_content_history_medicine">エビリファイ</p>
+                  <p class="tab_content_history_amount">3錠</p>  
+                </div>
+                <div class="tab_content_history_flex">
+                  <p class="tab_content_history_time">21:00</p>
+                  <p class="tab_content_history_medicine">フルニトラゼパム</p>
+                  <p class="tab_content_history_amount">2錠</p>  
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="common_under_menu_area wrapper">
+        <script src="./js/under_menu.js"></script>
+      </div>
+    </main>
+  </div>
+  <footer class="common_footer wrapper">
+    <script src="./js/footer.js"></script>
+  </footer>
+</body>
+</html>

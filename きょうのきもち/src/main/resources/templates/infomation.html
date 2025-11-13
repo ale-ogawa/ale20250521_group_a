@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/information.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <title>(Information)きょうのきもち</title>
+</head>
+<body class="common_body">
+
+  <header class="common_header wrapper">
+    <script src="./js/header.js"></script>
+  </header>
+  
+  <div class="common_content wrapper">
+    <main>
+      <p class="information_sub_title">情報ページ</p>
+      
+      <div class="information_link_box">
+        <a class="information_link_anchor" th:href="@{/disease}" href="disease.html">疾患一覧</a>
+        <a class="information_link_anchor" th:href="@{/share}" href="share.html">情報共有URL</a>
+      </div>
+
+      <div class="common_under_menu_area wrapper">
+        <script src="./js/under_menu.js"></script>
+      </div>
+    </main>
+  </div>
+  
+  <footer class="common_footer wrapper">
+    <script src="./js/footer.js"></script>
+  </footer>
+</body>
+</html>

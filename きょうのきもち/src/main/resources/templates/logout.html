@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/logout.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <title>(Logout)きょうのきもち</title>
+</head>
+<body class="common_body">
+
+  <header class="common_header wrapper">
+    <script src="./js/header.js"></script>
+  </header>
+  
+  <div class="common_content wrapper">
+    <main>
+      <p class="logout_sub_title">ログアウト</p>
+      
+      <div class="logout_person_area">
+        <p class="logout_person_name">
+          <span class="logout_person">✕✕✕✕✕✕</span>
+          <span class="logout_person_honorific">さん</span>
+        </p>
+        <p class="logout_message">ログアウトしますか？</p>
+      </div>
+
+      <div class="logout_button_box">
+		<form th:action="@{/logout}" method="post">
+		    <button type="submit">ログアウト</button>
+		</form>
+      </div>
+
+      <div class="common_under_menu_area wrapper">
+        <script src="./js/under_menu.js"></script>
+      </div>
+    </main>
+  </div>
+  
+  <footer class="common_footer wrapper">
+    <script src="./js/footer.js"></script>
+  </footer>
+</body>
+</html>

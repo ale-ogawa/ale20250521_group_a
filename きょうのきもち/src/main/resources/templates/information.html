@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/information.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <title>(Information)きょうのきもち</title>
+  <style>
+    /* ▼ 下部メニューの追加CSS ▼ */
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 8px;
+      border-top: 1px solid #ccc;
+    }
+
+    .under-menu a {
+      flex: 1;
+      text-align: center;
+    }
+
+    .under-menu img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body class="common_body">
+  
+  <div class="container">
+    <header class="common_header wrapper">
+      <!-- ヘッダー部分（共通） -->
+    </header>
+    
+    <div class="common_content wrapper">
+      <main>
+        <p class="information_sub_title">情報ページ</p>
+        
+        <div class="information_link_box">
+          <a class="information_link_anchor" th:href="@{/info/disease}">疾患一覧</a>
+          <a class="information_link_anchor" th:href="@{/info/share}">情報共有URL</a>
+        </div>
+
+        <!-- ▼ 下部メニュー追加ここから ▼ -->
+        <div class="under-menu">
+          <a th:href="@{/}">
+            <img src="/images/under01_transparent.png" alt="ホーム">
+          </a>
+          <a th:href="@{/calendar}">
+            <img src="/images/under02_transparent.png" alt="カレンダー">
+          </a>
+          <a th:href="@{/medicine}">
+            <img src="/images/under03_transparent.png" alt="薬">
+          </a>
+          <a th:href="@{/graph}">
+            <img src="/images/under04_transparent.png" alt="グラフ">
+          </a>
+          <a th:href="@{/info}">
+            <img src="/images/under05_transparent.png" alt="情報">
+          </a>
+          <a th:href="@{/setting}">
+            <img src="/images/under06_transparent.png" alt="設定">
+          </a>
+        </div>
+        <!-- ▲ 下部メニューここまで ▲ -->
+
+        <div class="footer">© KYO NO KIMOCHI Lab.</div>
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>

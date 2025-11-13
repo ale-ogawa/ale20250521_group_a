@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>情報共有URL</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    .container {
+      background-color: white;
+      border: 2px solid #dbeafe;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      max-width: 400px;
+      width: 100%;
+      max-height: 95vh;
+      height: auto;
+      overflow-y: auto;
+    }
+
+    /* 見出し部分 */
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      resize: none;
+      width: 90%;
+      height: 200px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #4CAF50;
+    }
+
+    input[type="submit"] {
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .memo p {
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* ==== アンダーメニュー ==== */
+    .under-menu {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 10px;
+      padding: 6px 0;
+      border-top: 2px solid #ccc;
+      background-color: #fff;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .under-menu a {
+      flex: 1;
+      text-align: center;
+    }
+
+    .under-menu img {
+      width: 45px;
+      height: 45px;
+      transition: transform 0.2s ease;
+    }
+
+    .under-menu img:hover {
+      transform: scale(1.1);
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- ▼ 新しい見出し -->
+    <h1>情報共有URL</h1>
+
+    <h2>
+      <a th:href="@{/info}" style="text-decoration:none; color:#1e3a8a;">情報ページ</a>
+      ＞＞ 共有URL
+    </h2>
+
+    <div class="information">
+      <!-- InformationControllerで表示されたページ -->
+    </div>
+
+    <div class="memo">
+      <div th:if="${attribute}">
+        <p>記入欄</p>
+        <form th:action="@{/info/share}" th:object="${account}" method="post">
+          <textarea id="memo" placeholder="ここに共有URL等を書いてください"
+            th:field="*{share}" th:text="${account.share}">
+          </textarea>
+          <input type="submit" value="確定">
+        </form>
+      </div>
+      <div th:unless="${attribute}">
+        <textarea id="memo" th:text="${account.share}" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- ▼ 統一アンダーメニュー ▼ -->
+    <div class="under-menu">
+      <a th:href="@{/}">
+        <img src="/images/under01_transparent.png" alt="ホーム">
+      </a>
+      <a th:href="@{/medicine}">
+        <img src="/images/under02_transparent.png" alt="薬">
+      </a>
+      <a th:href="@{/calendar}">
+        <img src="/images/under03_transparent.png" alt="カレンダー">
+      </a>
+      <a th:href="@{/graph}">
+        <img src="/images/under04_transparent.png" alt="グラフ">
+      </a>
+      <a th:href="@{/info}">
+        <img src="/images/under05_transparent.png" alt="情報">
+      </a>
+      <a th:href="@{/setting}">
+        <img src="/images/under06_transparent.png" alt="設定">
+      </a>
+    </div>
+    <!-- ▲ 統一アンダーメニュー ▲ -->
+
+    <div class="footer">© KYO NO KIMOCHI Lab.</div>
+  </div>
+</body>
+
+</html>

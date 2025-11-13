@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.webapp.repository.ReactionMapper">
+
+	<select id="findMyReaction"
+		resultType="com.example.webapp.entity.Reaction">
+		SELECT stamp, comment
+		FROM reactions
+		WHERE account_id = #{accountId}
+		AND diary_id = #{diaryId}
+	</select>
+	
+	<insert id="insertReaction"
+		parameterType="com.example.webapp.entity.Reaction">
+		INSERT INTO reactions (account_id, diary_id, stamp, comment)
+		VALUES (#{accountId}, #{diaryId}, #{stamp}, #{comment})
+	</insert>
+	
+	<update id="updateReaction"
+		parameterType="com.example.webapp.entity.Reaction">
+		UPDATE reactions 
+		SET
+		account_id = #{accountId}, diary_id = #{diaryId},
+		stamp = #{stamp}, comment = #{comment}
+		WHERE account_id = #{accountId} AND diary_id = #{diaryId}
+	</update>
+	
+</mapper>

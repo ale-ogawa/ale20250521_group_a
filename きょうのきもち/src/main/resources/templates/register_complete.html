@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>登録完了</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* 🔙 左上の戻るボタン（今回は不要なら削除OK） */
+    .back-button {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      background-color: #3B82F6;
+      color: white;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .back-button:hover {
+      background-color: #2563EB;
+    }
+
+    .container {
+      background-color: white;
+      border: 2px solid #dbeafe;
+      border-radius: 20px;
+      width: 320px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .cloud {
+      font-size: 40px;
+      margin: 10px 0;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #1e3a8a;
+    }
+
+    .message {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2563EB;
+      margin: 20px 0;
+    }
+
+    .link-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #3B82F6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .link-button:hover {
+      background-color: #2563EB;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #888;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="cloud">☁️</div>
+    <h2>KYO NO KIMOCHI</h2>
+    <div class="message">登録が完了しました！</div>
+
+    <!-- ✅ ログイン画面へのリンク -->
+    <a th:href="@{/}" class="link-button">ホーム画面へ</a>
+
+    <div class="footer">© KYO NO KIMOCHI Lab.</div>
+  </div>
+
+</body>
+</html>

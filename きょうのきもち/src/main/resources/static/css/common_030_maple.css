@@ -1,0 +1,186 @@
+@charset "UTF-8";
+
+/* もみじ */
+/*-----------------------------------
+common_030_maple_block
+-----------------------------------*/
+.common_030_maple_block{
+  width: 100%;
+}
+.common_030_maple_block .common_030_maple_parts_box{
+  /* position: relative; */
+}
+.common_030_maple_block .common_030_maple_parts_box img{
+  /* position: absolute; */
+  position: fixed;
+  top: -5%;
+  /* 紅葉を最前面に */
+  z-index: 5;
+}
+
+/* ３の倍数＋２番目のもみじ */
+/* 2，5，8，11… */
+.common_030_maple_block .common_030_maple_parts_box img:nth-child(3n+2){
+  width: 55px;/*もみじのサイズ*/
+}
+
+/* ３の倍数＋１番目のもみじ */
+/* 1，4，7，10… */
+.common_030_maple_block .common_030_maple_parts_box img:nth-child(3n+1){
+  width: 38px;/*もみじのサイズ*/
+}
+/* ３の倍数番目のもみじ */
+/* 3，6，9，12… */
+.common_030_maple_block .common_030_maple_parts_box img:nth-child(3n){
+  width: 44px;/*もみじのサイズ*/
+}
+
+/*-----------------------------------
+もみじのパーツの表示位置（画面左側からの距離）
+-----------------------------------*/
+img.common_030_maple_parts_01{top: 0; left: 22%;}
+img.common_030_maple_parts_02{top: 0; left: 25%;}
+img.common_030_maple_parts_03{top: 0; left: 30%;}
+img.common_030_maple_parts_04{top: 0; left: 32%;}
+img.common_030_maple_parts_05{top: 0; left: 34%;}
+img.common_030_maple_parts_06{top: 0; left: 42%;}
+img.common_030_maple_parts_07{top: 0; left: 48%;}
+img.common_030_maple_parts_08{top: 0; left: 50%;}
+img.common_030_maple_parts_09{top: 0; left: 52%;}
+img.common_030_maple_parts_10{top: 0; left: 58%;}
+img.common_030_maple_parts_11{top: 0; left: 64%;}
+img.common_030_maple_parts_12{top: 0; left: 66%;}
+img.common_030_maple_parts_13{top: 0; left: 78%;}
+img.common_030_maple_parts_14{top: 0; left: 70%;}
+img.common_030_maple_parts_15{top: 0; left: 72%;}
+img.common_030_maple_parts_16{top: 0; left: 74%;}
+img.common_030_maple_parts_17{top: 0; left: 76%;}
+img.common_030_maple_parts_18{top: 0; left: 78%;}
+img.common_030_maple_parts_19{top: 0; left: 80%;}
+img.common_030_maple_parts_20{top: 0; left: 84%;}
+
+img.common_030_maple_parts_21{top: 0; left: 86%;}
+img.common_030_maple_parts_22{top: 0; left: 90%;}
+img.common_030_maple_parts_23{top: 0; left: 94%;}
+img.common_030_maple_parts_24{top: 0; left: 96%;}
+
+/*-----------------------------------
+舞い散るアニメーション
+回転しつつ上から下へ
+-----------------------------------*/
+@keyframes maple {
+    0% {
+      opacity: 0;
+    }
+    10%{
+      transform: translate(10px, 70px) rotate(10deg);
+    }
+    20% {
+      transform: translate(5px, 140px) rotate(20deg);
+      opacity: .8;
+    }
+    30% {
+      transform: translate(0, 210px) rotate(35deg);
+      opacity: 1;
+    }
+    40% {
+      transform: translate(-5px, 280px) rotate(50deg);
+    }
+    50% {
+      transform: translate(-10px, 350px)  rotate(65deg);
+    }
+    60% {
+      transform: translate(-15px, 420px) rotate(80deg);
+      opacity: .9;
+    }
+    70% {
+      transform: translate(-10px, 490px) rotate(95deg);
+      opacity: .8;
+    }
+    80% {
+      transform: translate(-5px, 560px) rotate(110deg);
+      opacity: .8;
+    }
+    90% {
+      transform: translate(0px, 630px) rotate(125deg);
+      opacity: .4;
+    }
+    100% {
+      transform: translate(-5px, 700px) rotate(140deg);
+      opacity: 0;
+    }
+}
+
+.common_030_maple_parts_box img {
+    animation: maple linear 8s infinite;
+    /*アニメーションが始まるまで画像を見えなくしておく*/
+    opacity: 0;
+    text-align: center;
+}
+
+/*-----------------------------------
+アニメーションが始まるまでの時間
+-----------------------------------*/
+img.common_030_maple_parts_01,
+img.common_030_maple_parts_04,
+img.common_030_maple_parts_12,
+img.common_030_maple_parts_19,
+img.common_030_maple_parts_22
+{
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+img.common_030_maple_parts_08,
+img.common_030_maple_parts_11
+{
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+img.common_030_maple_parts_09,
+img.common_030_maple_parts_16,
+img.common_030_maple_parts_23
+{
+  -webkit-animation-delay: 1.0s;
+  animation-delay: 1.0s;
+
+}
+img.common_030_maple_parts_03,
+img.common_030_maple_parts_05,
+img.common_030_maple_parts_07,
+img.common_030_maple_parts_17,
+img.common_030_maple_parts_20
+{
+  -webkit-animation-delay: 1.5s;
+  animation-delay: 1.5s;
+}
+
+img.common_030_maple_parts_14
+{
+  -webkit-animation-delay: 1.8s;
+  animation-delay: 1.8s;
+}
+
+img.common_030_maple_parts_10,
+img.common_030_maple_parts_18,
+img.common_030_maple_parts_24
+{
+  -webkit-animation-delay: 2.4s;
+  animation-delay: 2.4s;
+}
+
+img.common_030_maple_parts_02,
+img.common_030_maple_parts_06,
+img.common_030_maple_parts_13,
+img.common_030_maple_parts_21
+{
+  -webkit-animation-delay: 3.1s;
+  animation-delay: 3.1s;
+}
+
+img.common_030_maple_parts_15
+{
+  -webkit-animation-delay: 3.7s;
+  animation-delay: 3.7s;
+}

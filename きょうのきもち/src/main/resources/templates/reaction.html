@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ホーム</title>
+</head>
+
+<body>
+	<h2>ホーム画面</h2>
+	<p>今日の日付は [[${diary.date}]] です。</p>
+	<h4>気分</h4>
+	<p>[[${diary.feeling}]]</p>
+	<h4>本文</h4>
+	<p>[[${diary.text}]]</p>
+	<h4>服薬情報</h4>
+	<div th:each="dailytaking: ${dailyTakings}">
+		<a>[[${dailytaking.medicineName}]]：[[${dailytaking.takingTime}]]</a>
+	</div>
+	
+	<form th:action="@{/reaction}" method="post" th:object="${form}">
+		
+		<h4>リアクション</h4>
+		<label>
+	        <input type="radio" th:name="stamp" value="1" th:checked="${reaction.stamp == 1}">
+			<img th:src="${reactionImages[1]}" alt="気分" style="width:30px; height:30px;">
+	    </label>
+	    <label>
+	        <input type="radio" th:name="stamp" value="2" th:checked="${reaction.stamp == 2}">
+			<img th:src="${reactionImages[2]}" alt="気分" style="width:30px; height:30px;">
+	    </label>
+	    <label>
+	        <input type="radio" th:name="stamp" value="3" th:checked="${reaction.stamp == 3}">
+			<img th:src="${reactionImages[3]}" alt="気分" style="width:30px; height:30px;">
+	    </label>
+		<input type="text" th:name="comment" th:value="${reaction.comment}">
+		<input type="submit" value="投稿">
+		
+	</form>
+	
+	<a th:href="@{/}" class="button-link">ホーム</a>
+	<a th:href="@{/medicine}" class="button-link">薬</a>
+	<a th:href="@{/calendar}" class="button-link">カレンダー</a>
+	<a th:href="@{/graph}" class="button-link">グラフ</a>
+	<a th:href="@{/info}" class="button-link">情報</a>
+	<a th:href="@{/setting}" class="button-link">設定</a>
+
+	<style>
+	.button-link {
+	    display: inline-block;
+	    padding: 10px 20px;
+	    margin: 5px 0;
+	    background-color: #4CAF50; /* 緑色 */
+	    color: white;
+	    text-decoration: none;
+	    border-radius: 5px;
+	    text-align: center;
+	    font-weight: bold;
+	    transition: background-color 0.3s;
+	}
+
+	.button-link:hover {
+	    background-color: #45a049; /* ホバー時 */
+	}
+	</style>
+	
+</body>
+
+</html>

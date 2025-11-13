@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/tab.css">
+	<link rel="stylesheet" href="./css/common.css">
+	<title>薬</title>
+</head>
+
+<body class="common_body">
+	<header class="common_header wrapper">
+		<script src="./js/header.js"></script>
+	</header>
+	
+	<div class="common_content wrapper">
+		<main>
+			<p class="tab_sub_title">お薬登録・編集</p>
+			
+			<div class="tab_menu_area">
+				<div class="tab_menu">
+					<input id="tab-all" class="tab_menu_input" type="radio" name="tab_item" th:checked="${takingSelected}">
+					<label class="tab_item" for="tab-all">服薬登録</label>
+					<input id="tab-design"  class="tab_menu_input" type="radio" name="tab_item">
+					<label class="tab_item" for="tab-design">服薬履歴</label>
+					<input id="tab-programming" class="tab_menu_input" type="radio" name="tab_item" th:checked="${medicineSelected}">
+					<label class="tab_item" for="tab-programming">お薬情報</label>
+					
+					<div class="tab_content" id="tab-all-content">
+						<div class="tab_content_taking">
+							<div th:if="${attribute}">
+								<form th:action="@{/medicine}" th:object="${takingForm}" method="post">
+									<div th:each="medicine : ${medicines}">
+										<div class="tab_content_taking_box">
+											<label>
+												<input type="checkbox" th:name="medicineIds" th:value="${medicine.id}">
+												<span class="tab_content_taking_name" th:text="${medicine.name}"></span>
+												<input type="text" class="tab_content_taking_amount_input" th:name="dose">
+												<span class="tab_content_taking_amount_text">錠</span>
+											</label><br>
+										</div>
+									</div>
+									<input class="tab_content_enter_button" type="submit" value="服薬する">
+								</form>
+								<p>直近の服薬</p>
+								<div th:each="takenMedicine : ${takenMedicines}">
+									<label>
+										<span>
+											[[${takenMedicine.name}]]　[[${takenMedicine.time}]]　[[${takenMedicine.dose}]]錠
+										</span>
+									</label><br>
+								</div>
+							</div>
+							<div th:unless="${attribute}">
+								<p>この機能は使えません</p>
+							</div>
+							<div class="tab_content_already_area"></div>
+						</div>
+					</div>
+					
+					<div class="tab_content" id="tab-programming-content">
+						<div class="tab_content_information_area">
+							<div th:each="medicine : ${medicines}">
+								<details style="font-size: 20px;">
+									<summary>
+										[[${medicine.name}]]
+									</summary>
+									<span>
+										用量：[[${medicine.quantity}]]<br>
+										効能：[[${medicine.effect}]]<br>
+										副作用：[[${medicine.sideEffect}]]<br>
+										タイプ：[[${medicine.type}]]
+									</span>
+								</details>
+							</div>
+						</div>
+						<div th:if="${attribute}">
+							<div class="tab_content_enter_area">
+								<div class="tab_content_enter_medicine">
+									<div class="tab_content_enter_display">
+										<form th:action="@{/medicine}" th:object="${medicineForm}" method="post">
+											<div class="tab_content_enter_detail">
+												<span class="tab_content_enter_name">名　前</span>
+												<input class="tab_content_enter_input" type="text" th:field="*{name}">
+											</div>
+											<div class="tab_content_enter_detail">
+												<span class="tab_content_enter_name">用　量</span>
+												<input class="tab_content_enter_input" type="text" th:field="*{quantity}">
+											</div>
+											<div class="tab_content_enter_detail">
+												<span class="tab_content_enter_name">効　能</span>
+												<input class="tab_content_enter_input" type="text" th:field="*{effect}">
+											</div>
+											<div class="tab_content_enter_detail">
+												<span class="tab_content_enter_name">副作用</span>
+												<input class="tab_content_enter_input" type="text" th:field="*{sideEffect}">
+											</div>
+											<div class="tab_content_enter_detail">
+												<span class="tab_content_enter_name">タイプ</span>
+												<select class="tab_content_enter_select" name="type">
+													<option th:name="type" th:value="なし">選択してください</option>
+													<option th:name="type" th:value="錠剤">錠剤</option>
+													<option th:name="type" th:value="カプセル">カプセル</option>
+													<option th:name="type" th:value="液体">液体</option>
+													<option th:name="type" th:value="粉末">粉末</option>
+													<option th:name="type" th:value="その他">その他</option>
+												</select>
+											</div>
+											<input class="tab_content_enter_button" type="submit" value="登録">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="tab_content" id="tab-design-content">
+						<div class="tab_content_history_select">
+						</div>
+						<div class="tab_content_history">
+							<div th:each="takenMedicine : ${takenMedicinesAll}">
+								<div class="tab_content_history_divide">
+									<div class="tab_content_history_flex">
+										<p class="tab_content_history_medicine">
+											[[${takenMedicine.name}]]　[[${takenMedicine.dose}]]錠<br>
+											[[${takenMedicine.time}]]
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="under-menu common_under_menu_area wrapper">
+				<a th:href="@{/}">
+					<img src="/images/under01_transparent.png" alt="ホーム">
+				</a>
+				<a th:href="@{/calendar}">
+					<img src="/images/under02_transparent.png" alt="カレンダー">
+				</a>
+				<a th:href="@{/medicine}">
+					<img src="/images/under03_transparent.png" alt="薬">
+				</a>
+				<a th:href="@{/graph}">
+					<img src="/images/under04_transparent.png" alt="グラフ">
+				</a>
+				<a th:href="@{/info}">
+					<img src="/images/under05_transparent.png" alt="情報">
+				</a>
+				<a th:href="@{/setting}">
+					<img src="/images/under06_transparent.png" alt="設定">
+				</a>
+			</div>
+		</main>
+	</div>
+	<footer class="common_footer wrapper">
+		<script src="./js/footer.js"></script>
+	</footer>
+	
+	<style>
+		.under-menu {
+		  display: flex;
+		  justify-content: space-around;
+		  align-items: center;
+		  margin-top: 10px;
+		  padding-top: 6px;
+		  border-top: 1px solid #ccc;
+		}
+		.tab_content_enter_area {
+		    display: flex;
+		    justify-content: flex-end; /* 右寄せ */
+		    width: 100%;
+		    padding-right: 20%;         /* 右側に余白を作りつつ、左に少し移動 */
+		}
+
+
+		.tab_content_enter_medicine {
+		    width: 45%;               /* 幅はそのまま */
+		    box-sizing: border-box;
+		}
+
+
+		.tab_content_enter_display {
+		    padding: 8px;
+		    border: 1px solid #ccc;
+		    border-radius: 6px;
+		    background-color: #f9f9f9;
+		    box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.tab_content_enter_detail {
+		    display: flex;
+		    align-items: center;
+		    margin-bottom: 6px;
+		}
+
+		.tab_content_enter_name {
+		    width: 70px;
+		    flex-shrink: 0;
+		    font-size: 14px;
+		}
+
+		.tab_content_enter_input,
+		.tab_content_enter_select {
+		    flex: 1 1 auto;          /* ラベル以外の幅を自動調整 */
+		    max-width: 150px;        /* 入力欄の最大幅を設定 */
+		    padding: 4px 6px;
+		    font-size: 14px;
+		    box-sizing: border-box;
+		}
+
+		.tab_content_enter_button {
+		    align-self: flex-end;  /* 親のflexコンテナ内で右寄せ */
+		    padding: 6px 12px;
+		    font-size: 14px;
+		    border-radius: 4px;
+		    cursor: pointer;
+		    margin-top: 8px;       /* 上に余白 */
+		}
+
+	</style>
+		
+</body>
+
+</html>

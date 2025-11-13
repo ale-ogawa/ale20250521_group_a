@@ -1,0 +1,93 @@
+@charset "utf-8";
+
+.style_sub_title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.style_certificate_area {
+  height: 46.5rem;
+  margin: 8rem auto 0;
+  padding-bottom: 15rem;
+}
+
+.style_certificate_input_area {
+  text-align: center;
+  position: relative;
+}
+
+.style_certificate_mail {
+  width: 14rem;
+  text-align: center;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  position: absolute;
+  top: -1.2rem;
+  left: 7rem;
+  z-index: 6;
+}
+
+.style_certificate_input_user,
+.style_certificate_input_pass {
+  width: 37rem;
+  height: 5rem;
+  font-size: 2rem;
+  border: 0.2rem solid #0066cc;
+  margin-bottom: 3.2rem;
+  padding-left: 2rem;
+  border-radius: 0.8rem;
+}
+
+.style_certificate_button_area {
+  margin: 1.8rem auto 4rem auto; /* 上1.8rem 下4rem 横中央 */
+  text-align: center;             /* 中のボタンを中央揃え */
+}
+
+.style_certificate_button {
+  background-color: #0066cc;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.8rem;
+  padding: 1rem 12rem;
+}
+
+.style_certificate_button:hover {
+  cursor: pointer;
+}
+
+/* エラーメッセージ */
+.style_certificate_cerror_message {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.8rem;
+  color: red;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  .style_sub_title {
+    font-size: 2.2rem;
+  }
+
+  .style_certificate_mail {
+    position: fixed;
+    top: 32.7rem;
+    left: 7.8rem;
+    z-index: 6;
+  }
+
+  .style_certificate_input_user,
+  .style_certificate_input_pass {
+    width: 36rem;
+    height: 5.2rem;
+  }
+
+  .style_certificate_button {
+    border-radius: 0.8rem;
+    padding: 1rem 14rem;
+  }
+}

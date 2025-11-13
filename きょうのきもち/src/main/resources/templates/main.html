@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon_transparent.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/common.css">
+
+<!-- <link rel="stylesheet" href="./css/common_010_snowflake.css"> -->
+<link rel="stylesheet" href="./css/common_020_cherry.css">
+<link rel="stylesheet" href="./css/common_030_maple.css">
+<!-- <link rel="stylesheet" href="./css/common_040_summer.css"> -->
+<link rel="stylesheet" href="./css/common_060_ginkgo.css">
+
+
+  <title>(Menu)こころのきもち</title>
+</head>
+
+<!-- 事前の作業領域 -->
+<script type="text/javascript">
+  var today;
+  var month;
+  var date;
+
+  today = new Date();
+
+  month = today.getMonth() + 1;
+  // getMonthは、返り値（0～11）です！
+  // そのままで良いのですが、人間が判別できるように+1（月）します！
+  
+  date = today.getDate();
+
+  console.log(date);
+  // getFullYearは、４桁の年
+  // getDayは、曜日の値。0:日曜日、1:月曜日・・・6:土曜日
+  
+  // 12～2月→雪
+  // 3月21～31日→桜
+  // 10月→もみじ
+  // 11月→銀杏
+  switch (month){
+    // 冬（12～2月）の場合
+    // case 12:
+    // case 1:
+    // case 2:
+    //   // 雪
+    //   document.write(
+    //     '<div class="common_010_snowflake_block">' +
+    //     '<div class="common_010_snowflake_parts_box">' +
+    //     '<img src="images/snowflake/transparent/snowflake_01_transparent.png" alt="" class="common_010_snowflake_parts_01">' +
+    //     '<img src="images/snowflake/transparent/snowflake_02_transparent.png" alt="" class="common_010_snowflake_parts_02">' +
+    //     '<img src="images/snowflake/transparent/snowflake_03_transparent.png" alt="" class="common_010_snowflake_parts_03">' +
+    //     '<img src="images/snowflake/transparent/snowflake_04_transparent.png" alt="" class="common_010_snowflake_parts_04">' +
+    //     '<img src="images/snowflake/transparent/snowflake_05_transparent.png" alt="" class="common_010_snowflake_parts_05">' +
+    //     '<img src="images/snowflake/transparent/snowflake_06_transparent.png" alt="" class="common_010_snowflake_parts_06">' +
+    //     '<img src="images/snowflake/transparent/snowflake_07_transparent.png" alt="" class="common_010_snowflake_parts_07">' +
+    //     '<img src="images/snowflake/transparent/snowflake_01_transparent.png" alt="" class="common_010_snowflake_parts_08">' +
+    //     '<img src="images/snowflake/transparent/snowflake_02_transparent.png" alt="" class="common_010_snowflake_parts_09">' +
+    //     '<img src="images/snowflake/transparent/snowflake_03_transparent.png" alt="" class="common_010_snowflake_parts_10">' +
+    //     '<img src="images/snowflake/transparent/snowflake_04_transparent.png" alt="" class="common_010_snowflake_parts_11">' +
+    //     '<img src="images/snowflake/transparent/snowflake_05_transparent.png" alt="" class="common_010_snowflake_parts_12">' +
+    //     '<img src="images/snowflake/transparent/snowflake_06_transparent.png" alt="" class="common_010_snowflake_parts_13">' +
+    //     '<img src="images/snowflake/transparent/snowflake_07_transparent.png" alt="" class="common_010_snowflake_parts_14">' +
+    //     '<img src="images/snowflake/transparent/snowflake_01_transparent.png" alt="" class="common_010_snowflake_parts_15">' +
+    //     '<img src="images/snowflake/transparent/snowflake_02_transparent.png" alt="" class="common_010_snowflake_parts_16">' +
+    //     '<img src="images/snowflake/transparent/snowflake_03_transparent.png" alt="" class="common_010_snowflake_parts_17">' +
+    //     '<img src="images/snowflake/transparent/snowflake_04_transparent.png" alt="" class="common_010_snowflake_parts_18">' +
+    //     '<img src="images/snowflake/transparent/snowflake_05_transparent.png" alt="" class="common_010_snowflake_parts_19">' +
+    //     '<img src="images/snowflake/transparent/snowflake_06_transparent.png" alt="" class="common_010_snowflake_parts_20">' +
+    //     '<img src="images/snowflake/transparent/snowflake_07_transparent.png" alt="" class="common_010_snowflake_parts_21">' +
+    //     '<img src="images/snowflake/transparent/snowflake_01_transparent.png" alt="" class="common_010_snowflake_parts_22">' +
+    //     '<img src="images/snowflake/transparent/snowflake_02_transparent.png" alt="" class="common_010_snowflake_parts_23">' +
+    //     '<img src="images/snowflake/transparent/snowflake_03_transparent.png" alt="" class="common_010_snowflake_parts_24">' +
+    //     '</div>' +
+    //     '</div>'
+    //   )
+    //   break; // switchを抜ける
+
+    // 3月の21～31日まで
+      case 3:
+      // 桜
+      if (date > 20){
+        document.write(
+          '<div class="common_020_cherry_block">' +
+          '<div class="common_020_cherry_parts_box">' +
+          '<img src="images/cherry/transparent/cherry_01_transparent.png" alt="" class="common_020_cherry_parts_01">' +
+          '<img src="images/cherry/transparent/cherry_02_transparent.png" alt="" class="common_020_cherry_parts_02">' +
+          '<img src="images/cherry/transparent/cherry_03_transparent.png" alt="" class="common_020_cherry_parts_03">' +
+          '<img src="images/cherry/transparent/cherry_04_transparent.png" alt="" class="common_020_cherry_parts_04">' +
+          '<img src="images/cherry/transparent/cherry_05_transparent.png" alt="" class="common_020_cherry_parts_05">' +
+          '<img src="images/cherry/transparent/cherry_06_transparent.png" alt="" class="common_020_cherry_parts_06">' +
+          '<img src="images/cherry/transparent/cherry_07_transparent.png" alt="" class="common_020_cherry_parts_07">' +
+          '<img src="images/cherry/transparent/cherry_01_transparent.png" alt="" class="common_020_cherry_parts_08">' +
+          '<img src="images/cherry/transparent/cherry_02_transparent.png" alt="" class="common_020_cherry_parts_09">' +
+          '<img src="images/cherry/transparent/cherry_03_transparent.png" alt="" class="common_020_cherry_parts_10">' +
+          '<img src="images/cherry/transparent/cherry_04_transparent.png" alt="" class="common_020_cherry_parts_11">' +
+          '<img src="images/cherry/transparent/cherry_05_transparent.png" alt="" class="common_020_cherry_parts_12">' +
+          '<img src="images/cherry/transparent/cherry_06_transparent.png" alt="" class="common_020_cherry_parts_13">' +
+          '<img src="images/cherry/transparent/cherry_07_transparent.png" alt="" class="common_020_cherry_parts_14">' +
+          '<img src="images/cherry/transparent/cherry_01_transparent.png" alt="" class="common_020_cherry_parts_15">' +
+          '<img src="images/cherry/transparent/cherry_02_transparent.png" alt="" class="common_020_cherry_parts_16">' +
+          '<img src="images/cherry/transparent/cherry_03_transparent.png" alt="" class="common_020_cherry_parts_17">' +
+          '<img src="images/cherry/transparent/cherry_04_transparent.png" alt="" class="common_020_cherry_parts_18">' +
+          '<img src="images/cherry/transparent/cherry_05_transparent.png" alt="" class="common_020_cherry_parts_19">' +
+          '<img src="images/cherry/transparent/cherry_06_transparent.png" alt="" class="common_020_cherry_parts_20">' +
+          '<img src="images/cherry/transparent/cherry_07_transparent.png" alt="" class="common_020_cherry_parts_21">' +
+          '<img src="images/cherry/transparent/cherry_01_transparent.png" alt="" class="common_020_cherry_parts_22">' +
+          '<img src="images/cherry/transparent/cherry_02_transparent.png" alt="" class="common_020_cherry_parts_23">' +
+          '<img src="images/cherry/transparent/cherry_03_transparent.png" alt="" class="common_020_cherry_parts_24">' +
+          '</div>' +
+          '</div>'
+        );
+      }
+      break; // switchを抜ける
+  
+    // 10月はもみじの落葉
+    case 10:
+      // もみじ
+      document.write(
+        '<div class="common_030_maple_block">' +
+        '<div class="common_030_maple_parts_box">' +
+        '<img src="images/maple/transparent/maple_01_transparent.png" alt="" class="common_030_maple_parts_01">' +
+        '<img src="images/maple/transparent/maple_02_transparent.png" alt="" class="common_030_maple_parts_02">' +
+        '<img src="images/maple/transparent/maple_03_transparent.png" alt="" class="common_030_maple_parts_03">' +
+        '<img src="images/maple/transparent/maple_04_transparent.png" alt="" class="common_030_maple_parts_04">' +
+        '<img src="images/maple/transparent/maple_05_transparent.png" alt="" class="common_030_maple_parts_05">' +
+        '<img src="images/maple/transparent/maple_06_transparent.png" alt="" class="common_030_maple_parts_06">' +
+        '<img src="images/maple/transparent/maple_07_transparent.png" alt="" class="common_030_maple_parts_07">' +
+        '<img src="images/maple/transparent/maple_01_transparent.png" alt="" class="common_030_maple_parts_08">' +
+        '<img src="images/maple/transparent/maple_02_transparent.png" alt="" class="common_030_maple_parts_09">' +
+        '<img src="images/maple/transparent/maple_03_transparent.png" alt="" class="common_030_maple_parts_10">' +
+        '<img src="images/maple/transparent/maple_04_transparent.png" alt="" class="common_030_maple_parts_11">' +
+        '<img src="images/maple/transparent/maple_05_transparent.png" alt="" class="common_030_maple_parts_12">' +
+        '<img src="images/maple/transparent/maple_06_transparent.png" alt="" class="common_030_maple_parts_13">' +
+        '<img src="images/maple/transparent/maple_07_transparent.png" alt="" class="common_030_maple_parts_14">' +
+        '<img src="images/maple/transparent/maple_01_transparent.png" alt="" class="common_030_maple_parts_15">' +
+        '<img src="images/maple/transparent/maple_02_transparent.png" alt="" class="common_030_maple_parts_16">' +
+        '<img src="images/maple/transparent/maple_03_transparent.png" alt="" class="common_030_maple_parts_17">' +
+        '<img src="images/maple/transparent/maple_04_transparent.png" alt="" class="common_030_maple_parts_18">' +
+        '<img src="images/maple/transparent/maple_05_transparent.png" alt="" class="common_030_maple_parts_19">' +
+        '<img src="images/maple/transparent/maple_06_transparent.png" alt="" class="common_030_maple_parts_20">' +
+        '<img src="images/maple/transparent/maple_07_transparent.png" alt="" class="common_030_maple_parts_21">' +
+        '<img src="images/maple/transparent/maple_01_transparent.png" alt="" class="common_030_maple_parts_22">' +
+        '<img src="images/maple/transparent/maple_02_transparent.png" alt="" class="common_030_maple_parts_23">' +
+        '<img src="images/maple/transparent/maple_03_transparent.png" alt="" class="common_030_maple_parts_24">' +
+        '</div>' +
+        '</div>'
+      )
+      break; // switchを抜ける
+    
+    // 11月は銀杏の落葉
+    case 11:
+      // 銀杏
+      document.write(
+        '<div class="common_060_ginkgo_block">' +
+        '<div class="common_060_ginkgo_parts_box">' +
+        '<img src="images/ginkgo/transparent/ginkgo_01_transparent.png" alt="" class="common_060_ginkgo_parts_01">' +
+        '<img src="images/ginkgo/transparent/ginkgo_02_transparent.png" alt="" class="common_060_ginkgo_parts_02">' +
+        '<img src="images/ginkgo/transparent/ginkgo_03_transparent.png" alt="" class="common_060_ginkgo_parts_03">' +
+        '<img src="images/ginkgo/transparent/ginkgo_04_transparent.png" alt="" class="common_060_ginkgo_parts_04">' +
+        '<img src="images/ginkgo/transparent/ginkgo_05_transparent.png" alt="" class="common_060_ginkgo_parts_05">' +
+        '<img src="images/ginkgo/transparent/ginkgo_06_transparent.png" alt="" class="common_060_ginkgo_parts_06">' +
+        '<img src="images/ginkgo/transparent/ginkgo_07_transparent.png" alt="" class="common_060_ginkgo_parts_07">' +
+        '<img src="images/ginkgo/transparent/ginkgo_01_transparent.png" alt="" class="common_060_ginkgo_parts_08">' +
+        '<img src="images/ginkgo/transparent/ginkgo_02_transparent.png" alt="" class="common_060_ginkgo_parts_09">' +
+        '<img src="images/ginkgo/transparent/ginkgo_03_transparent.png" alt="" class="common_060_ginkgo_parts_10">' +
+        '<img src="images/ginkgo/transparent/ginkgo_04_transparent.png" alt="" class="common_060_ginkgo_parts_11">' +
+        '<img src="images/ginkgo/transparent/ginkgo_05_transparent.png" alt="" class="common_060_ginkgo_parts_12">' +
+        '<img src="images/ginkgo/transparent/ginkgo_06_transparent.png" alt="" class="common_060_ginkgo_parts_13">' +
+        '<img src="images/ginkgo/transparent/ginkgo_07_transparent.png" alt="" class="common_060_ginkgo_parts_14">' +
+        '<img src="images/ginkgo/transparent/ginkgo_01_transparent.png" alt="" class="common_060_ginkgo_parts_15">' +
+        '<img src="images/ginkgo/transparent/ginkgo_02_transparent.png" alt="" class="common_060_ginkgo_parts_16">' +
+        '<img src="images/ginkgo/transparent/ginkgo_03_transparent.png" alt="" class="common_060_ginkgo_parts_17">' +
+        '<img src="images/ginkgo/transparent/ginkgo_04_transparent.png" alt="" class="common_060_ginkgo_parts_18">' +
+        '<img src="images/ginkgo/transparent/ginkgo_05_transparent.png" alt="" class="common_060_ginkgo_parts_19">' +
+        '<img src="images/ginkgo/transparent/ginkgo_06_transparent.png" alt="" class="common_060_ginkgo_parts_20">' +
+        '<img src="images/ginkgo/transparent/ginkgo_07_transparent.png" alt="" class="common_060_ginkgo_parts_21">' +
+        '<img src="images/ginkgo/transparent/ginkgo_01_transparent.png" alt="" class="common_060_ginkgo_parts_22">' +
+        '<img src="images/ginkgo/transparent/ginkgo_02_transparent.png" alt="" class="common_060_ginkgo_parts_23">' +
+        '<img src="images/ginkgo/transparent/ginkgo_03_transparent.png" alt="" class="common_060_ginkgo_parts_24">' +
+        '</div>' +
+        '</div>'
+      )
+      break; // switchを抜ける
+
+    default: // 上記条件以外
+      break; // switchを抜ける
+  }
+
+</script>
+<body class="common_body">
+
+  <header class="main_header wrapper"></header>
+  <main class="wrapper">
+    <div class="main_kokoro_title">
+      <span>こ</span>
+      <span>こ</span>
+      <span>ろ</span>
+      <span>の</span>
+      <span>き</span>
+      <span>も</span>
+      <span>ち</span>
+    </div>
+    <div class="main_main_image_area">
+      <img class="main_main_image" src="./images/cloud_transparent.png" alt="">
+    </div>
+    
+    <div class="main_main_area">
+      <p class="main_main_title">Main Menu</p>
+      <div class="main_main_menu_area">
+        <div class="main_main_menu">Calendar</div>
+        <div class="main_main_menu">Biorhythm</div>
+        <div class="main_main_menu">Personal Info.</div>
+        <div class="main_main_menu">Settings</div>
+      </div>
+
+      <!-- <div class="main_main_input">
+        <p class="main_user_text">ユーザーID：</p>
+        <input type="text" class="style_user_input">
+        <p class="main_pass_text">パスワード：</p>
+        <input type="password" class="style_pass_input">
+        <br>
+        <button class="main_login_button">ログイン</button>
+      </div> -->
+    </div>
+
+  </main>
+  <footer class="common_footer">
+    <section class="wrapper">
+      <div class="common_footer_area">
+        <small class="common_footer_trademark">
+          &copy;KOKORO NO KIMOCHI Lab.
+        </small>
+      </div>
+      
+    </section>
+  </footer>
+</body>

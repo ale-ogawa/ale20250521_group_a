@@ -1,0 +1,77 @@
+@charset 'UTF-8';
+
+.logout_sub_title{
+    font-size: 2.4rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.information_link_box {
+    width: 30rem;
+    margin: 12rem auto 18rem; 
+}
+
+.logout_person_area{
+    width: 36rem;
+    /* border: .1rem solid black; */
+    margin: 12rem auto 0;
+}
+
+.logout_person_name{
+    /* border: .1rem solid black; */
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.logout_person{
+    letter-spacing: 10px;
+    text-align-last: justify;
+    /* text-align: justify; */
+}
+
+.logout_person_honorific{
+    font-size: 2.4rem;
+    font-weight: bold;
+    letter-spacing: 10px;
+    padding-left: 1rem;
+}
+
+.logout_person,
+.logout_message{
+    width: 18rem;
+    font-size: 2.4rem;
+    font-weight: bold;
+}
+
+.logout_message{
+    width: 36rem;
+    letter-spacing: 8px;
+    /* border: .1rem solid black; */
+    text-align: center;
+}
+
+.logout_button_box {
+    width: 30rem;
+    margin: 12rem auto 12rem; 
+}
+
+.logout_button_anchor{
+    /* text-decoration: underline; */
+    width: 24rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 2.0rem;
+    display: block;
+    border: .1rem solid #0066cc;
+    background-color: #0066cc;
+    border-radius: .8rem;
+    /* text-align-last: justify; */
+    text-align: center;
+    padding: 1rem 2rem;
+    margin: 0 auto 4rem;
+}
+
+.logout_button_anchor:hover{
+    cursor: pointer;
+}

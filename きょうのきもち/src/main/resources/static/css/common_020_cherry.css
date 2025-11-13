@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+/* 桜の花びら */
+/*-----------------------------------
+common_020_cherry_block
+-----------------------------------*/
+.common_020_cherry_block{
+  width: 100%;
+  /* z-index: 5; */
+}
+.common_020_cherry_block .common_020_cherry_parts_box{
+  /* position: relative; */
+  /* z-index: 5; */
+}
+.common_020_cherry_block .common_020_cherry_parts_box img{
+  /* position: absolute; */
+  position: fixed;
+  top: -5%;
+  /* 花びらを画像の最前面に */
+  z-index: 5;
+}
+
+/* ３の倍数＋２番目の花びら */
+/* 2，5，8，11… */
+.common_020_cherry_block .common_020_cherry_parts_box img:nth-child(3n+2){
+  width: 30px;/*花びらのサイズ*/
+}
+
+/* ３の倍数＋１番目の花びら */
+/* 1，4，7，10… */
+.common_020_cherry_block .common_020_cherry_parts_box img:nth-child(3n+1){
+  width: 26px;/*花びらのサイズ*/
+}
+/* ３の倍数番目の花びら */
+/* 3，6，9，12… */
+.common_020_cherry_block .common_020_cherry_parts_box img:nth-child(3n){
+  width: 36px;/*花びらのサイズ*/
+}
+
+/*-----------------------------------
+桜の花びらパーツの表示位置（画面左側からの距離）
+-----------------------------------*/
+img.common_020_cherry_parts_01{top: 0; left: 24%;}
+img.common_020_cherry_parts_02{top: 0; left: 26%;}
+img.common_020_cherry_parts_03{top: 0; left: 28%;}
+img.common_020_cherry_parts_04{top: 0; left: 30%;}
+img.common_020_cherry_parts_05{top: 0; left: 34%;}
+img.common_020_cherry_parts_06{top: 0; left: 40%;}
+img.common_020_cherry_parts_07{top: 0; left: 44%;}
+img.common_020_cherry_parts_08{top: 0; left: 50%;}
+img.common_020_cherry_parts_09{top: 0; left: 52%;}
+img.common_020_cherry_parts_10{top: 0; left: 56%;}
+img.common_020_cherry_parts_11{top: 0; left: 60%;}
+img.common_020_cherry_parts_12{top: 0; left: 64%;}
+img.common_020_cherry_parts_13{top: 0; left: 72%;}
+img.common_020_cherry_parts_14{top: 0; left: 76%;}
+img.common_020_cherry_parts_15{top: 0; left: 78%;}
+img.common_020_cherry_parts_16{top: 0; left: 82%;}
+img.common_020_cherry_parts_17{top: 0; left: 84%;}
+img.common_020_cherry_parts_18{top: 0; left: 86%;}
+img.common_020_cherry_parts_19{top: 0; left: 88%;}
+
+img.common_020_cherry_parts_20{top: 0; left: 90%;}
+img.common_020_cherry_parts_21{top: 0; left: 92%;}
+img.common_020_cherry_parts_22{top: 0; left: 94%;}
+img.common_020_cherry_parts_23{top: 0; left: 96%;}
+img.common_020_cherry_parts_24{top: 0; left: 98%;}
+
+/*-----------------------------------
+舞い散るアニメーション
+回転しつつ上から下へ
+-----------------------------------*/
+@keyframes sakura {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      transform: translate(10px, 120px) rotate(35deg);
+      opacity: .8;
+    }
+    30% {
+      transform: translate(0, 200px) rotate(50deg);
+      opacity: 1;
+    }
+    40% {
+      transform: translate(-10px, 250px) rotate(75deg);
+    }
+    50% {
+      transform: translate(-20px, 300px)  rotate(150deg);
+    }
+    60% {
+      transform: translate(-35px, 360px) rotate(165deg);
+      opacity: .9;
+    }
+    70% {
+      transform: translate(-45px, 410px) rotate(220deg);
+      opacity: .8;
+    }
+    80% {
+      transform: translate(-60px, 450px) rotate(220deg);
+      opacity: .8;
+    }
+    
+    90% {
+      transform: translate(-70px, 490px) rotate(240deg);
+      opacity: .4;
+    }
+    100% {
+      transform: translate(-80px, 530px) rotate(245deg);
+      opacity: 0;
+    }
+}
+
+.common_020_cherry_parts_box img {
+    animation: sakura linear 8s infinite;
+    /*アニメーションが始まるまで画像を見えなくしておく*/
+    opacity: 0;
+}
+
+/*-----------------------------------
+アニメーションが始まるまでの時間
+-----------------------------------*/
+img.common_020_cherry_parts_01,
+img.common_020_cherry_parts_04,
+img.common_020_cherry_parts_12,
+img.common_020_cherry_parts_22
+{
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+img.common_020_cherry_parts_08,
+img.common_020_cherry_parts_11,
+img.common_020_cherry_parts_19,
+img.common_020_cherry_parts_23
+{
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+img.common_020_cherry_parts_09,
+img.common_020_cherry_parts_16
+{
+  -webkit-animation-delay: 1.2s;
+  animation-delay: 1.2s;
+
+}
+img.common_020_cherry_parts_03,
+img.common_020_cherry_parts_05,
+img.common_020_cherry_parts_07
+{
+  -webkit-animation-delay: 1.4s;
+  animation-delay: 1.4s;
+}
+
+img.common_020_cherry_parts_14,
+img.common_020_cherry_parts_20
+{
+  -webkit-animation-delay: 1.9s;
+  animation-delay: 1.9s;
+}
+
+img.common_020_cherry_parts_10,
+img.common_020_cherry_parts_18
+{
+  -webkit-animation-delay: 2.5s;
+  animation-delay: 2.5s;
+}
+
+img.common_020_cherry_parts_02,
+img.common_020_cherry_parts_06,
+img.common_020_cherry_parts_13,
+img.common_020_cherry_parts_21
+{
+  -webkit-animation-delay: 3.2s;
+  animation-delay: 3.2s;
+}
+
+img.common_020_cherry_parts_15,
+img.common_020_cherry_parts_17,
+img.common_020_cherry_parts_24
+{
+  -webkit-animation-delay: 4s;
+  animation-delay: 4s;
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.webapp.repository.DiseaseMapper">
+
+  <select id="findAllDiseases"
+			parameterType="com.example.webapp.entity.Disease">
+    SELECT id, name FROM diseases
+  </select>
+
+  <!-- 疾患名からIDを取得 -->
+  <select id="findIdByName" parameterType="string" resultType="int">
+    SELECT id FROM diseases WHERE name = #{name}
+  </select>
+
+  <!-- 新しい疾患を登録 -->
+  <insert id="insertDisease" parameterType="string">
+    INSERT INTO diseases (name) VALUES (#{name})
+  </insert>
+
+  <!-- choices テーブルへ紐付け登録 -->
+	<insert id="insertChoice"
+		parameterType="com.example.webapp.entity.Choice">
+		INSERT INTO choices (disease_id, account_id)
+		VALUES
+		<foreach collection="diseaseIds" item="diseaseId" separator=",">
+			(#{diseaseId}, #{accountId})
+		</foreach>
+	</insert>
+
+</mapper>

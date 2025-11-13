@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ログイン画面</title>
+  <style>
+    @charset "utf-8";
+
+    /* ====== あなたの共通CSS部分 ====== */
+    .wrapper{
+      width: 36vw;
+      margin: 0 auto;
+      background-color: white;
+    }
+
+    .common_body{
+      background-image: url("../images/22705469.jpg");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .common_content{
+      min-height: calc(100vh - 26.5rem);
+      z-index: 5;
+    }
+
+    .common_header{
+      margin: 0 auto;
+      padding-bottom: 5.4rem;
+    }
+
+    .common_kokoro_area{
+      display: flex;
+      justify-content: center;
+      padding-top: 7.2rem;
+    }
+
+    .common_kokoro_image{
+      width: 13rem;
+    }
+
+    .common_kokoro_title{
+      display: flex;
+      overflow: hidden;
+      font-weight: bold;
+      margin-top: 3.4rem;
+      margin-left: 1.8rem;
+    }
+
+    .common_kokoro_character{
+      font-size: 2.2rem;
+      font-weight: bold;
+      padding-right: 6.0rem;
+    }
+
+    .common_footer{
+      margin: 0 auto;
+      text-align: center;
+      padding-bottom: 2.4rem;
+    }
+
+    .common_footer_area{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+
+    .common_footer_trademark{
+      color: gray;
+    }
+
+    .common_under_menu_area{
+      height: 9.0rem;
+      border: .2rem solid #0066cc;
+      border-radius: .8rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .common_under_img{
+      width: 7rem;
+      height: 6rem;
+    }
+
+    .common_under_img:hover{
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px){
+      .wrapper{
+        width: 100vw;
+        margin: 0 auto;
+        background-color: white;
+      }
+      .common_kokoro_area{
+        justify-content: space-between;
+      }
+
+      .common_kokoro_image{
+        margin-left: 4.5rem;
+      }
+      .common_kokoro_character{
+        font-size: 2.4rem;
+        padding-right: 10.0rem;
+      }
+    }
+
+    /* ====== ログイン画面専用デザイン追加 ====== */
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      margin: 0;
+    }
+
+    .login-wrapper {
+      width: 320px;
+      background-color: #fff;
+      border: 1.5px solid #2b4ea2;
+      border-radius: 20px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      padding: 2.4rem 1.8rem;
+      text-align: center;
+      margin: 5rem auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+      margin: 1.2rem 0 1.6rem 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-size: 0.8rem;
+      color: #444;
+      margin-bottom: 0.2rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      height: 2.2rem;
+      padding: 0.4rem 0.8rem;
+      border: 1.5px solid #2b4ea2;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+
+    input::placeholder {
+      color: #ccc;
+    }
+
+    input[type="submit"] {
+      width: 100px;
+      height: 2.2rem;
+      background-color: #2b4ea2;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #1d3e91;
+    }
+
+    .register-link {
+      display: inline-block;
+      margin-top: 1.8rem;
+      padding: 0.8rem 2rem;
+      background-color: #2b4ea2;
+      color: #fff;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    .register-link:hover {
+      background-color: #1d3e91;
+    }
+
+    footer {
+      margin-top: 2.4rem;
+      font-size: 0.7rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body class="common_body">
+  <header></header>
+  
+  <div class="wrapper common_content">
+    <div class="login-wrapper">
+      <div class="logo">
+        <img src="/images/cloud.png" alt="cloud logo">
+        <span class="logo-text">KYO NO KIMOCHI</span>
+      </div>
+
+      <h2>ログイン</h2>
+
+      <form th:action="@{/authentication}" method="post" th:object="${loginForm}">
+        <div>
+          <label for="address">メールアドレス</label>
+          <input type="text" th:field="*{address}" placeholder="メールアドレス">
+        </div>
+
+        <div>
+          <label for="password">パスワード</label>
+          <input type="password" th:field="*{password}" placeholder="パスワード">
+        </div>
+
+        <div>
+          <input type="submit" value="ログイン">
+        </div>
+      </form>
+
+      <a class="register-link" th:href="@{/create}">新規アカウント登録はこちら</a>
+
+      <footer>© KYO NO KIMOCHI Lab.</footer>
+    </div>
+  </div>
+  
+</body>
+</html>
