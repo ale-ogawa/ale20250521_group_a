@@ -33,6 +33,7 @@ public class RegisterController {
     public String showRegisterForm(Model model, UserForm userForm) {
     	List<Disease> diseases = diseaseService.findAllDiseases();
         model.addAttribute("diseases", diseases);
+        model.addAttribute("attribute", LoginAccount.attribute);
         return "register";
     }
     
@@ -70,7 +71,7 @@ public class RegisterController {
         Account account = new Account();
         account.setId(LoginAccount.id);
         account.setNickname(userForm.getNickname());
-        account.setAttribute(true); // 固定値（患者）
+        account.setAttribute(LoginAccount.attribute); // 固定値（患者）
         accountService.update(account);
         
         if(userForm.getOther() != null) {
@@ -78,7 +79,9 @@ public class RegisterController {
         	userForm.getDisorders().removeLast();
         	userForm.getDisorders().add(disease.getId());
         }
-        diseaseService.registerChoice(userForm.getDisorders());
+        if(LoginAccount.attribute) {
+        	diseaseService.registerChoice(userForm.getDisorders());
+        }
         
         return "register_complete"; // 完了画面（HTML名は任意）
     }

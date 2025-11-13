@@ -11,5 +11,7 @@ public interface TakingService {
 	void insertTaking(Taking taking);
 	
 	List<Taking> selectTaken(Integer takingId);
+	
+	List<Taking> selectTakenAll();
 
 }

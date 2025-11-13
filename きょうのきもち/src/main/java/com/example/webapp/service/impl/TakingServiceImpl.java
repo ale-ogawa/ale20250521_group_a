@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.webapp.entity.Taking;
 import com.example.webapp.repository.TakingMapper;
 import com.example.webapp.service.TakingService;
+import com.example.webapp.utility.LoginAccount;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +32,15 @@ public class TakingServiceImpl implements TakingService {
 	@Override
 	public List<Taking> selectTaken(Integer takingId) {
 		return takingMapper.selectTaken(takingId);
+	}
+
+	@Override
+	public List<Taking> selectTakenAll() {
+		if(LoginAccount.attribute) {
+			return takingMapper.selectTakenAll(LoginAccount.id);
+		}else {
+			return takingMapper.selectTakenAll(LoginAccount.followId);
+		}
 	}
 
 

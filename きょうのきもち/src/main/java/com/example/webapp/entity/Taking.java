@@ -16,5 +16,6 @@ public class Taking {
 	private String name;
 	private Integer takingId;
 	private Integer medicineId;
+	private Integer dose;
 
 }

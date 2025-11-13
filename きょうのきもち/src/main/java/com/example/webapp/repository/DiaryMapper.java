@@ -21,5 +21,6 @@ public interface DiaryMapper {
 	List<DailyTaking> findTodaysTaking(LocalDate localDate, Integer accountId);
 	List<Diary> findFeelings(LocalDate firstDay, LocalDate lastDay);
 	List<DailyReaction> findReactions(Integer diaryId, Integer accountId);
+	boolean findVisible(Integer diaryId, Integer groupId);
 
 }

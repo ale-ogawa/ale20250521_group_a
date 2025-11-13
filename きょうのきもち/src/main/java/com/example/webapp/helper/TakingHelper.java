@@ -14,13 +14,16 @@ public class TakingHelper {
 	public static List<Taking> convert(TakingForm form, Integer takingId) {
 		List<Taking> takings = new ArrayList<>();
 		List<Integer> tmp = new ArrayList<>();
-		for (String s : form.getMedicineIds()) {
-			tmp.add(Integer.parseInt(s));
+		for (String s : form.getDose()) {
+			if(s != null && !s.isEmpty()) {
+				tmp.add(Integer.parseInt(s));
+			}
 		}
 		for(int i = 0; i < form.getMedicineIds().size(); i++) {
 			Taking taking = new Taking();
 			taking.setTakingId(takingId);
-			taking.setMedicineId(tmp.get(i));
+			taking.setMedicineId(Integer.parseInt(form.getMedicineIds().get(i)));
+			taking.setDose(tmp.get(i));
 			takings.add(taking);
 		}
 		return takings;

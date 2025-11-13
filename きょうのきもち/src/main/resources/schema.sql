@@ -41,7 +41,7 @@ CREATE TABLE medicines(
 	account_id Integer,
 	name varchar(50),
 	quantity varchar(20),
-	type Integer,
+	type varchar(20),
 	effect varchar(500),
 	side_effect varchar(500)
 );

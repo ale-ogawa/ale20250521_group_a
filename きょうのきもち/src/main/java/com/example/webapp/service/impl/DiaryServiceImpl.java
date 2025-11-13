@@ -54,11 +54,19 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public List<DailyScope> makeDailyScopes(List<Group> groups, List<Scope> scopes) {
 		List<DailyScope> dailyScopes = new ArrayList<>();
+		boolean isNull = false;
+		if(scopes.isEmpty()) {
+			isNull = true;
+		}
 		for(int i = 0; i < groups.size(); i++) {
 			DailyScope dailyScope = new DailyScope();
 			dailyScope.setGroupId(groups.get(i).getId());
 			dailyScope.setGroupName(groups.get(i).getName());
-			dailyScope.setSetting(scopes.get(i).isSetting());
+			if(isNull) {
+				dailyScope.setSetting(false);
+			}else {
+				dailyScope.setSetting(scopes.get(i).isSetting());
+			}
 			dailyScopes.add(dailyScope);
 		}
 		return dailyScopes;
@@ -66,7 +74,11 @@ public class DiaryServiceImpl implements DiaryService {
 	
 	@Override
 	public List<DailyTaking> findTodaysTaking(LocalDate localDate) {
-		return diaryMapper.findTodaysTaking(localDate, LoginAccount.id);
+		if(LoginAccount.attribute) {
+			return diaryMapper.findTodaysTaking(localDate, LoginAccount.id);
+		}else {
+			return diaryMapper.findTodaysTaking(localDate, LoginAccount.followId);
+		}
 	}
 	
 	@Override
@@ -79,6 +91,11 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public List<DailyReaction> findReactions(Integer diaryId) {
 		return diaryMapper.findReactions(diaryId, LoginAccount.id);
+	}
+
+	@Override
+	public boolean findVisible(Integer diaryId, Integer groupId) {
+		return diaryMapper.findVisible(diaryId, groupId);
 	}
 	
 

@@ -54,7 +54,7 @@ public class CallendarController {
         	account = accountService.getNickname(LoginAccount.followId);
         }
         model.addAttribute("nickname", account.getNickname());
-        model.addAttribute("images", new ImagesPath().getImages());
+        model.addAttribute("images", ImagesPath.images);
         
         return "calendar";
     }

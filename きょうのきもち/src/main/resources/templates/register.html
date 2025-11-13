@@ -207,18 +207,20 @@
       </div>
 
       <!-- 疾患 -->
-      <div class="form-box">
-        <label>疾患</label>
-        <div class="radio-group">
-          <div th:each="disease : ${diseases}">
-            <input type="checkbox" th:name="disorders" th:value="${disease.id}" class="radio-toggle">
-            [[${disease.name}]]
-          </div>
-          <input type="checkbox" th:name="disorders" th:value="0" class="radio-toggle" id="otherCheck">その他
-          <input type="text" th:field="*{other}" placeholder="その他の場合入力" id="otherText" disabled>
-          <p th:if="${errorOther}" th:text="${errorOther}" class="error"></p>
-        </div>
-      </div>
+	  <div th:if="${attribute}">
+	      <div class="form-box">
+	        <label>疾患</label>
+	        <div class="radio-group">
+	          <div th:each="disease : ${diseases}">
+	            <input type="checkbox" th:name="disorders" th:value="${disease.id}" class="radio-toggle">
+	            [[${disease.name}]]
+	          </div>
+	          <input type="checkbox" th:name="disorders" th:value="0" class="radio-toggle" id="otherCheck">その他
+	          <input type="text" th:field="*{other}" placeholder="その他の場合入力" id="otherText" disabled>
+	          <p th:if="${errorOther}" th:text="${errorOther}" class="error"></p>
+	        </div>
+	      </div>
+	  </div>
 
       <p class="note">※設定は後で変更できます</p>
 

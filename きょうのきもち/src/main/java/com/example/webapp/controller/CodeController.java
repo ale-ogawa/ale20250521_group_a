@@ -9,6 +9,7 @@ import com.example.webapp.entity.Group;
 import com.example.webapp.form.CodeForm;
 import com.example.webapp.service.AccountService;
 import com.example.webapp.service.GroupService;
+import com.example.webapp.utility.LoginAccount;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +40,9 @@ public class CodeController {
     	}
     	//not nullならアカウントテーブルにfollow_idとgroup_idを登録
     	accountService.updateNewFollower(group);
+    	
+    	LoginAccount.attribute = false;
+    	accountService.updateAttribute();
 
         return "redirect:/register";
     }

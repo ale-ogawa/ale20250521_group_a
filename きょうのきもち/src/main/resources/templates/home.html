@@ -122,8 +122,10 @@
     <p>[[${nickname}]]さんログイン中</p>
     <p>[[${diary.date}]]の日記</p>
 
+	<div th:if="${isVisible}">
     <h4>気分</h4>
-    <p>[[${diary.feeling}]]</p>
+	<img th:if="${diary.feeling != null}" th:src="${images[diary.feeling]}"
+	style="width:30px; height:30px;">
 
     <table class="info-table">
       <thead>
@@ -167,7 +169,11 @@
 		      <tbody>
 		        <tr th:each="dailyReaction: ${dailyReactions}">
 		          <td>[[${dailyReaction.nickName}]]</td>
-		          <td>[[${dailyReaction.stamp}]]</td>
+		          <td>
+					<img th:if="${dailyReaction.stamp != null}"
+					th:src="${reactionImages[dailyReaction.stamp]}"
+					style="width:30px; height:30px;">
+					</td>
 		          <td class="fixed-text">[[${dailyReaction.comment}]]</td>
 		        </tr>
 		      </tbody>
@@ -175,10 +181,18 @@
 		</div>
 	
 	    <div th:unless="${attribute}">
-	      <p>スタンプ：[[${reaction.stamp}]]</p>
+	      <p>スタンプ：
+			<img th:if="${reaction.stamp != null}"
+			th:src="${reactionImages[reaction.stamp]}"
+			style="width:30px; height:30px;">
+		  </p>
 	      <p>コメント：[[${reaction.comment}]]</p>
 	      <a th:href="@{/reaction}">リアクション編集</a>
 	    </div>
+	</div>
+	</div>
+	<div th:unless="${isVisible}">
+		[[${diary.date}]]の日記は閲覧できません
 	</div>
 
     <div class="container-footer">

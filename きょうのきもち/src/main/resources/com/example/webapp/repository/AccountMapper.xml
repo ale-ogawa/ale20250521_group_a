@@ -66,16 +66,25 @@
   </delete>
   
   <update id="updateNewFollower"
-  		parameterType="com.example.webapp.entity.Group">
+  		parameterType="com.example.webapp.entity.Account">
  	UPDATE accounts
  	SET
- 	group_id = #{id},
- 	follow_id = #{accountId}
+ 	group_id = #{groupId},
+ 	follow_id = #{followId}
+ 	WHERE id = #{id}
   </update>
 	
 	<select id="findMyInfo">
 		SELECT * FROM accounts
 		WHERE address = #{address}
 	</select>
+  
+  <update id="updateAttribute"
+  		parameterType="com.example.webapp.entity.Account">
+ 	UPDATE accounts
+ 	SET
+ 	attribute = #{attribute}
+ 	WHERE id = #{id}
+  </update>
   
 </mapper>

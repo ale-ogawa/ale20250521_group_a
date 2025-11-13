@@ -59,7 +59,7 @@ public class CreateController {
 		Create create = CreateHelper.convert(form);
 		createService.insert(create);
 		LoginAccount.id = create.getId();
-		LoginAccount.attribute = false;
+		LoginAccount.attribute = true;
 		return "complete";
 	}
 

@@ -12,5 +12,6 @@ public interface TakingMapper {
 	void insert(Taking taking);
 	void insertTaking(Taking taking);
 	List<Taking> selectTaken(Integer takingId);
+	List<Taking> selectTakenAll(Integer accountId);
 
 }

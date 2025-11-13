@@ -123,11 +123,26 @@
     <form th:action="@{/post}" method="post" th:object="${form}" class="form-box">
       <h4>気分</h4>
       <div class="radio-group">
-        <label><input type="radio" th:name="feeling" value="1" th:checked="${diary.feeling == 1}">1</label>
-        <label><input type="radio" th:name="feeling" value="2" th:checked="${diary.feeling == 2}">2</label>
-        <label><input type="radio" th:name="feeling" value="3" th:checked="${diary.feeling == 3}">3</label>
-        <label><input type="radio" th:name="feeling" value="4" th:checked="${diary.feeling == 4}">4</label>
-        <label><input type="radio" th:name="feeling" value="5" th:checked="${diary.feeling == 5}">5</label>
+        <label>
+			<input type="radio" th:name="feeling" value="1" th:checked="${diary.feeling == 1}">
+			<img th:src="${images[1]}" alt="気分" style="width:30px; height:30px;">
+		</label>
+        <label>
+			<input type="radio" th:name="feeling" value="2" th:checked="${diary.feeling == 2}">
+			<img th:src="${images[2]}" alt="気分" style="width:30px; height:30px;">
+		</label>
+        <label>
+			<input type="radio" th:name="feeling" value="3" th:checked="${diary.feeling == 3}">
+			<img th:src="${images[3]}" alt="気分" style="width:30px; height:30px;">
+		</label>
+        <label>
+			<input type="radio" th:name="feeling" value="4" th:checked="${diary.feeling == 4}">
+			<img th:src="${images[4]}" alt="気分" style="width:30px; height:30px;">
+		</label>
+        <label>
+			<input type="radio" th:name="feeling" value="5" th:checked="${diary.feeling == 5}">
+			<img th:src="${images[5]}" alt="気分" style="width:30px; height:30px;">
+		</label>
       </div>
 
       <h4>本文</h4>

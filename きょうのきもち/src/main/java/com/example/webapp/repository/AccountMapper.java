@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.webapp.entity.Account;
 import com.example.webapp.entity.Choice;
 import com.example.webapp.entity.Disease;
-import com.example.webapp.entity.Group;
 
 @Mapper
 public interface AccountMapper {
@@ -28,8 +27,9 @@ public interface AccountMapper {
 
 	void clearChoice(Choice choice);
 	
-	void updateNewFollower(Group group);
+	void updateNewFollower(Account account);
 	
 	Account findMyInfo(String address);
+	void updateAttribute(Account account);
 
 }

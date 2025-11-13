@@ -29,6 +29,7 @@ import com.example.webapp.service.DiaryService;
 import com.example.webapp.service.PostService;
 import com.example.webapp.service.ReactionService;
 import com.example.webapp.utility.DateContainer;
+import com.example.webapp.utility.ImagesPath;
 import com.example.webapp.utility.LoginAccount;
 
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,7 @@ public class MainController {
 	List<DailyReaction> dailyReactions;
 	List<DailyScope> dailyScopes;
 	List<DailyTaking> dailyTakings;
+	boolean isVisible;
 	
 	@GetMapping
 	public String home(@AuthenticationPrincipal UserDetails user, Model model, PostForm form) {
@@ -80,6 +82,7 @@ public class MainController {
 		//その日の初投稿の場合
 		if(diary == null) {
 			isTodaysNewPost = true;
+			isVisible = true;
 			//今日の日付だけセット
 			diary = new Diary();
 			diary.setDate(date);
@@ -93,6 +96,12 @@ public class MainController {
 			scopes = diaryService.findScopes(diary.getId());
 			//フォロワー全員のリアクションを取得
 			dailyReactions = diaryService.findReactions(diary.getId());
+			//グループID取得
+			Integer groupId = loginAccount.getGroupId();
+			//公開設定取得
+			if(groupId != null) {
+				isVisible = diaryService.findVisible(diary.getId(), groupId);
+			}
 		}
 		System.out.println(isTodaysNewPost);
 		
@@ -125,6 +134,9 @@ public class MainController {
 		model.addAttribute("attribute", LoginAccount.attribute);
 		model.addAttribute("isNewPost", isTodaysNewPost);
 		model.addAttribute("isNewReaction", isTodaysNewReaction);
+		model.addAttribute("isVisible", isVisible);
+		model.addAttribute("images", ImagesPath.images);
+		model.addAttribute("reactionImages", ImagesPath.reactionImages);
 		
 		return "home";
 	}
@@ -135,6 +147,7 @@ public class MainController {
 		model.addAttribute("dailyReactions", dailyReactions);
 		model.addAttribute("dailyScopes", dailyScopes);
 		model.addAttribute("dailyTakings", dailyTakings);
+		model.addAttribute("images", ImagesPath.images);
 		return "post";
 		
 	}
@@ -168,6 +181,7 @@ public class MainController {
 		model.addAttribute("diary", diary);
 		model.addAttribute("dailyTakings", dailyTakings);
 		model.addAttribute("reaction", reaction);
+		model.addAttribute("reactionImages", ImagesPath.reactionImages);
 		return "reaction";
 	}
 	

@@ -12,17 +12,26 @@
 
 	<insert id="insert"
 		parameterType="com.example.webapp.entity.Taking">
-		INSERT INTO medicine_taking (medicine_id, taking_id)
-		VALUES (#{medicineId}, #{takingId})
+		INSERT INTO medicine_taking (medicine_id, taking_id, dose)
+		VALUES (#{medicineId}, #{takingId}, #{dose})
 	</insert>
 	
 	<select id="selectTaken"
 		resultType="com.example.webapp.entity.Taking">
-		SELECT m.name, t.time
+		SELECT m.name, t.time, mt.dose
 		FROM takings t
 		JOIN medicine_taking mt ON t.id = mt.taking_id
 		JOIN medicines m ON m.id = mt.medicine_id
 		WHERE t.id = #{takingId}
+	</select>
+	
+	<select id="selectTakenAll"
+		resultType="com.example.webapp.entity.Taking">
+		SELECT m.name, t.time, mt.dose
+		FROM takings t
+		JOIN medicine_taking mt ON t.id = mt.taking_id
+		JOIN medicines m ON m.id = mt.medicine_id
+		WHERE t.account_id = #{accountId}
 	</select>
 	
 	

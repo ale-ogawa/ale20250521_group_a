@@ -1,8 +1,8 @@
-INSERT into medicines (name, effect)
+INSERT into medicines (name, effect, side_effect, type, quantity)
 values
-('バファリン', '頭痛に効く'),
-('正露丸', '胃腸に効く'),
-('命の母', '更年期に効く');
+('バファリン', '頭痛に効く', '眠くなる', '錠剤', '-'),
+('正露丸', '胃腸に効く', 'お腹が鳴る', '錠剤', '-'),
+('命の母', '更年期に効く', '眠くなる', '錠剤', '-');
 
 INSERT into takings (account_id, time)
 values
@@ -10,11 +10,11 @@ values
 (1, '2025-11-07 20:11:18.791'),
 (2, '2025-11-07 17:11:18.791');
 
-INSERT into medicine_taking (medicine_id, taking_id)
+INSERT into medicine_taking (medicine_id, taking_id, dose)
 values
-(1, 1),
-(2, 1),
-(2, 2);
+(1, 1, 1),
+(2, 1, 2),
+(2, 2, 1);
 
 INSERT into groups (account_id, name, code)
 values
@@ -52,18 +52,16 @@ VALUES
 (1, 1),
 (1, 5);
 
-INSERT INTO scopes
-VALUES
-(68, 1, true),
-(68, 2, true),
-(68, 3, true),
-(68, 4, false),
-(68, 5, false);
-
 INSERT INTO reactions (account_id, diary_id, stamp, comment)
 VALUES
 (2, 7, 1, 'おはよう'),
-(3, 7, 2, '元気？');
+(3, 7, 2, '元気？'),
+(2, 62, 1, 'おはよう'),
+(3, 62, 2, '元気？'),
+(2, 63, 3, 'おはよう'),
+(3, 63, 2, '元気？'),
+(2, 64, 2, 'おはよう'),
+(3, 64, 1, '元気？');
 
 INSERT INTO diaries (account_id, date, feeling, text)
 VALUES

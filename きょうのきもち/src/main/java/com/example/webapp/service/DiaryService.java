@@ -21,5 +21,6 @@ public interface DiaryService {
 	List<DailyTaking> findTodaysTaking(LocalDate localDate);
 	List<Diary> findFeelings(YearMonth yearMonth);
 	List<DailyReaction> findReactions(Integer id);
+	boolean findVisible(Integer diaryId, Integer groupId);
 
 }

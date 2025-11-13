@@ -67,4 +67,10 @@
 		AND r.diary_id = #{diaryId};
 	</select>
 	
+	<select id="findVisible">
+		SELECT setting FROM scopes
+		WHERE diary_id = #{diaryId}
+		AND group_id = #{groupId}
+	</select>
+	
 </mapper>

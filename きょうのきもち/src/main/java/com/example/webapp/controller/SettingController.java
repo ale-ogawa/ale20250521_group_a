@@ -26,7 +26,8 @@ public class SettingController {
 	private final DiseaseService diseaseService;
 
 	@GetMapping
-	public String setting() {
+	public String setting(Model model) {
+		model.addAttribute("attribute", LoginAccount.attribute);
 		return "setting";
 	}
 	

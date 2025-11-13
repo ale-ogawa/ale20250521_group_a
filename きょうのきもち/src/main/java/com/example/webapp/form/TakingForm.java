@@ -7,5 +7,6 @@ import lombok.Data;
 @Data
 public class TakingForm {
 	private List<String> medicineIds;
+	private List<String> dose;
 	
 }
